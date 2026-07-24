@@ -113,17 +113,20 @@ if(e.target.closest("#zoomControls")){
 
     if (mapMoved) return;
 
-   const rect = this.getBoundingClientRect();
-
-const x =
-(e.clientX - rect.left) / rect.width;
-
-const y =
-(e.clientY - rect.top) / rect.height;
 
 
-selectedX = x * 100;
-selectedY = y * 100;
+const mapContent = document.getElementById("mapContent");
+
+const rect = mapContent.getBoundingClientRect();
+
+let x = e.clientX - rect.left;
+let y = e.clientY - rect.top;
+
+x = x / mapScale;
+y = y / mapScale;
+
+selectedX = (x / mapContent.offsetWidth) * 100;
+selectedY = (y / mapContent.offsetHeight) * 100;
 
     // 첫 번째 방 자동 선택 상태로 초기화 (에러 방지)
     const select = document.getElementById("locationName");
@@ -790,8 +793,8 @@ function updateMapScale(){
 
     mapContent.style.transformOrigin = "center center";
 
-  mapContent.style.transform =
-`scale(${mapScale}) translate(${mapOffsetX}px, ${mapOffsetY}px)`;
+ mapContent.style.transform =
+`translate(${mapOffsetX}px, ${mapOffsetY}px) scale(${mapScale})`;
 
 
     document.getElementById("zoomPercentBtn").innerText =
