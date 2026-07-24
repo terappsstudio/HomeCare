@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<title>HomeCare v3.0</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+
+<meta name="theme-color" content="#2E8B57">
+
+</head>
+
+<body>
+
+<div id="appContainer">
+
+<header>
+
+<div class="logo" id="homeBtn">
+        🏠 Home Care
+    </div>
+
+    <button id="settingBtn">
+        🛠️
+    </button>
+
+</header>
+
+<section id="summary">
+
+    <div class="summaryCard">
+        <span class="title">오늘 교체</span>
+        <span id="todayCount">0개</span>
+    </div>
+
+    <div class="summaryCard">
+        <span class="title">이번주 교체</span>
+        <span id="weekCount">0개</span>
+    </div>
+
+</section>
+
+<div id="mainContainer">
+
+    <div id="leftArea">
+
+        <section id="toolbar">
+
+            <button id="addBtn">
+                ➕ 제품 추가
+            </button>
+
+        </section>
+
+ <section id="mapSection">
+
+    <div id="uploadPlaceholder">
+        <label for="imageLoader" class="uploadBtn">
+            🗺️ 도면 이미지 불러오기
+        </label>
+
+        <input type="file" 
+               id="imageLoader" 
+               accept="image/*" 
+               style="display:none;">
+    </div>
+
+
+   <div id="mapContainer">
+
+    <div id="mapContent">
+
+        <img id="floorImage" draggable="false">
+
+        <div id="markerLayer"></div>
+
+    </div>
+
+<div id="zoomControls">
+
+    <button id="zoomInBtn">＋</button>
+
+    <button id="zoomPercentBtn">100%</button>
+
+    <button id="zoomOutBtn">－</button>
+
+</div>
+
+</div>
+
+
+</section>
+
+      
+
+
+    <div id="rightArea">
+
+        <section id="listSection">
+
+            <h2>설치 목록</h2>
+
+            <div id="itemList"></div>
+
+        </section>
+
+    </div>
+
+
+<!-- 추가 팝업 -->
+
+<div id="popup" class="popup hidden">
+
+    <div class="popupBox">
+
+        <h2>
+
+            제품 등록
+
+        </h2>
+
+        <label>
+
+            제품
+
+            <select id="itemType">
+
+                <option value="deodorizer">
+                    🌿 방향제
+                </option>
+
+                <option value="dehumidifier">
+                    💧 제습제
+                </option>
+
+                <option value="deodorizer2">
+                    🧸 탈취제
+                </option>
+
+                <option value="etc">
+                    📦 기타
+                </option>
+
+            </select>
+
+        </label>
+
+        <label>
+
+       <label>
+
+    위치
+
+    <select id="locationName">
+
+    </select>
+
+</label>
+
+        <label>
+
+            설치일
+
+            <input
+                type="date"
+                id="installDate">
+
+        </label>
+
+        <label>
+
+            교체주기(일)
+
+            <input
+                type="number"
+                id="replaceDays"
+                value="40">
+
+        </label>
+
+        <div class="popupButtons">
+
+            <button id="saveBtn">
+
+                저장
+
+            </button>
+
+            <button id="cancelBtn">
+
+                취소
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- 수정 팝업 -->
+
+<div id="editPopup" class="popup hidden">
+
+    <div class="popupBox">
+
+        <h2>
+
+            제품 수정
+
+        </h2>
+
+        <label>
+
+            제품
+
+            <select id="editType">
+
+                <option value="deodorizer">
+                    🌿 방향제
+                </option>
+
+                <option value="dehumidifier">
+                    💧 제습제
+                </option>
+
+                <option value="deodorizer2">
+                    🧸 탈취제
+                </option>
+
+                <option value="etc">
+                    📦 기타
+                </option>
+
+            </select>
+
+        </label>
+
+        <label>
+
+    위치
+
+    <select id="editLocation">
+
+    </select>
+
+</label>
+
+        <label>
+
+            설치일
+
+            <input
+                type="date"
+                id="editInstall">
+
+        </label>
+
+        <label>
+
+            교체주기
+
+            <input
+                type="number"
+                id="editCycle">
+
+        </label>
+
+        <div class="popupButtons">
+
+            <button id="editSaveBtn">
+
+                저장
+
+            </button>
+
+            <button id="deleteBtn">
+
+                삭제
+
+            </button>
+
+            <button id="editCancelBtn">
+
+                취소
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- 설정 팝업 -->
+
+<div id="settingPopup" class="popup hidden">
+
+    <div class="popupBox">
+
+        <h2>🛠️️ 설정</h2>
+
+        <button id="changeFloorBtn">
+            🖼️ 도면 변경
+        </button>
+
+        <button id="deleteFloorBtn">
+            🗑️ 도면 삭제
+        </button>
+
+        <button id="roomManageBtn">
+    🏠 룸 관리
+</button>
+
+        <button id="settingCloseBtn">
+            닫기
+        </button>
+
+  <hr>
+
+        <p class="developer">
+
+    🏠 HomeCare<br>
+
+    Version 3.0<br><br>
+
+    Developed by TER<br>
+
+    © 2026 TER<br>
+
+    All Rights Reserved.
+
+</p>
+
+    </div>
+
+</div>
+
+<!-- 룸 관리 팝업 -->
+
+<div id="roomPopup" class="popup hidden">
+
+    <div class="popupBox">
+
+        <h2>🏠 룸 관리</h2>
+
+        <div id="roomList"></div>
+
+        <input 
+            id="newRoomName" 
+            placeholder="새 방 이름">
+
+        <button id="addRoomBtn">
+            ➕ 방 추가
+        </button>
+
+        <button id="roomCloseBtn">
+            닫기
+        </button>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</div>
+
+<script>
+
+if("serviceWorker" in navigator){
+
+    navigator.serviceWorker.register("./service-worker.js")
+    .then(function(registration){
+
+        console.log("HomeCare 앱 저장 완료", registration);
+
+    })
+    .catch(function(error){
+
+        console.log("Service Worker 오류", error);
+
+    });
+
+}
+
+
+</script>
+
+</body>
+</html>
