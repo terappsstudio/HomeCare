@@ -1082,11 +1082,13 @@ function moveMapDrag(e){
     if(!isMapDragging) return;
 
 
-    let moveX =
-    (e.clientX - mapStartX) / mapScale;
+ const dragSpeed = 1.3;   // 지도 이동 속도
 
-    let moveY =
-    (e.clientY - mapStartY) / mapScale;
+let moveX =
+((e.clientX - mapStartX) / mapScale) * dragSpeed;
+
+let moveY =
+((e.clientY - mapStartY) / mapScale) * dragSpeed;
 
 
     if(Math.abs(moveX)+Math.abs(moveY) > 5){

@@ -4,7 +4,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>HomeCare 통계</title>
@@ -13,94 +12,116 @@
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
-
 <header>
 
-<div class="logo" id="homeBtn">
-🏠 HomeCare
-</div>
+    <div class="logo" id="homeBtn">
+        🏠 HomeCare
+    </div>
 
-<button id="historyBtn">
-📋 통계관리
-</button>
+    <button id="historyBtn">
+        📋 통계관리
+    </button>
 
 </header>
 
-
-
 <main>
 
+    <!-- 빠른 이동 -->
+    <section class="quickMenu">
 
-<section class="card">
+        <h3>📊 빠른 이동</h3>
 
-<h3>전체 설치 현황</h3>
+        <div class="quickCard" data-target="totalSection">
+            📦 전체 설치 현황
+        </div>
 
-<div id="totalCount">
-불러오는 중...
-</div>
+        <div class="quickCard" data-target="productSection">
+            📦 제품별 설치 현황
+        </div>
 
-</section>
+        <div class="quickCard" data-target="locationSection">
+            📍 장소별 설치 현황
+        </div>
 
+        <div class="quickCard" data-target="replaceSection">
+            ⏰ 교체 예정
+        </div>
 
-
-<section class="card">
-
-<h3>제품별 설치 현황</h3>
-
-<div id="productStats">
-불러오는 중...
-</div>
-
-</section>
-
-
+    </section>
 
 
-<section class="card">
+    <!-- 전체 설치 -->
 
-<h3>장소별 설치 현황</h3>
+    <section class="card" id="totalSection">
 
-<div id="locationStats">
-불러오는 중...
-</div>
+        <h3>📦 전체 설치 현황</h3>
 
-</section>
+        <div id="totalCount">
+            불러오는 중...
+        </div>
 
-
-
-
-<section class="card">
-
-<h3>교체 예정</h3>
-
-<div id="replaceStats">
-불러오는 중...
-</div>
-
-</section>
+    </section>
 
 
+    <!-- 제품별 설치 -->
 
-<button id="backBtn">
-⬅ 메인으로
-</button>
+    <section class="card" id="productSection">
 
+        <h3>📦 제품별 설치 현황</h3>
+
+        <div id="productStats">
+            불러오는 중...
+        </div>
+
+    </section>
+
+
+    <!-- 장소별 설치 -->
+
+    <section class="card" id="locationSection">
+
+        <h3>📍 장소별 설치 현황</h3>
+
+        <div id="locationStats">
+            불러오는 중...
+        </div>
+
+    </section>
+
+
+    <!-- 교체 예정 -->
+
+    <section class="card" id="replaceSection">
+
+        <h3>⏰ 교체 예정</h3>
+
+        <div id="replaceStats">
+            불러오는 중...
+        </div>
+
+    </section>
+
+
+    <button id="backBtn">
+        ⬅ 메인으로
+    </button>
 
 </main>
 
-
 </div>
 
 
+<!-- 맨 위로 -->
+
+<button id="topButton">
+    ⬆
+</button>
 
 <script src="statistics.js"></script>
-
 
 </body>
 

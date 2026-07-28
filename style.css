@@ -1054,3 +1054,165 @@ cursor:pointer;
     cursor: pointer;
 
 }
+
+/* ===============================
+   HomeCare 3.1 통계 리모델링
+=============================== */
+
+/* 빠른 이동 */
+
+.quickMenu{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+
+}
+
+.quickMenu h3{
+
+    margin-top:0;
+
+    margin-bottom:15px;
+
+}
+
+.quickCard{
+
+    background:#F4F6F5;
+
+    border-radius:12px;
+
+    padding:14px 16px;
+
+    margin:10px 0;
+
+    cursor:pointer;
+
+    transition:0.25s;
+
+    font-weight:bold;
+
+}
+
+.quickCard:hover{
+
+    background:#E4F3EA;
+
+    transform:translateX(5px);
+
+}
+
+
+/* 이동 후 강조 */
+
+.highlightSection{
+
+    animation:highlightFlash .6s;
+
+}
+
+@keyframes highlightFlash{
+
+    0%{
+
+        background:#FFF7B2;
+
+    }
+
+    100%{
+
+        background:white;
+
+    }
+
+}
+
+
+/* 맨 위 버튼 */
+
+#topButton{
+
+    position:fixed;
+
+    right:20px;
+
+    bottom:20px;
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:22px;
+
+    display:none;
+
+    cursor:pointer;
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.25);
+
+    z-index:999;
+
+}
+
+
+/* ===============================
+   태블릿 / PC
+=============================== */
+
+@media (min-width:768px){
+
+    .quickMenu{
+
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:15px;
+
+    }
+
+    .quickMenu h3{
+
+        grid-column:1 / -1;
+
+        margin-bottom:5px;
+
+    }
+
+    .card{
+
+        padding:20px;
+
+    }
+
+}
+
+
+/* ===============================
+   PC
+=============================== */
+
+@media (min-width:1200px){
+
+    .container{
+
+        max-width:900px;
+
+    }
+
+}

@@ -246,3 +246,89 @@ if(historyBtn){
     };
 
 }
+
+if(historyBtn){
+
+    historyBtn.onclick = function(){
+
+        location.href = "statistics-list.html";
+
+    };
+
+}
+
+// ===============================
+// HomeCare 3.1 빠른 이동
+// ===============================
+
+const quickCards = document.querySelectorAll(".quickCard");
+
+quickCards.forEach(card => {
+
+    card.addEventListener("click", function(){
+
+        const targetId = this.dataset.target;
+
+        const target = document.getElementById(targetId);
+
+        if(!target) return;
+
+        target.scrollIntoView({
+
+            behavior:"smooth",
+            block:"start"
+
+        });
+
+        target.classList.add("highlightSection");
+
+        setTimeout(function(){
+
+            target.classList.remove("highlightSection");
+
+        },600);
+
+    });
+
+});
+
+
+// ===============================
+// 맨 위 버튼
+// ===============================
+
+const topButton = document.getElementById("topButton");
+
+
+window.addEventListener("scroll", function(){
+
+    if(window.scrollY > 300){
+
+        topButton.style.display = "flex";
+
+        topButton.style.alignItems = "center";
+
+        topButton.style.justifyContent = "center";
+
+    }
+
+    else{
+
+        topButton.style.display = "none";
+
+    }
+
+});
+
+
+topButton.addEventListener("click", function(){
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+});
