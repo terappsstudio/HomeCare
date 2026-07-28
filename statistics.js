@@ -1,7 +1,10 @@
 console.log("HomeCare 통계 시작");
 
 
+// ===============================
 // 저장된 설치 데이터 가져오기
+// ===============================
+
 const items = JSON.parse(
     localStorage.getItem("homecareItems")
 ) || [];
@@ -12,11 +15,17 @@ const items = JSON.parse(
 // 전체 설치 개수
 // ===============================
 
-document.getElementById("totalCount").innerHTML =
-`
-<h2>${items.length}개</h2>
-<p>현재 등록된 전체 제품</p>
-`;
+const totalCount = document.getElementById("totalCount");
+
+if(totalCount){
+
+    totalCount.innerHTML =
+    `
+    <h2>${items.length}개</h2>
+    <p>현재 등록된 전체 제품</p>
+    `;
+
+}
 
 
 
@@ -29,14 +38,15 @@ let productCount = {};
 
 items.forEach(item => {
 
-   let productName = item.type || "미등록 제품";
+    let productName = item.type || "미등록 제품";
 
+    if(!productCount[productName]){
 
-if(!productCount[productName]){
-    productCount[productName] = 0;
-}
+        productCount[productName] = 0;
 
-productCount[productName]++;
+    }
+
+    productCount[productName]++;
 
 });
 
@@ -57,7 +67,7 @@ else{
         productHTML +=
         `
         <div>
-        ${product} : ${productCount[product]}개
+            ${product} : ${productCount[product]}개
         </div>
         `;
 
@@ -66,9 +76,14 @@ else{
 }
 
 
-document.getElementById("productStats").innerHTML =
-productHTML;
 
+const productStats = document.getElementById("productStats");
+
+if(productStats){
+
+    productStats.innerHTML = productHTML;
+
+}
 
 
 
@@ -81,11 +96,15 @@ let locationCount = {};
 
 items.forEach(item => {
 
-    if(!locationCount[item.location]){
-        locationCount[item.location] = 0;
+    let place = item.location || "미등록 장소";
+
+    if(!locationCount[place]){
+
+        locationCount[place] = 0;
+
     }
 
-    locationCount[item.location]++;
+    locationCount[place]++;
 
 });
 
@@ -106,7 +125,7 @@ else{
         locationHTML +=
         `
         <div>
-        ${place} : ${locationCount[place]}개
+            ${place} : ${locationCount[place]}개
         </div>
         `;
 
@@ -115,9 +134,14 @@ else{
 }
 
 
-document.getElementById("locationStats").innerHTML =
-locationHTML;
 
+const locationStats = document.getElementById("locationStats");
+
+if(locationStats){
+
+    locationStats.innerHTML = locationHTML;
+
+}
 
 
 
@@ -130,11 +154,14 @@ let today = new Date();
 let replaceCount = 0;
 
 
-
 items.forEach(item => {
 
 
-    if(!item.install || !item.cycle) return;
+    if(!item.install || !item.cycle){
+
+        return;
+
+    }
 
 
     let installDate = new Date(item.install);
@@ -142,8 +169,9 @@ items.forEach(item => {
 
     let replaceDate = new Date(installDate);
 
+
     replaceDate.setDate(
-        replaceDate.getDate() + item.cycle
+        replaceDate.getDate() + Number(item.cycle)
     );
 
 
@@ -158,29 +186,49 @@ items.forEach(item => {
 
 
 
-document.getElementById("replaceStats").innerHTML =
-`
-<h2>${replaceCount}개</h2>
-<p>교체 시기가 지난 제품</p>
-`;
+const replaceStats = document.getElementById("replaceStats");
 
 
+if(replaceStats){
+
+    replaceStats.innerHTML =
+    `
+    <h2>${replaceCount}개</h2>
+    <p>교체 시기가 지난 제품</p>
+    `;
+
+}
 
 
 
 // ===============================
-// 버튼 이동
+// 통계 페이지 버튼 이동
 // ===============================
 
-document.getElementById("homeBtn").onclick = function(){
-
-    location.href = "index.html";
-
-};
+const homeBtn = document.getElementById("homeBtn");
 
 
-document.getElementById("backBtn").onclick = function(){
+if(homeBtn){
 
-    location.href = "index.html";
+    homeBtn.onclick = function(){
 
-};
+        location.href = "index.html";
+
+    };
+
+}
+
+
+
+const backBtn = document.getElementById("backBtn");
+
+
+if(backBtn){
+
+    backBtn.onclick = function(){
+
+        location.href = "index.html";
+
+    };
+
+}

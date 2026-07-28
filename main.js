@@ -108,7 +108,6 @@ function renderRecent(){
 
 }
 
-
 // ===============================
 // 버튼
 // ===============================
@@ -121,7 +120,7 @@ document.getElementById("recordBtn").onclick=function(){
 
 document.getElementById("statsBtn").onclick=function(){
 
-    alert("통계는 준비중입니다.");
+    location.href="statistics.html";
 
 };
 
