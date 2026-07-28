@@ -1033,3 +1033,24 @@ cursor:pointer;
     font-size:16px;
 
 }
+
+#historyBtn{
+
+    padding:8px 12px;
+    border:none;
+    border-radius:10px;
+    background:#2E8B57;
+    color:white;
+    font-size:14px;
+
+}
+
+#historyBtn,
+#backBtn,
+#recordBtn,
+#statsBtn,
+#settingBtn {
+
+    cursor: pointer;
+
+}

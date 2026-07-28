@@ -232,3 +232,17 @@ if(backBtn){
     };
 
 }
+
+
+
+const historyBtn = document.getElementById("historyBtn");
+
+if(historyBtn){
+
+    historyBtn.onclick = function(){
+
+        location.href = "statistics-list.html";
+
+    };
+
+}
