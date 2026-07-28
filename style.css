@@ -100,6 +100,38 @@ cursor:pointer;
     width:100%;
 }
 
+@media (min-width: 768px){
+
+    #mainContainer{
+        flex-direction:row;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+
+    #leftArea{
+        width:50%;
+    }
+
+#rightArea{
+    width:50%;
+    display:flex;
+    flex-direction:row;
+    gap:15px;
+}
+#listSection{
+    flex:2;
+    min-width:0;
+}
+
+#dueSection{
+    flex:1;
+    min-width:0;
+}
+}
+
+
+
 /* ===================================================
    TOOLBAR
 =================================================== */
@@ -137,8 +169,9 @@ cursor:pointer;
     background:white;
     border-radius:16px;
     box-shadow:0 4px 12px rgba(0,0,0,.12);
-
+    margin-bottom: 20px;
 }
+
 
 #mapContent{
     position:relative;
@@ -478,24 +511,45 @@ cursor:pointer;
         padding:12px;
     }
 
+
+    /* 설치목록 / 교체예정 제목 가운데 정렬 */
+    #listSection h2,
+    #dueSection h2{
+        text-align:center;
+    }
+
+
     #leftArea{
         flex:2;
     }
 
+
     #rightArea{
         flex:1;
+        display:flex;
+        flex-direction:row;
+        gap:5px;
     }
+
 
     #toolbar{
         padding:0 0 12px 0;
     }
 
+
     #mapSection{
         padding:0;
     }
 
+
     #listSection{
         padding:0;
+    }
+
+
+    /* 교체예정 위치 조절 */
+    #dueSection{
+        transform:translateX(20px);
     }
 
 }
@@ -618,6 +672,364 @@ cursor:pointer;
 }
 
 #mapContainer{
-    touch-action:none;
+    touch-action: pan-y;
+    overflow:hidden;
+}
+/* ===============================
+   MOBILE MARKER SIZE
+=============================== */
+
+@media (max-width:767px){
+
+    .marker{
+        width:24px;
+        height:24px;
+        font-size:16px;
+        line-height:1;
+    }
+
+
+    .marker:hover{
+        transform:translate(-50%,-50%);
+    }
+
 }
 
+/* ===============================
+   마커 관리창 스타일 (v3.0)
+=============================== */
+
+#markerPopup .popupBox{
+    max-width:420px;
+}
+
+
+#markerPopup h2{
+    font-size:28px;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+
+#markerList div{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    padding:8px 15px;
+
+    border-bottom:1px solid #eee;
+
+    font-size:20px;
+
+}
+
+/* 마커 이름과 수정 버튼 사이 간격 숫자늘리면 사이늘어남 */
+#markerList span{
+
+    width:auto;
+    margin-right:15px;
+
+}
+
+
+#markerList button{
+
+    margin-left:0;
+
+}
+
+
+#markerList button{
+
+    height:36px;
+
+    padding:0 14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:15px;
+
+}
+
+
+#markerEditArea{
+
+    margin-top:20px;
+
+    padding-top:15px;
+
+    border-top:1px solid #ddd;
+
+}
+
+
+#markerEditArea h3{
+
+    font-size:20px;
+
+    margin-bottom:15px;
+
+}
+
+
+#markerEditArea input{
+
+    width:100%;
+
+    height:42px;
+
+    margin-top:5px;
+
+    margin-bottom:12px;
+
+    padding:8px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:18px;
+
+}
+
+
+#markerEditArea button{
+
+    width:48%;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+}
+
+/* ===============================
+   태블릿 설치목록 최적화 v3.0
+=============================== */
+
+@media (min-width:768px){
+
+    .card{
+        padding:10px;
+        margin-bottom:8px;
+        border-radius:10px;
+    }
+
+
+    .card h3{
+        font-size:16px;
+        margin-bottom:6px;
+    }
+
+
+    .card p{
+        margin:3px 0;
+        font-size:14px;
+    }
+
+
+    .cardButtons{
+        margin-top:8px;
+    }
+
+
+    .cardButtons button{
+        height:34px;
+        font-size:14px;
+    }
+
+}
+
+@media (min-width:700px){
+
+    #itemList{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+    }
+
+}
+
+@media (min-width:700px){
+
+    #itemList{
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+    }
+
+}
+
+@media (min-width:768px){
+
+
+}
+
+.dueCard{
+    background:white;
+    border-radius:14px;
+    padding:10px;
+    margin-bottom:8px;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+    font-size:14px;
+}
+ 
+
+@media (min-width:768px){
+
+    #listSection,
+    #dueSection{
+        flex:1;
+        min-width:0;
+    }
+
+    #dueSection h2,
+    #listSection h2{
+        margin-bottom:12px;
+    }
+
+}
+
+#listSection{
+    transform:translateX(20px);
+}
+
+#dueSection{
+    transform:translateX(40px);
+}
+
+@media (min-width:768px){
+
+    #listSection{
+        flex:1;
+    }
+
+    #dueSection{
+        flex:1;
+    }
+
+    .dueCard{
+        padding:7px;
+        font-size:14px;
+    }
+
+}
+
+/* 교체예정 필터 */
+#dueFilter,
+#roomFilter{
+
+    width:48%;
+    height:25px;
+
+    font-size:13px;
+    font-weight:bold;
+
+    border-radius:8px;
+
+    margin-bottom:8px;
+
+   
+}
+
+/* ===============================
+   통계  페이지
+=============================== */
+
+.card{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    margin-bottom:15px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+
+}
+
+
+.card h3{
+
+    margin-top:0;
+
+    font-size:18px;
+
+    border-bottom:1px solid #eee;
+
+    padding-bottom:10px;
+
+}
+
+
+#totalCount h2{
+
+    font-size:32px;
+
+    text-align:center;
+
+    margin:10px 0;
+
+}
+
+
+#productStats div,
+#locationStats div{
+
+    background:#f5f7f6;
+
+    border-radius:10px;
+
+    padding:10px;
+
+    margin:8px 0;
+
+    font-size:15px;
+
+}
+
+
+#replaceStats h2{
+
+    text-align:center;
+
+    font-size:30px;
+
+    margin:10px 0;
+
+}
+
+
+#backBtn{
+
+    width:100%;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:16px;
+
+}

@@ -1,10 +1,10 @@
-const CACHE_NAME = "homecare-v2.9";
+const CACHE_NAME = "homecare-v3.1";
 
 const FILES_TO_CACHE = [
     "./",
-    "./index.html",
-    "./style.css",
-    "./script.js",
+    "./record.html",
+    "./record.css",
+    "./record.js",
     "./manifest.json"
 ];
 

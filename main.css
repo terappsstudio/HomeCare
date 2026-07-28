@@ -1,0 +1,157 @@
+body{
+
+    margin:0;
+
+    background:#F4F6F5;
+
+    font-family:"맑은 고딕",sans-serif;
+
+}
+
+.container{
+
+    max-width:430px;
+
+    margin:auto;
+
+    padding:15px;
+
+}
+
+header{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+header h1{
+
+    margin:0;
+
+    color:#2E8B57;
+
+}
+
+header p{
+
+    color:#777;
+
+    margin-top:5px;
+
+}
+
+.summary{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:20px;
+
+}
+
+.summaryCard{
+
+    flex:1;
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    text-align:center;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+
+}
+
+.summaryCard .title{
+
+    font-size:15px;
+
+    color:#666;
+
+}
+
+.summaryCard div:last-child{
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    margin-top:10px;
+
+}
+
+.menu{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:15px;
+
+}
+
+.menu button{
+
+    height:90px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+
+}
+
+.menu button:hover{
+
+    background:#EAF7EF;
+
+}
+
+.recent{
+
+    margin-top:25px;
+
+}
+
+.recent h2{
+
+    margin-bottom:10px;
+
+}
+
+#recentList{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+
+}
+
+.recentCard{
+
+    background:#F8F8F8;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    margin-bottom:10px;
+
+}
