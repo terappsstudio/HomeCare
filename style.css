@@ -1645,7 +1645,7 @@ align-items:center;
 
     border-radius:10px;
 
-    font-size:14px;
+    font-size:25px;
 
     font-weight:bold;
 
@@ -1730,4 +1730,38 @@ align-items:center;
     border: none;
 
     font-size: 16px;
+}
+
+/* 공간 추가 버튼 */
+
+#toolbar{
+
+    display:flex;
+    align-items:center;
+gap:8x;
+
+}
+
+
+#addSpaceBtn{
+
+    border:none;
+
+    background:none;
+
+    color:#2E8B57;
+
+    font-size:40px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+padding:0;
+
+    line-height:1;
+
+        transform:translateY(-6px);
+
+
 }
