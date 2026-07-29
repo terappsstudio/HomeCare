@@ -41,14 +41,16 @@ if(item.install && item.cycle){
 }
 
 
-
 html += `
 
 <tr>
 
 <td>${item.type || "-"}</td>
 
-<td>${item.location || "-"}</td>
+<td>
+${item.location || "-"}
+${item.detail ? `<br>🔎 ${item.detail}` : ""}
+</td>
 
 <td>${item.install || "-"}</td>
 
@@ -57,8 +59,6 @@ html += `
 </tr>
 
 `;
-
-
 
 });
 

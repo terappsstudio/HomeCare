@@ -250,17 +250,11 @@ header{
 
 
 #mapContent{
-
     position:relative;
-
     width:100%;
-
     height:auto;
-
     transform-origin:0 0;
-
     transition:transform .2s ease;
-
 }
 
 
@@ -1068,19 +1062,42 @@ header{
 }
 
 
-#markerList div{
+.markerGrid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+}
+
+
+.markerGrid div{
 
     display:flex;
 
     align-items:center;
 
-    justify-content:flex-start;
+    justify-content:center;
 
-    padding:8px 15px;
+    background:#F4F6F5;
 
-    border-bottom:1px solid #eee;
+    border-radius:10px;
+
+    height:45px;
+
+    font-size:17px;
+
+}
+
+.marker-title{
+
+    text-align:left;
 
     font-size:20px;
+
+    margin:15px 0 10px 5px;
 
 }
 
@@ -1096,19 +1113,21 @@ header{
 
 #markerList button{
 
-    height:36px;
+    height:38px;
 
-    padding:0 14px;
+    padding:0 18px;
 
     border:none;
 
-    border-radius:8px;
+    border-radius:10px;
 
     background:#2E8B57;
 
     color:white;
 
-    font-size:15px;
+    font-size:16px;
+
+    font-weight:bold;
 
 }
 
@@ -1117,21 +1136,23 @@ header{
 
     margin-top:20px;
 
-    padding-top:15px;
+    padding:15px;
 
-    border-top:1px solid #ddd;
+    background:#F4F6F5;
+
+    border-radius:12px;
 
 }
-
 
 #markerEditArea h3{
 
-    font-size:20px;
+    font-size:22px;
 
     margin-bottom:15px;
 
-}
+    text-align:center;
 
+}
 
 #markerEditArea input{
 
@@ -1153,22 +1174,42 @@ header{
 
 }
 
-
 #markerEditArea button{
 
     width:48%;
 
-    height:42px;
+    height:45px;
 
     border:none;
 
-    border-radius:8px;
+    border-radius:10px;
 
-    font-size:16px;
+    font-size:17px;
+
+    font-weight:bold;
 
 }
 
+/* =========================
+   마커 관리 영역
+========================= */
 
+.markerGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+
+.markerSection {
+    margin-bottom: 15px;
+}
+
+
+.markerSection h3 {
+    margin: 8px 0;
+    font-size: 16px;
+}
 
 /* ===================================================
    DUE CARD / FILTER
@@ -1233,12 +1274,15 @@ header{
 
 }
 
+/* ===============================
+   확대/축소 버튼
+=============================== */
 
 #zoomControls button{
 
-    width:50px;
+    width:55px;
 
-    height:50px;
+    height:55px;
 
     border:none;
 
@@ -1246,7 +1290,7 @@ header{
 
     background:white;
 
-    font-size:22px;
+    font-size:40px;
 
     font-weight:bold;
 
@@ -1255,12 +1299,22 @@ header{
     box-shadow:
     0 2px 8px rgba(0,0,0,.2);
 
-    display:block;
+display:flex;
+justify-content:center;
+align-items:center;
 
     margin-bottom:8px;
 
 }
 
+
+/* 확대 비율 표시 버튼 */
+
+#zoomControls #zoomPercentBtn{
+
+    font-size:19px;
+
+}
 
 
 /* ===================================================
@@ -1296,7 +1350,42 @@ header{
 
 }
 
+.statNumber{
 
+    font-size:42px;
+
+    font-weight:bold;
+
+    text-align:center;
+
+}
+
+
+.statUnit{
+
+    text-align:center;
+
+    font-size:18px;
+
+}
+
+
+#totalCount p{
+
+    text-align:center;
+
+    margin-top:10px;
+
+}
+
+#totalCount,
+#replaceStats{
+
+    text-align:center;
+
+    padding:15px;
+
+}
 
 #productStats div,
 #locationStats div{
@@ -1414,19 +1503,19 @@ header{
 
 .quickCard{
 
-    width:85%;
+    width:100%;
 
     background:#F4F6F5;
 
     border-radius:12px;
 
-    padding:20px 25px;
+    padding:18px 20px;
 
-    margin:6px auto;
+    margin:8px 0;
 
     display:flex;
 
-    justify-content:center;
+    justify-content:flex-start;
 
     align-items:center;
 
@@ -1562,4 +1651,83 @@ header{
 
     color:#f8f8f8;
 
+}
+
+.markerItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px;
+    background: white;
+    border-radius: 10px;
+    min-width: 120px;
+}
+
+
+.markerItem span {
+    white-space: nowrap;
+    font-size: 15px;
+}
+
+/* ==========================
+   마커 관리 팝업 디자인
+========================== */
+
+#markerPopup .popupBox {
+    width: 90%;
+    max-width: 420px;
+    max-height: 80vh;
+    overflow-y: auto;
+
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+
+#markerPopup h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.markerSection {
+    margin-bottom: 20px;
+}
+
+
+.markerSection h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+.markerGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+
+.markerGrid button {
+    height: 55px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: #f8f8f8;
+    font-size: 26px;
+}
+
+
+#markerPopup button {
+    width: 100%;
+    height: 45px;
+    margin-top: 10px;
+
+    border-radius: 12px;
+    border: none;
+
+    font-size: 16px;
 }

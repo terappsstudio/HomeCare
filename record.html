@@ -191,6 +191,17 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
         <label>
 
+    상세 위치
+
+    <input
+        type="text"
+        id="detailLocation"
+        placeholder="예: 신발장 1번째 칸, 장롱 왼쪽 구석">
+
+</label>
+
+        <label>
+
             교체주기(일)
 
             <input
@@ -336,8 +347,12 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
             🗑️ 도면 삭제
         </button>
 
-        <button id="roomManageBtn">
+<button id="roomManageBtn">
     🏠 룸 관리
+</button>
+
+<button id="productManageBtn">
+    📦 제품 관리
 </button>
 
 <button id="markerManageBtn">
@@ -363,6 +378,24 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     All Rights Reserved.
 
 </p>
+
+    </div>
+
+</div>
+
+<!-- 제품 관리 팝업 -->
+
+<div id="productPopup" class="popup hidden">
+
+    <div class="popupBox">
+
+        <h2>📦 제품 관리</h2>
+
+        <div id="productList"></div>
+
+        <button id="productCloseBtn">
+            닫기
+        </button>
 
     </div>
 
@@ -400,11 +433,21 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <div class="popupBox">
 
-        <h2>🏷️ 마커 관리</h2>
+<h2>🏷️ 마커 관리</h2>
 
-        <div id="markerList"></div>
+<h3 class="marker-title">기본마커</h3>
 
-        <div id="markerEditArea" style="display:none;">
+<div id="markerList" class="markerGrid">
+</div>
+
+
+<h3 class="marker-title">내 마커</h3>
+
+<div id="customMarkerList" class="markerGrid">
+</div>
+
+
+<div id="markerEditArea" style="display:none;">
 
     <h3>마커 수정</h3>
 
@@ -427,6 +470,10 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <button id="markerCancelBtn">
         취소
     </button>
+    
+    <button id="markerDeleteBtn">
+삭제
+</button>
 
 </div>
 
@@ -467,9 +514,6 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         </button>
 
     </div>
-
-</div>
-
 
 </div>
 

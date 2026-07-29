@@ -19,15 +19,22 @@ const totalCount = document.getElementById("totalCount");
 
 if(totalCount){
 
-    totalCount.innerHTML =
-    `
-    <h2>${items.length}개</h2>
-    <p>현재 등록된 전체 제품</p>
-    `;
+   totalCount.innerHTML =
+`
+<div class="statNumber">
+    ${items.length}
+</div>
+
+<div class="statUnit">
+    개
+</div>
+
+<p>
+현재 등록된 전체 제품
+</p>
+`;
 
 }
-
-
 
 // ===============================
 // 제품별 통계
@@ -236,16 +243,6 @@ if(backBtn){
 
 
 const historyBtn = document.getElementById("historyBtn");
-
-if(historyBtn){
-
-    historyBtn.onclick = function(){
-
-        location.href = "statistics-list.html";
-
-    };
-
-}
 
 if(historyBtn){
 

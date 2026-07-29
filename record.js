@@ -214,6 +214,7 @@ document.getElementById("saveBtn").onclick = function() {
     const item = {
         type: document.getElementById("itemType").value,
         location: document.getElementById("locationName").value,
+        detail: document.getElementById("detailLocation").value,
         install: document.getElementById("installDate").value,
         cycle: Number(document.getElementById("replaceDays").value),
         x: selectedX,
@@ -293,17 +294,19 @@ let markerName = markerData ? markerData.name : "기타";
         layer.appendChild(marker);
 
         // 우측 리스트 카드 생성
-        let div = document.createElement("div");
-        div.className = "card"; // class명을 기본 CSS에 맞춰 card로 수정
-        div.innerHTML = `
+   let div = document.createElement("div");
+div.className = "card";
+
+div.innerHTML = `
 <h3>${icon} ${markerName} - ${item.location}</h3>
-            <p>설치일 : ${item.install}</p>
-            <p>교체일 : ${getReplace(item)}</p>
-            <p>${getRemainText(item)}</p>
-            <div class="cardButtons">
-                <button class="editBtn" onclick="openEdit(${index})">수정</button>
-            </div>
-        `;
+${item.detail ? `<p>📌 ${item.detail}</p>` : ""}
+<p>설치일 : ${item.install}</p>
+<p>교체일 : ${getReplace(item)}</p>
+<p>${getRemainText(item)}</p>
+<div class="cardButtons">
+    <button class="editBtn" onclick="openEdit(${index})">수정</button>
+</div>
+`;
         list.appendChild(div);
     });
 
@@ -779,6 +782,31 @@ document.getElementById("roomCloseBtn").onclick = function(){
 };
 
 // ===============================
+// 제품 관리 기능 (v3.1)
+// ===============================
+
+
+// 제품 관리 열기
+document.getElementById("productManageBtn").onclick = function(){
+
+    document.getElementById("settingPopup")
+    .classList.add("hidden");
+
+    document.getElementById("productPopup")
+    .classList.remove("hidden");
+
+};
+
+
+// 제품 관리 닫기
+document.getElementById("productCloseBtn").onclick = function(){
+
+    document.getElementById("productPopup")
+    .classList.add("hidden");
+
+};
+
+// ===============================
 // 마커 관리 팝업 (v3.0)
 // ===============================
 
@@ -1048,13 +1076,34 @@ document.getElementById("zoomOutBtn").onclick = function(){
 
     if(mapScale <= minScale) return;
 
-    mapScale = Number((mapScale - zoomStep).toFixed(1));
+
+    const oldScale = mapScale;
+
+    const newScale = mapScale - zoomStep;
+
+
+    const centerX = mapContainer.clientWidth / 2;
+    const centerY = mapContainer.clientHeight / 2;
+
+
+    mapOffsetX = centerX - (centerX - mapOffsetX) * (newScale / oldScale);
+
+    mapOffsetY = centerY - (centerY - mapOffsetY) * (newScale / oldScale);
+
+
+    mapScale = Number(newScale.toFixed(1));
+
 
     if(mapScale <= 1){
+
         mapScale = 1;
+
         mapOffsetX = 0;
+
         mapOffsetY = 0;
+
     }
+
 
     updateMapScale();
 
@@ -1286,16 +1335,21 @@ function loadProductSelect(){
 
 function renderMarkers(){
 
-    const list = document.getElementById("markerList");
+const defaultList = document.getElementById("markerList");
+    const customList = document.getElementById("customMarkerList");
 
-    if(!list) return;
+    if(!defaultList || !customList) return;
 
-    list.innerHTML = "";
+
+    defaultList.innerHTML = "";
+    customList.innerHTML = "";
 
 
     markerSettings.forEach(function(marker, index){
 
         const div = document.createElement("div");
+
+        div.className = "markerItem";
 
         div.innerHTML = `
             <span>
@@ -1308,7 +1362,17 @@ function renderMarkers(){
             </button>
         `;
 
-        list.appendChild(div);
+
+        // 기본 마커 / 추가 마커 구분
+        if(marker.custom){
+
+            customList.appendChild(div);
+
+        }else{
+
+            defaultList.appendChild(div);
+
+        }
 
     });
 
@@ -1382,6 +1446,43 @@ document.getElementById("markerCancelBtn").onclick = function(){
 
     document.getElementById("markerEditArea")
     .style.display = "none";
+
+};
+
+// 삭제
+document.getElementById("markerDeleteBtn").onclick = function(){
+
+    if(editMarkerIndex === null) return;
+
+
+if(!markerSettings[editMarkerIndex].custom){
+    alert("기본 마커는 삭제할 수 없습니다.");
+    return;
+}
+
+    if(!confirm("이 마커를 삭제할까요?")){
+        return;
+    }
+ 
+    markerSettings.splice(editMarkerIndex,1);
+
+
+    localStorage.setItem(
+        "homecareMarkers",
+        JSON.stringify(markerSettings)
+    );
+
+
+    editMarkerIndex = null;
+
+
+    document.getElementById("markerEditArea")
+    .style.display = "none";
+
+
+    renderMarkers();
+
+    render();
 
 };
 
@@ -1519,7 +1620,9 @@ document.getElementById("markerAddSaveBtn").onclick = function(){
 
     icon: icon,
 
-    name: name
+    name: name,
+    custom: true
+
 
 };
 
