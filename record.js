@@ -167,14 +167,6 @@ loadRoomFilter();
 render();
 };
 
-// 제품 추가 버튼 클릭 시 알림
-document.getElementById("addBtn").onclick = function() {
-
-
-    
-    alert("도면에서 설치 위치를 눌러주세요.");
-};
-
 // 도면 클릭 시 등록 팝업 열기
 document.getElementById("mapContainer").onclick = function(e) {
 
@@ -1026,7 +1018,23 @@ document.getElementById("zoomInBtn").onclick = function(){
 
     if(mapScale >= maxScale) return;
 
-mapScale += zoomStep;
+
+    const oldScale = mapScale;
+
+    const newScale = mapScale + zoomStep;
+
+
+    const centerX = mapContainer.clientWidth / 2;
+    const centerY = mapContainer.clientHeight / 2;
+
+
+    mapOffsetX = centerX - (centerX - mapOffsetX) * (newScale / oldScale);
+
+    mapOffsetY = centerY - (centerY - mapOffsetY) * (newScale / oldScale);
+
+
+    mapScale = newScale;
+
 
     updateMapScale();
 

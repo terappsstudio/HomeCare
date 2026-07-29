@@ -1,5 +1,5 @@
 /* ===================================================
-   HomeCare v3.0 Stable
+   HomeCare v3.1 Stable
 =================================================== */
 
 *{
@@ -14,6 +14,7 @@ body{
     color:#333;
 }
 
+
 /* ===================================================
    APP
 =================================================== */
@@ -23,111 +24,156 @@ body{
     margin:auto;
 }
 
+
 /* ===================================================
    HEADER
 =================================================== */
 
 header{
+
     height:60px;
+
     background:#2E8B57;
-    color:#fff;
+
+    color:white;
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
+
     padding:0 18px;
+
     position:sticky;
+
     top:0;
+
     z-index:5000;
+
 }
+
 
 .logo{
+
     font-size:30px;
+
     font-weight:bold;
-    font-family:"Arial Rounded MT Bold", "나눔스퀘어라운드", "맑은 고딕", sans-serif;
-cursor:pointer;
+
+    font-family:
+    "Arial Rounded MT Bold",
+    "나눔스퀘어라운드",
+    "맑은 고딕",
+    sans-serif;
+
+    cursor:pointer;
+
 }
 
-#settingBtn{
-    border:none;
-    background:none;
-    color:white;
-    font-size:32px;
-    cursor:pointer;
-    width:50px;
-    height:50px;
+
+.page-title{
+
+    font-size:29px;
+
+    font-weight:bold;
+
+    margin:10px 20px 12px;
+
+    color:#555;
+
 }
+
+
+#settingBtn{
+
+    border:none;
+
+    background:none;
+
+    color:white;
+
+    font-size:32px;
+
+    cursor:pointer;
+
+    width:50px;
+
+    height:50px;
+
+}
+
+
 
 /* ===================================================
    SUMMARY
 =================================================== */
 
 #summary{
+
     display:flex;
+
     gap:12px;
+
     padding:12px;
+
 }
+
 
 .summaryCard{
+
     flex:1;
-    background:#fff;
+
+    background:white;
+
     border-radius:14px;
+
     padding:16px;
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
+
+    box-shadow:
+    0 3px 10px rgba(0,0,0,.08);
+
 }
+
 
 .summaryCard .title{
+
     display:block;
+
     color:#666;
+
     margin-bottom:8px;
+
 }
 
+
 .summaryCard span:last-child{
+
     font-size:22px;
+
     font-weight:bold;
+
 }
+
+
 
 /* ===================================================
    LAYOUT
 =================================================== */
 
 #mainContainer{
+
     display:flex;
+
     flex-direction:column;
+
 }
+
 
 #leftArea,
 #rightArea{
+
     width:100%;
-}
 
-@media (min-width: 768px){
-
-    #mainContainer{
-        flex-direction:row;
-        align-items:flex-start;
-        gap:15px;
-    }
-
-
-    #leftArea{
-        width:50%;
-    }
-
-#rightArea{
-    width:50%;
-    display:flex;
-    flex-direction:row;
-    gap:15px;
-}
-#listSection{
-    flex:2;
-    min-width:0;
-}
-
-#dueSection{
-    flex:1;
-    min-width:0;
-}
 }
 
 
@@ -137,123 +183,215 @@ cursor:pointer;
 =================================================== */
 
 #toolbar{
+
     padding:12px;
+
 }
+
 
 #addBtn{
+
     width:100%;
+
     height:48px;
+
     border:none;
+
     border-radius:12px;
+
     background:#2E8B57;
+
     color:white;
+
     font-size:17px;
+
     cursor:pointer;
+
 }
 
+
 #addBtn:hover{
+
     opacity:.9;
+
 }
+
+
 
 /* ===================================================
    MAP
 =================================================== */
 
 #mapSection{
+
     padding:12px;
+
 }
 
+
 #mapContainer{
+
     position:relative;
+
     overflow:hidden;
+
     background:white;
+
     border-radius:16px;
-    box-shadow:0 4px 12px rgba(0,0,0,.12);
-    margin-bottom: 20px;
+
+    box-shadow:
+    0 4px 12px rgba(0,0,0,.12);
+
+    margin-bottom:20px;
+
+    touch-action:pan-y;
+
 }
 
 
 #mapContent{
+
     position:relative;
+
     width:100%;
+
     height:auto;
+
     transform-origin:0 0;
-    transition:transform 0.2s ease;
+
+    transition:transform .2s ease;
+
 }
+
 
 #uploadPlaceholder{
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
+
     width:100%;
+
     min-height:300px;
+
 }
+
 
 .uploadBtn{
+
     padding:14px 26px;
+
     border-radius:10px;
+
     background:#2E8B57;
+
     color:white;
+
     font-weight:bold;
+
     cursor:pointer;
+
     user-select:none;
+
 }
+
 
 .uploadBtn:hover{
+
     opacity:.9;
+
 }
+
 
 #floorImage{
+
     width:100%;
+
     display:block;
+
     height:auto;
+
     user-select:none;
+
     pointer-events:none;
+
 }
 
+
 #markerLayer{
+
     position:absolute;
+
     top:0;
+
     left:0;
+
     width:100%;
+
     height:100%;
+
 }
+
+
 
 /* ===================================================
    MARKER
 =================================================== */
 
 .marker{
+
     position:absolute;
+
     width:30px;
+
     height:30px;
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 
     background:transparent;
+
     border:none;
+
     box-shadow:none;
 
     font-size:24px;
 
     transform:translate(-50%,-50%);
+
     transition:.2s;
 
     cursor:pointer;
+
     user-select:none;
+
     touch-action:none;
+
 }
 
+
 .marker:hover{
-    transform:translate(-50%,-50%) scale(1.2);
+
+    transform:
+    translate(-50%,-50%)
+    scale(1.2);
+
 }
+
 
 .marker.normal,
 .marker.warning,
 .marker.expired{
+
     background:transparent !important;
+
     border:none !important;
+
 }
 
 /* ===================================================
@@ -261,80 +399,132 @@ cursor:pointer;
 =================================================== */
 
 #listSection{
+
     padding:12px;
+
 }
+
 
 #listSection h2{
+
     margin-bottom:12px;
+
 }
+
 
 .card{
+
     background:white;
-    border-radius:14px;
-    padding:16px;
+
+    border-radius:15px;
+
+    padding:15px;
+
     margin-bottom:12px;
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
+
+    box-shadow:
+    0 3px 10px rgba(0,0,0,.08);
+
 }
+
 
 .card h3{
+
+    margin-top:0;
+
     margin-bottom:10px;
-    font-size:19px;
+
+    font-size:18px;
+
 }
+
 
 .card p{
+
     margin:6px 0;
+
 }
+
 
 .cardButtons{
+
     display:flex;
+
     gap:10px;
+
     margin-top:14px;
+
 }
 
+
 .cardButtons button{
+
     flex:1;
+
     height:40px;
 
     border:none;
+
     border-radius:8px;
 
     cursor:pointer;
+
 }
+
 
 .editBtn{
+
     background:#2E8B57;
+
     color:white;
+
 }
 
+
 .deleteBtn{
+
     background:#d9534f;
+
     color:white;
+
 }
+
+
 
 /* ===================================================
    POPUP
 =================================================== */
 
 .popup{
+
     position:fixed;
+
     inset:0;
 
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 
     background:rgba(0,0,0,.45);
 
     z-index:9999;
+
 }
 
+
 .popup.hidden{
+
     display:none !important;
+
 }
+
 
 .popupBox{
 
     width:92%;
+
     max-width:430px;
 
     background:white;
@@ -343,23 +533,33 @@ cursor:pointer;
 
     padding:22px;
 
-    box-shadow:0 8px 25px rgba(0,0,0,.18);
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.18);
 
 }
+
 
 .popupBox h2{
+
     margin-bottom:20px;
+
 }
 
+
 .popupBox label{
+
     display:block;
+
     margin-bottom:15px;
+
 }
+
 
 .popupBox input,
 .popupBox select{
 
     width:100%;
+
     height:44px;
 
     margin-top:6px;
@@ -372,6 +572,7 @@ cursor:pointer;
 
 }
 
+
 .popupButtons{
 
     display:flex;
@@ -381,6 +582,7 @@ cursor:pointer;
     margin-top:20px;
 
 }
+
 
 .popupButtons button{
 
@@ -396,318 +598,473 @@ cursor:pointer;
 
 }
 
+
 #saveBtn,
 #editSaveBtn{
 
     background:#2E8B57;
+
     color:white;
 
 }
+
 
 #deleteBtn{
 
     background:#d9534f;
-    color:white;
 
 }
+
 
 #cancelBtn,
 #editCancelBtn{
 
     background:#ddd;
+
     color:#333;
 
 }
+
+
 
 /* ===================================================
    SETTINGS
 =================================================== */
 
 .developer{
+
     margin-top:20px;
+
     text-align:center;
+
     color:#666;
+
     font-size:14px;
+
     line-height:1.8;
+
 }
+
+
+#settingPopup .popupBox{
+
+    max-width:500px;
+
+    padding:20px;
+
+}
+
+
+#settingPopup h2{
+
+    font-size:30px;
+
+    margin-bottom:15px;
+
+    text-align:center;
+
+}
+
+
+#settingPopup button{
+
+    width:100%;
+
+    height:55px;
+
+    margin-bottom:12px;
+
+    font-size:19px;
+
+    font-weight:bold;
+
+}
+
+
+#settingPopup .developer{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    font-size:11px;
+
+    line-height:1.8;
+
+    color:#666;
+
+}
+
+
 
 /* ===================================================
    ROOM MANAGER
 =================================================== */
 
 #roomList{
+
     margin-bottom:15px;
+
 }
+
 
 #roomList div{
+
     display:flex;
+
     align-items:center;
+
     gap:5px;
+
     margin-bottom:10px;
+
     padding:10px 0;
+
     border-bottom:1px solid #eee;
+
 }
+
 
 #roomList div span{
+
     width:90px;
+
     text-align:left;
+
 }
 
-#roomList button{
-    margin-left:3px;
-}
 
 #roomList span{
+
     font-size:20px;
+
 }
+
 
 #roomList button{
+
     margin-left:6px;
+
     padding:8px 12px;
+
     border:none;
+
     border-radius:8px;
+
     cursor:pointer;
+
 }
 
+
 #newRoomName{
+
     width:100%;
+
     height:44px;
+
     margin:15px 0;
+
     padding:10px;
+
     border:1px solid #ccc;
+
     border-radius:8px;
+
     font-size:17px;
+
 }
+
 
 #addRoomBtn,
 #roomCloseBtn{
+
     width:100%;
+
     height:44px;
+
     margin-top:10px;
+
     border:none;
+
     border-radius:8px;
+
     cursor:pointer;
+
 }
+
 
 #addRoomBtn{
+
     background:#2E8B57;
+
     color:white;
+
 }
+
 
 #roomCloseBtn{
+
     background:#ddd;
-}
-
-/* ===================================================
-   TABLET
-=================================================== */
-
-@media (min-width:768px){
-
-    #mainContainer{
-        display:flex;
-        gap:18px;
-        align-items:flex-start;
-        padding:12px;
-    }
-
-
-    /* 설치목록 / 교체예정 제목 가운데 정렬 */
-    #listSection h2,
-    #dueSection h2{
-        text-align:center;
-    }
-
-
-    #leftArea{
-        flex:2;
-    }
-
-
-    #rightArea{
-        flex:1;
-        display:flex;
-        flex-direction:row;
-        gap:5px;
-    }
-
-
-    #toolbar{
-        padding:0 0 12px 0;
-    }
-
-
-    #mapSection{
-        padding:0;
-    }
-
-
-    #listSection{
-        padding:0;
-    }
-
-
-    /* 교체예정 위치 조절 */
-    #dueSection{
-        transform:translateX(20px);
-    }
 
 }
 
-/* ===================================================
-   DESKTOP
-=================================================== */
 
-@media (min-width:1200px){
-
-    #leftArea{
-        flex:2.2;
-    }
-
-    #rightArea{
-        flex:1;
-        position:sticky;
-        top:80px;
-    }
-
-    .summaryCard{
-        padding:22px;
-    }
-
-}
 
 /* ===================================================
    STATUS COLOR
 =================================================== */
 
 .normal{
+
     filter:none;
+
 }
+
 
 .warning{
-    filter:drop-shadow(0 0 6px orange);
+
+    filter:
+    drop-shadow(0 0 6px orange);
+
 }
+
 
 .expired{
-    filter:drop-shadow(0 0 6px red);
-}
 
-
-/* ===========================
-   설정창
-=========================== */
-
-#settingPopup .popupBox{
-    max-width:500px;
-    padding:20px;
-}
-
-#settingPopup h2{
-    font-size:30px;
-    margin-bottom:15px;
-    text-align:center;
-}
-
-#settingPopup button{
-    width:100%;
-    height:55px;
-    margin-bottom:12px;
-    font-size:19px;
-    font-weight:bold;
-}
-
-#settingPopup .developer{
-    margin-top:25px;
-    text-align:center;
-    font-size:11px;
-    line-height:1.8;
-    color:#666;
-}
-
-/* ===============================
-   확대/축소 버튼 (v2.9)
-=============================== */
-
-#zoomControls{
-
-    position:absolute;
-
-    right:15px;
-
-    bottom:30px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:8px;
-
-    z-index:999;
+    filter:
+    drop-shadow(0 0 6px red);
 
 }
 
-#zoomControls button{
+/* ===================================================
+   TABLET / PC LAYOUT
+=================================================== */
 
-    width:50px;
+@media (min-width:768px){
 
-    height:50px;
+    #mainContainer{
 
-    border:none;
+        flex-direction:row;
 
-    border-radius:12px;
+        align-items:flex-start;
 
-    background:white;
+        gap:18px;
 
-    font-size:22px;
+        padding:12px;
 
-    font-weight:bold;
-
-    cursor:pointer;
-
-    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+    }
 
 
- display:block;
-    margin-bottom:8px;
+    #leftArea{
+
+        flex:2;
+
+    }
+
+
+    #rightArea{
+
+        flex:1;
+
+        display:flex;
+
+        flex-direction:row;
+
+        gap:5px;
+
+    }
+
+
+    #listSection,
+    #dueSection{
+
+        flex:1;
+
+        min-width:0;
+
+        padding:0;
+
+    }
+
+
+    #listSection h2,
+    #dueSection h2{
+
+        text-align:center;
+
+        margin-bottom:12px;
+
+    }
+
+
+    #toolbar{
+
+        padding:0 0 12px 0;
+
+    }
+
+
+    #mapSection{
+
+        padding:0;
+
+    }
+
+
+    .card{
+
+        padding:10px;
+
+        margin-bottom:8px;
+
+        border-radius:10px;
+
+    }
+
+
+    .card h3{
+
+        font-size:16px;
+
+        margin-bottom:6px;
+
+    }
+
+
+    .card p{
+
+        margin:3px 0;
+
+        font-size:14px;
+
+    }
+
+
+    .cardButtons{
+
+        margin-top:8px;
+
+    }
+
+
+    .cardButtons button{
+
+        height:34px;
+
+        font-size:14px;
+
+    }
+
+
+    .dueCard{
+
+        padding:7px;
+
+        font-size:14px;
+
+    }
+
+
+    .quickMenu{
+
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:6px;
+
+    }
+
+
+    .quickMenu h3{
+
+        grid-column:1 / -1;
+
+        margin-bottom:5px;
+
+    }
+
+
 }
 
-#mapContainer{
-    touch-action: pan-y;
-    overflow:hidden;
+
+
+@media (min-width:1200px){
+
+    #leftArea{
+
+        flex:2.2;
+
+    }
+
+
+    #rightArea{
+
+        position:sticky;
+
+        top:80px;
+
+    }
+
+
+    .summaryCard{
+
+        padding:22px;
+
+    }
+
 }
-/* ===============================
+
+
+
+/* ===================================================
    MOBILE MARKER SIZE
-=============================== */
+=================================================== */
 
 @media (max-width:767px){
 
     .marker{
+
         width:24px;
+
         height:24px;
+
         font-size:16px;
+
         line-height:1;
+
     }
 
 
     .marker:hover{
+
         transform:translate(-50%,-50%);
+
     }
 
 }
 
-/* ===============================
-   마커 관리창 스타일 (v3.0)
-=============================== */
+
+
+/* ===================================================
+   MARKER MANAGEMENT
+=================================================== */
 
 #markerPopup .popupBox{
+
     max-width:420px;
+
 }
 
 
 #markerPopup h2{
+
     font-size:28px;
+
     text-align:center;
+
     margin-bottom:20px;
+
 }
 
 
@@ -727,18 +1084,12 @@ cursor:pointer;
 
 }
 
-/* 마커 이름과 수정 버튼 사이 간격 숫자늘리면 사이늘어남 */
+
 #markerList span{
 
     width:auto;
+
     margin-right:15px;
-
-}
-
-
-#markerList button{
-
-    margin-left:0;
 
 }
 
@@ -817,165 +1168,122 @@ cursor:pointer;
 
 }
 
-/* ===============================
-   태블릿 설치목록 최적화 v3.0
-=============================== */
-
-@media (min-width:768px){
-
-    .card{
-        padding:10px;
-        margin-bottom:8px;
-        border-radius:10px;
-    }
 
 
-    .card h3{
-        font-size:16px;
-        margin-bottom:6px;
-    }
-
-
-    .card p{
-        margin:3px 0;
-        font-size:14px;
-    }
-
-
-    .cardButtons{
-        margin-top:8px;
-    }
-
-
-    .cardButtons button{
-        height:34px;
-        font-size:14px;
-    }
-
-}
-
-@media (min-width:700px){
-
-    #itemList{
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-    }
-
-}
-
-@media (min-width:700px){
-
-    #itemList{
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-    }
-
-}
-
-@media (min-width:768px){
-
-
-}
+/* ===================================================
+   DUE CARD / FILTER
+=================================================== */
 
 .dueCard{
+
     background:white;
+
     border-radius:14px;
+
     padding:10px;
+
     margin-bottom:8px;
-    box-shadow:0 3px 10px rgba(0,0,0,.08);
+
+    box-shadow:
+    0 3px 10px rgba(0,0,0,.08);
+
     font-size:14px;
-}
- 
-
-@media (min-width:768px){
-
-    #listSection,
-    #dueSection{
-        flex:1;
-        min-width:0;
-    }
-
-    #dueSection h2,
-    #listSection h2{
-        margin-bottom:12px;
-    }
 
 }
 
-#listSection{
-    transform:translateX(20px);
-}
 
-#dueSection{
-    transform:translateX(40px);
-}
-
-@media (min-width:768px){
-
-    #listSection{
-        flex:1;
-    }
-
-    #dueSection{
-        flex:1;
-    }
-
-    .dueCard{
-        padding:7px;
-        font-size:14px;
-    }
-
-}
-
-/* 교체예정 필터 */
 #dueFilter,
 #roomFilter{
 
     width:48%;
+
     height:25px;
 
     font-size:13px;
+
     font-weight:bold;
 
     border-radius:8px;
 
     margin-bottom:8px;
 
-   
 }
 
-/* ===============================
-   통계  페이지
-=============================== */
 
-.card{
+
+/* ===================================================
+   ZOOM CONTROL
+=================================================== */
+
+#zoomControls{
+
+    position:absolute;
+
+    right:15px;
+
+    bottom:30px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    z-index:999;
+
+}
+
+
+#zoomControls button{
+
+    width:50px;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:12px;
 
     background:white;
 
-    border-radius:15px;
+    font-size:22px;
 
-    padding:15px;
+    font-weight:bold;
 
-    margin-bottom:15px;
+    cursor:pointer;
 
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    box-shadow:
+    0 2px 8px rgba(0,0,0,.2);
+
+    display:block;
+
+    margin-bottom:8px;
+
+}
+
+
+
+/* ===================================================
+   ITEM LIST
+=================================================== */
+
+@media (min-width:700px){
+
+    #itemList{
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:10px;
+
+    }
 
 }
 
-
-.card h3{
-
-    margin-top:0;
-
-    font-size:18px;
-
-    border-bottom:1px solid #eee;
-
-    padding-bottom:10px;
-
-}
+/* ===================================================
+   STATISTICS PAGE
+=================================================== */
 
 
 #totalCount h2{
@@ -987,6 +1295,7 @@ cursor:pointer;
     margin:10px 0;
 
 }
+
 
 
 #productStats div,
@@ -1005,6 +1314,7 @@ cursor:pointer;
 }
 
 
+
 #replaceStats h2{
 
     text-align:center;
@@ -1014,6 +1324,7 @@ cursor:pointer;
     margin:10px 0;
 
 }
+
 
 
 #backBtn{
@@ -1034,32 +1345,44 @@ cursor:pointer;
 
 }
 
+
+
 #historyBtn{
 
     padding:8px 12px;
+
     border:none;
+
     border-radius:10px;
+
     background:#2E8B57;
+
     color:white;
-    font-size:14px;
+
+    font-size:30px;
+
+    font-weight:700;
 
 }
+
+
 
 #historyBtn,
 #backBtn,
 #recordBtn,
 #statsBtn,
-#settingBtn {
+#settingBtn{
 
-    cursor: pointer;
+    cursor:pointer;
 
 }
 
-/* ===============================
-   HomeCare 3.1 통계 리모델링
-=============================== */
 
-/* 빠른 이동 */
+
+/* ===================================================
+   QUICK MENU (HomeCare 3.1)
+=================================================== */
+
 
 .quickMenu{
 
@@ -1071,9 +1394,13 @@ cursor:pointer;
 
     margin-bottom:20px;
 
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    box-shadow:
+
+    0 2px 8px rgba(0,0,0,.08);
 
 }
+
+
 
 .quickMenu h3{
 
@@ -1082,6 +1409,8 @@ cursor:pointer;
     margin-bottom:15px;
 
 }
+
+
 
 .quickCard{
 
@@ -1103,14 +1432,15 @@ cursor:pointer;
 
     cursor:pointer;
 
-    transition:0.25s;
+    transition:.25s;
 
     font-weight:bold;
 
     font-size:18px;
 
-
 }
+
+
 
 .quickCard:hover{
 
@@ -1121,13 +1451,14 @@ cursor:pointer;
 }
 
 
-/* 이동 후 강조 */
 
 .highlightSection{
 
     animation:highlightFlash .6s;
 
 }
+
+
 
 @keyframes highlightFlash{
 
@@ -1146,7 +1477,11 @@ cursor:pointer;
 }
 
 
-/* 맨 위 버튼 */
+
+/* ===================================================
+   TOP BUTTON
+=================================================== */
+
 
 #topButton{
 
@@ -1174,49 +1509,20 @@ cursor:pointer;
 
     cursor:pointer;
 
-    box-shadow:0 4px 10px rgba(0,0,0,0.25);
+    box-shadow:
+
+    0 4px 10px rgba(0,0,0,.25);
 
     z-index:999;
 
 }
 
 
-/* ===============================
-   태블릿 / PC
-=============================== */
 
-@media (min-width:768px){
+/* ===================================================
+   DESKTOP WIDTH
+=================================================== */
 
-    .quickMenu{
-
-        display:grid;
-
-        grid-template-columns:1fr 1fr;
-
-        gap:6px;
-
-    }
-
-    .quickMenu h3{
-
-        grid-column:1 / -1;
-
-        margin-bottom:5px;
-
-    }
-
-    .card{
-
-        padding:20px;
-
-    }
-
-}
-
-
-/* ===============================
-   PC
-=============================== */
 
 @media (min-width:1200px){
 
@@ -1225,5 +1531,35 @@ cursor:pointer;
         max-width:900px;
 
     }
+
+}
+
+
+
+/* ===================================================
+   CURRENT SPACE
+   HomeCare 3.1
+=================================================== */
+
+
+.current-space{
+
+    display:inline-block;
+
+    width:fit-content;
+
+    margin:3px 8px 10px;
+
+    padding:5px 12px;
+
+    background:#2E8B57;
+
+    border-radius:10px;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    color:#f8f8f8;
 
 }
