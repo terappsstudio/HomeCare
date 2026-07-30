@@ -126,15 +126,25 @@ function loadSpace(name){
     }
 
 
-//    document.querySelector(".current-space")
-  //  .innerText = "🏠 " + space.name;
+    document.querySelector(".current-space")
+  .innerText = "🏠 " + space.name;
 
 let floorImage =
 document.getElementById("floorImage");
 
+let uploadPlaceholder =
+document.getElementById("uploadPlaceholder");
+
+
 if(space.image){
 
     floorImage.src = space.image;
+
+        floorImage.style.display = "block";
+
+
+    uploadPlaceholder.style.display = "none";
+
 
     console.log(
         "도면 변경:",
@@ -142,9 +152,15 @@ if(space.image){
         floorImage.src.substring(0,50)
     );
 
+
 }else{
 
-    floorImage.src = "";
+floorImage.removeAttribute("src");
+
+    floorImage.style.display = "none";
+
+    uploadPlaceholder.style.display = "block";
+
 
     console.log(
         "도면 없음:",
@@ -1063,8 +1079,9 @@ document.getElementById("changeFloorBtn").onclick = function(){
 
 };
 
-
+// ===============================
 // 도면 삭제
+// ===============================
 
 document.getElementById("deleteFloorBtn").onclick = function(){
 
@@ -1075,20 +1092,42 @@ document.getElementById("deleteFloorBtn").onclick = function(){
     });
 
 
-    if(currentSpaceData){
-
-        currentSpaceData.image = "";
-
-        localStorage.setItem(
-            "homecareSpaces",
-            JSON.stringify(spaces)
-        );
-
+    if(!currentSpaceData){
+        return;
     }
 
-    location.reload();
+
+    if(!confirm("현재 도면을 삭제할까요?")){
+        return;
+    }
+
+
+    currentSpaceData.image = "";
+
+
+    localStorage.setItem(
+        "homecareSpaces",
+        JSON.stringify(spaces)
+    );
+
+
+    let floorImage =
+    document.getElementById("floorImage");
+
+
+    let uploadPlaceholder =
+    document.getElementById("uploadPlaceholder");
+
+
+    floorImage.removeAttribute("src");
+
+    floorImage.style.display = "none";
+
+    uploadPlaceholder.style.display = "block";
+
 
 };
+
 // ===============================
 // 룸 관리 기능 (v2.6)
 // ===============================
