@@ -345,20 +345,16 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
         <h2>🛠️️ 설정</h2>
 
-        <button id="changeFloorBtn">
-            🖼️ 도면 변경
-        </button>
-
-        <button id="deleteFloorBtn">
-            🗑️ 도면 삭제
-        </button>
-
-<button id="roomManageBtn">
-    🏠 룸 관리
+        <button id="floorManageBtn">
+    🖼️ 도면 관리
 </button>
 
 <button id="productManageBtn">
-    📦 제품 관리
+    ⭐  공간 관리
+</button>
+
+<button id="roomManageBtn">
+    🐳 룸 설정
 </button>
 
 <button id="markerManageBtn">
@@ -389,13 +385,46 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 </div>
 
+</div>   <!-- settingPopup 끝 -->
+
+
+<!-- ===============================
+     도면 관리 팝업
+=============================== -->
+
+<div id="floorManagePopup" class="popup hidden">
+
+    <div class="popupBox">
+
+        <h2>🖼️ 도면 관리</h2>
+
+
+        <button id="changeFloorBtn">
+            🖼️ 도면 변경
+        </button>
+
+
+        <button id="deleteFloorBtn">
+            🗑️ 도면 삭제
+        </button>
+
+
+        <button id="floorManageCloseBtn">
+            닫기
+        </button>
+
+
+    </div>
+
+</div>
+
 <!-- 제품 관리 팝업 -->
 
 <div id="productPopup" class="popup hidden">
 
     <div class="popupBox">
 
-        <h2>📦 제품 관리</h2>
+        <h2>⭐ 공간 관리</h2>
 
         <div id="productList"></div>
 

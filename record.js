@@ -1223,6 +1223,29 @@ document.getElementById("productCloseBtn").onclick = function(){
 };
 
 // ===============================
+// 도면 관리 열기
+// ===============================
+
+document.getElementById("floorManageBtn").onclick = function(){
+
+    document.getElementById("settingPopup")
+    .classList.add("hidden");
+
+    document.getElementById("floorManagePopup")
+    .classList.remove("hidden");
+
+};
+
+// 도면 관리 닫기
+
+document.getElementById("floorManageCloseBtn").onclick = function(){
+
+    document.getElementById("floorManagePopup")
+    .classList.add("hidden");
+
+};
+
+// ===============================
 // 마커 관리 팝업 (v3.0)
 // ===============================
 
