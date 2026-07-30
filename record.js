@@ -2,6 +2,48 @@ console.log("HomeCare JS 시작");
 
 let items = JSON.parse(localStorage.getItem("homecareItems")) || [];
 
+let installationHistory = JSON.parse(
+    localStorage.getItem("installationHistory")
+) || [];
+
+// ===============================
+// 교체 완료 제품 자동 처리
+// ===============================
+
+function removeExpiredItems(){
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const remainItems = [];
+
+    items.forEach(function(item){
+
+        const replaceDate = new Date(getReplace(item));
+
+        replaceDate.setHours(0,0,0,0);
+
+        const expiredDays = Math.floor(
+            (today - replaceDate) /
+            (1000 * 60 * 60 * 24)
+        );
+
+
+        // 교체 후 7일까지는 유지
+        if(expiredDays <= 7){
+
+            remainItems.push(item);
+
+        }
+
+    });
+
+
+    items = remainItems;
+
+    save();
+
+}
 
 // ===============================
 // 마커 설정 (v3.0)
@@ -158,11 +200,13 @@ window.onload = function() {
 
         loadRooms();
 
-   loadProductSelect();
+loadProductSelect();
 
 loadDueFilter();
 
 loadRoomFilter();
+
+removeExpiredItems();
 
 render();
 };
@@ -222,6 +266,22 @@ document.getElementById("saveBtn").onclick = function() {
     };
 
     items.push(item);
+
+    installationHistory.push({
+    type: item.type,
+    location: item.location,
+    detail: item.detail,
+    install: item.install,
+    cycle: item.cycle,
+    x: item.x,
+    y: item.y
+});
+
+localStorage.setItem(
+    "installationHistory",
+    JSON.stringify(installationHistory)
+);
+    
     save();
     closePopup();
     render();
@@ -1496,7 +1556,6 @@ function loadDueFilter(){
 
     if(!select) return;
 
-
     select.innerHTML = "";
 
 
@@ -1697,5 +1756,43 @@ function loadEditProductSelect(){
         select.appendChild(option);
 
     });
+
+}
+
+// ===============================
+// 맨 위 이동 버튼
+// ===============================
+
+const topButton = document.getElementById("topButton");
+
+
+window.addEventListener("scroll", function(){
+
+    if(window.scrollY > 300){
+
+        topButton.style.display = "flex";
+
+    }
+    else{
+
+        topButton.style.display = "none";
+
+    }
+
+});
+
+if(topButton){
+
+    topButton.onclick = function(){
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+    };
 
 }

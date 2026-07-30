@@ -9,7 +9,13 @@ const items = JSON.parse(
     localStorage.getItem("homecareItems")
 ) || [];
 
+// ===============================
+// 설치내역 가져오기 (영구 기록)
+// ===============================
 
+const installationHistory = JSON.parse(
+    localStorage.getItem("installationHistory")
+) || [];
 
 // ===============================
 // 전체 설치 개수

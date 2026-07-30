@@ -2,10 +2,8 @@ console.log("HomeCare 설치 내역 시작");
 
 
 const items = JSON.parse(
-    localStorage.getItem("homecareItems")
+    localStorage.getItem("installationHistory")
 ) || [];
-
-
 
 let html = `
 
