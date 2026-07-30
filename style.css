@@ -1738,7 +1738,7 @@ align-items:center;
 
     display:flex;
     align-items:center;
-gap:8x;
+gap:8px;
 
 }
 
@@ -1799,5 +1799,40 @@ padding:0;
     z-index:9999;
 
     box-shadow:0 3px 10px rgba(0,0,0,0.25);
+
+}
+/* ===============================
+   공간 목록
+=============================== */
+
+#spaceList{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+}
+
+.spaceButton{
+
+    border:none;
+
+    background:#2E8B57;
+
+    color:white;
+
+    padding:6px 12px;
+
+    border-radius:12px;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    cursor:pointer;
 
 }

@@ -6,6 +6,105 @@ let installationHistory = JSON.parse(
     localStorage.getItem("installationHistory")
 ) || [];
 
+let spaces = JSON.parse(
+    localStorage.getItem("homecareSpaces")
+) || [
+    {
+        name:"우리집",
+        image:"",
+        markers:[]
+    }
+];
+
+let currentSpace = "우리집";
+
+// ===============================
+// 공간 목록 표시
+// ===============================
+
+function renderSpaces(){
+
+    let list =
+    document.getElementById("spaceList");
+
+
+    if(!list){
+        return;
+    }
+
+    list.innerHTML="";
+
+
+    spaces.forEach(function(space){
+
+        let button =
+        document.createElement("button");
+
+
+        button.className="spaceButton";
+
+
+        button.innerText =
+        (space.icon || "🏠") + " " + space.name;
+
+
+    button.onclick=function(){
+
+    currentSpace = space.name;
+
+    localStorage.setItem(
+        "currentSpace",
+        currentSpace
+    );
+
+
+    console.log(
+        "현재 공간:",
+        currentSpace
+    );
+
+
+    loadSpace(currentSpace);
+
+};
+
+        list.appendChild(button);
+
+    });
+
+}
+
+
+// ===============================
+// 공간 불러오기
+// ===============================
+
+function loadSpace(name){
+
+    let space = spaces.find(function(item){
+
+        return item.name === name;
+
+    });
+
+
+    if(!space){
+        return;
+    }
+
+
+//    document.querySelector(".current-space")
+  //  .innerText = "🏠 " + space.name;
+
+
+    console.log(
+        "불러온 공간:",
+        space
+    );
+
+}
+
+
 // ===============================
 // 교체 완료 제품 자동 처리
 // ===============================
@@ -1796,3 +1895,110 @@ if(topButton){
     };
 
 }
+
+// ===============================
+// 공간 추가 팝업 열기
+// ===============================
+
+document
+.getElementById("addSpaceBtn")
+.onclick=function(){
+
+    document
+    .getElementById("spacePopup")
+    .classList.remove("hidden");
+
+};
+
+// ===============================
+// 공간 추가 버튼
+// ===============================
+
+// ===============================
+// 공간 추가 팝업 열기
+// ===============================
+
+document
+.getElementById("addSpaceBtn")
+.onclick = function(){
+
+    document
+    .getElementById("spacePopup")
+    .classList.remove("hidden");
+
+};
+
+// ===============================
+// 공간 추가 팝업 닫기
+// ===============================
+
+document
+.getElementById("spaceCloseBtn")
+.onclick = function(){
+
+    document
+    .getElementById("spacePopup")
+    .classList.add("hidden");
+
+};
+
+// ===============================
+// 새 공간 저장
+// ===============================
+
+document
+.getElementById("spaceSaveBtn")
+.onclick = function(){
+
+    let name =
+    document.getElementById("spaceNameInput").value.trim();
+
+
+    let image =
+    document.getElementById("spaceImageInput").files[0];
+
+
+    if(name === ""){
+        alert("공간 이름을 입력해주세요");
+        return;
+    }
+
+
+    if(!image){
+        alert("도면 이미지를 선택해주세요");
+        return;
+    }
+
+    spaces.push({
+    name:name,
+    icon:"🏠",
+    image:"",
+    markers:[]
+});
+
+localStorage.setItem(
+    "homecareSpaces",
+    JSON.stringify(spaces)
+);
+
+currentSpace = name;
+
+   // document.querySelector(".current-space")
+   // .innerText = "🏠 " + name;
+
+
+    document
+    .getElementById("spacePopup")
+    .classList.add("hidden");
+
+renderSpaces();
+
+    alert(name + " 공간이 만들어졌습니다");
+
+};
+
+// ===============================
+// 공간 목록 표시 실행
+// ===============================
+
+renderSpaces();

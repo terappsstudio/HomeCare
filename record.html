@@ -49,17 +49,20 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <div id="leftArea">
 
-     <section id="toolbar">
+  <section id="toolbar">
 
-    <div class="current-space">
-        🏠 우리집
-    </div>
+    <div id="spaceList"></div>
 
     <button id="addSpaceBtn">
         ＋
     </button>
 
 </section>
+
+    </div>
+
+</div>
+
  <section id="mapSection">
 
     <div id="uploadPlaceholder">
@@ -399,6 +402,45 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <button id="productCloseBtn">
             닫기
         </button>
+
+    </div>
+
+</div>
+
+<!-- 공간 추가 팝업 -->
+
+<div id="spacePopup" class="popup hidden">
+
+    <div class="popupBox">
+
+        <h2>🏠 새 공간 추가</h2>
+
+
+        <input 
+            id="spaceNameInput"
+            type="text"
+            placeholder="공간 이름">
+
+
+        <label>
+            🗺️ 도면 이미지 선택
+        </label>
+
+        <input 
+            id="spaceImageInput"
+            type="file"
+            accept="image/*">
+
+
+        <button id="spaceSaveBtn">
+            저장
+        </button>
+
+
+        <button id="spaceCloseBtn">
+            닫기
+        </button>
+
 
     </div>
 
