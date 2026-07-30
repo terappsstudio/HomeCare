@@ -18,6 +18,33 @@ let spaces = JSON.parse(
 
 let currentSpace = "우리집";
 
+// 기존 items를 우리집 markers로 한번 이동
+if(items.length > 0){
+
+    let homeSpace = spaces.find(function(space){
+
+        return space.name === "우리집";
+
+    });
+
+
+    if(homeSpace && homeSpace.markers.length === 0){
+
+        homeSpace.markers = items;
+
+        localStorage.setItem(
+            "homecareSpaces",
+            JSON.stringify(spaces)
+        );
+
+        console.log(
+            "기존 마커를 우리집으로 이동 완료"
+        );
+
+    }
+
+}
+
 // ===============================
 // 공간 목록 표시
 // ===============================
@@ -37,16 +64,20 @@ function renderSpaces(){
 
     spaces.forEach(function(space){
 
-        let button =
-        document.createElement("button");
+        let div =
+document.createElement("div");
+
+div.className = "spaceItem";
 
 
-        button.className="spaceButton";
+let button =
+document.createElement("button");
+
+button.className="spaceButton";
 
 
-        button.innerText =
-        (space.icon || "🏠") + " " + space.name;
-
+button.innerText =
+(space.icon || "🏠") + " " + space.name;
 
     button.onclick=function(){
 
@@ -68,7 +99,9 @@ function renderSpaces(){
 
 };
 
-        list.appendChild(button);
+div.appendChild(button);
+
+list.appendChild(div);
 
     });
 
@@ -96,11 +129,35 @@ function loadSpace(name){
 //    document.querySelector(".current-space")
   //  .innerText = "🏠 " + space.name;
 
+let floorImage =
+document.getElementById("floorImage");
 
+if(space.image){
+
+    floorImage.src = space.image;
+
+    console.log(
+        "도면 변경:",
+        space.name,
+        floorImage.src.substring(0,50)
+    );
+
+}else{
+
+    floorImage.src = "";
+
+    console.log(
+        "도면 없음:",
+        space.name
+    );
+
+}
     console.log(
         "불러온 공간:",
         space
     );
+
+    render();
 
 }
 
@@ -283,21 +340,6 @@ window.onload = function() {
 
     loadRooms();
 
-    const savedFloor = localStorage.getItem("homecareFloor");
-
-    if(savedFloor){
-
-        document.getElementById("floorImage").src = savedFloor;
-
-        document.getElementById("floorImage").style.display = "block";
-
-        document.getElementById("floorImage").style.width = "100%";
-
-        document.getElementById("uploadPlaceholder").style.display = "none";
-
-    }
-
-        loadRooms();
 
 loadProductSelect();
 
@@ -307,7 +349,7 @@ loadRoomFilter();
 
 removeExpiredItems();
 
-render();
+loadSpace(currentSpace);
 };
 
 // 도면 클릭 시 등록 팝업 열기
@@ -364,7 +406,25 @@ document.getElementById("saveBtn").onclick = function() {
         y: selectedY
     };
 
-    items.push(item);
+    console.log(
+    "등록 공간:",
+    currentSpace
+);
+
+  //  items.push(item);
+
+  let space = spaces.find(function(space){
+
+    return space.name === currentSpace;
+
+});
+
+
+if(space){
+
+    space.markers.push(item);
+
+}
 
     installationHistory.push({
     type: item.type,
@@ -397,7 +457,17 @@ function closePopup() {
 
 // 로컬스토리지 저장
 function save() {
-    localStorage.setItem("homecareItems", JSON.stringify(items));
+
+    localStorage.setItem(
+        "homecareItems",
+        JSON.stringify(items)
+    );
+
+    localStorage.setItem(
+        "homecareSpaces",
+        JSON.stringify(spaces)
+    );
+
 }
 
 // 화면 그리기 (마커 및 리스트)
@@ -406,6 +476,16 @@ function render() {
     const list = document.getElementById("itemList");
 const dueList = document.getElementById("dueList");
 
+let currentSpaceData = spaces.find(function(space){
+
+    return space.name === currentSpace;
+
+});
+
+let currentMarkers = 
+currentSpaceData ? currentSpaceData.markers : [];
+
+
 if(dueList){
     dueList.innerHTML = "";
 }
@@ -413,8 +493,8 @@ if(dueList){
     layer.innerHTML = "";
     list.innerHTML = "";
 
-    items.forEach((item, index) => {
-      let markerData = markerSettings.find(
+currentMarkers.forEach((item, index) => {
+          let markerData = markerSettings.find(
     m => m.type === item.type
 );
 
@@ -471,8 +551,7 @@ ${item.detail ? `<p>📌 ${item.detail}</p>` : ""}
 
     countSummary();
 
-renderDueList();
-
+renderDueList(currentMarkers);
 }
 
 // 교체일 계산
@@ -520,7 +599,7 @@ function getRemainText(item){
 // 교체 예정 목록
 // ===============================
 
-function renderDueList(){
+function renderDueList(currentMarkers){
 
     const dueList = document.getElementById("dueList");
 
@@ -530,7 +609,7 @@ function renderDueList(){
     dueList.innerHTML = "";
 
 
-    let dueItems = [...items];
+let dueItems = [...currentMarkers];
 
 let filter =
 document.getElementById("dueFilter").value;
@@ -606,7 +685,15 @@ function openEdit(index) {
 
     editIndex = index;
 
-    let item = items[index];
+
+    let currentSpaceData = spaces.find(function(space){
+
+        return space.name === currentSpace;
+
+    });
+
+
+    let item = currentSpaceData.markers[index];
 
     loadEditProductSelect();
 
@@ -625,22 +712,48 @@ function openEdit(index) {
 
 // 수정본 저장
 document.getElementById("editSaveBtn").onclick = function() {
-    let item = items[editIndex];
+
+
+    let currentSpaceData = spaces.find(function(space){
+
+        return space.name === currentSpace;
+
+    });
+
+
+    let item = currentSpaceData.markers[editIndex];
 
     item.type = document.getElementById("editType").value;
     item.location = document.getElementById("editLocation").value;
     item.install = document.getElementById("editInstall").value;
     item.cycle = Number(document.getElementById("editCycle").value);
 
-    save();
+  localStorage.setItem(
+    "homecareSpaces",
+    JSON.stringify(spaces)
+);
     document.getElementById("editPopup").classList.add("hidden");
     render();
 };
 
 // 삭제
 document.getElementById("deleteBtn").onclick = function() {
-    items.splice(editIndex, 1);
-    save();
+
+
+    let currentSpaceData = spaces.find(function(space){
+
+        return space.name === currentSpace;
+
+    });
+
+
+    currentSpaceData.markers.splice(editIndex, 1);
+
+
+    localStorage.setItem(
+        "homecareSpaces",
+        JSON.stringify(spaces)
+    );
     document.getElementById("editPopup").classList.add("hidden");
     render();
 };
@@ -652,24 +765,49 @@ document.getElementById("editCancelBtn").onclick = function() {
 
 // 요약 카운트 계산
 function countSummary() {
+
     let todayCount = 0;
     let weekCount = 0;
+
     let now = new Date();
     now.setHours(0, 0, 0, 0);
 
-    items.forEach(item => {
+
+    let currentSpaceData = spaces.find(function(space){
+
+        return space.name === currentSpace;
+
+    });
+
+
+    let currentItems =
+    currentSpaceData ? currentSpaceData.markers : [];
+
+
+    currentItems.forEach(item => {
+
         let r = new Date(getReplace(item));
         r.setHours(0, 0, 0, 0);
         
-        let diff = Math.floor((r - now) / (1000 * 60 * 60 * 24));
+        let diff = Math.floor(
+            (r - now) /
+            (1000 * 60 * 60 * 24)
+        );
 
         if (diff === 0) todayCount++;
+
         if (diff >= 0 && diff <= 7) weekCount++;
+
     });
 
-    document.getElementById("todayCount").innerHTML = todayCount + "개";
-    document.getElementById("weekCount").innerHTML = weekCount + "개";
+
+    document.getElementById("todayCount").innerHTML =
+    todayCount + "개";
+
+    document.getElementById("weekCount").innerHTML =
+    weekCount + "개";
 }
+
 
 // ===============================
 // 안전하고 정밀한 터치/포인터 드래그 기능 (태블릿 최적화)
@@ -743,16 +881,36 @@ function endDrag(e) {
 
     const index = Number(dragMarker.dataset.index);
     
-    if (isDragging && !isNaN(index) && items[index]) {
-        // 최종 마커 스타일 기준 퍼센트 역산 저장 (정밀도 보장)
-       const finalX = parseFloat(dragMarker.style.left);
-const finalY = parseFloat(dragMarker.style.top);
 
-items[index].x = finalX;
-items[index].y = finalY;
-        save();
-        render(); // 드래그 끝난 후 상태 동기화 재렌더링
-    }
+console.log(
+    "드래그 종료 index:",
+    index,
+    "현재공간:",
+    currentSpace
+);
+
+let currentSpaceData = spaces.find(function(space){
+
+    return space.name === currentSpace;
+
+});
+
+if(
+    isDragging &&
+    currentSpaceData &&
+    currentSpaceData.markers[index]
+){
+
+    const finalX = parseFloat(dragMarker.style.left);
+    const finalY = parseFloat(dragMarker.style.top);
+
+    currentSpaceData.markers[index].x = finalX;
+    currentSpaceData.markers[index].y = finalY;
+
+    save();
+    render();
+
+}
 
  //dragMarker.releasePointerCapture(e.pointerId);
     dragMarker = null;
@@ -838,10 +996,23 @@ document.getElementById("imageLoader").onchange = function(e) {
 
     const imgData = event.target.result;
 
-    // 도면 저장
-    localStorage.setItem("homecareFloor", imgData);
+    let currentSpaceData = spaces.find(function(space){
+
+    return space.name === currentSpace;
+
+});
 
 
+if(currentSpaceData){
+
+    currentSpaceData.image = imgData;
+
+    localStorage.setItem(
+        "homecareSpaces",
+        JSON.stringify(spaces)
+    );
+
+}
     const imgElement = document.getElementById("floorImage");
     const placeholder = document.getElementById("uploadPlaceholder");
 
@@ -897,12 +1068,27 @@ document.getElementById("changeFloorBtn").onclick = function(){
 
 document.getElementById("deleteFloorBtn").onclick = function(){
 
-    localStorage.removeItem("homecareFloor");
+    let currentSpaceData = spaces.find(function(space){
+
+        return space.name === currentSpace;
+
+    });
+
+
+    if(currentSpaceData){
+
+        currentSpaceData.image = "";
+
+        localStorage.setItem(
+            "homecareSpaces",
+            JSON.stringify(spaces)
+        );
+
+    }
 
     location.reload();
 
 };
-
 // ===============================
 // 룸 관리 기능 (v2.6)
 // ===============================
@@ -1953,49 +2139,41 @@ document
     let name =
     document.getElementById("spaceNameInput").value.trim();
 
-
-    let image =
-    document.getElementById("spaceImageInput").files[0];
-
-
     if(name === ""){
         alert("공간 이름을 입력해주세요");
         return;
     }
 
-
-    if(!image){
-        alert("도면 이미지를 선택해주세요");
-        return;
-    }
-
     spaces.push({
-    name:name,
-    icon:"🏠",
-    image:"",
-    markers:[]
-});
 
-localStorage.setItem(
-    "homecareSpaces",
-    JSON.stringify(spaces)
-);
+        name:name,
 
-currentSpace = name;
+        icon:"🏠",
 
-   // document.querySelector(".current-space")
-   // .innerText = "🏠 " + name;
+        image:"",
 
+        markers:[]
+
+    });
+
+    localStorage.setItem(
+        "homecareSpaces",
+        JSON.stringify(spaces)
+    );
+
+    currentSpace = name;
+
+    renderSpaces();
 
     document
     .getElementById("spacePopup")
     .classList.add("hidden");
 
-renderSpaces();
-
     alert(name + " 공간이 만들어졌습니다");
 
 };
+
+
 
 // ===============================
 // 공간 목록 표시 실행
