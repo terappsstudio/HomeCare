@@ -126,8 +126,15 @@ function loadSpace(name){
     }
 
 
-    document.querySelector(".current-space")
-  .innerText = "🏠 " + space.name;
+  let currentSpaceTitle =
+document.querySelector(".current-space");
+
+if(currentSpaceTitle){
+
+    currentSpaceTitle.innerText =
+    "🏠 " + space.name;
+
+}
 
 let floorImage =
 document.getElementById("floorImage");
@@ -172,6 +179,11 @@ floorImage.removeAttribute("src");
         "불러온 공간:",
         space
     );
+
+    console.log(
+    "버튼 상태:",
+    uploadPlaceholder.style.display
+);
 
     render();
 
@@ -1012,23 +1024,41 @@ document.getElementById("imageLoader").onchange = function(e) {
 
     const imgData = event.target.result;
 
-    let currentSpaceData = spaces.find(function(space){
-
-    return space.name === currentSpace;
-
-});
-
-
-if(currentSpaceData){
-
-    currentSpaceData.image = imgData;
-
-    localStorage.setItem(
-        "homecareSpaces",
-        JSON.stringify(spaces)
+    console.log(
+        "이미지 읽음:",
+        imgData.substring(0,50)
     );
 
-}
+    console.log(
+        "현재 저장 공간:",
+        currentSpace
+    );
+
+
+    let currentSpaceData = spaces.find(function(space){
+
+        return space.name === currentSpace;
+
+    });
+
+
+    if(currentSpaceData){
+
+        currentSpaceData.image = imgData;
+
+
+        console.log(
+            "저장 직전:",
+            currentSpaceData
+        );
+
+
+        localStorage.setItem(
+            "homecareSpaces",
+            JSON.stringify(spaces)
+        );
+
+    }
     const imgElement = document.getElementById("floorImage");
     const placeholder = document.getElementById("uploadPlaceholder");
 
@@ -1042,6 +1072,8 @@ if(currentSpaceData){
     imgElement.style.display = "block";
     imgElement.style.width = "100%";
     imgElement.style.height = "auto";
+
+    render();
 
 };
 
@@ -2200,9 +2232,16 @@ document
         JSON.stringify(spaces)
     );
 
-    currentSpace = name;
+   currentSpace = name;
 
-    renderSpaces();
+localStorage.setItem(
+    "currentSpace",
+    currentSpace
+);
+
+renderSpaces();
+
+loadSpace(currentSpace);
 
     document
     .getElementById("spacePopup")
