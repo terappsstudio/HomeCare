@@ -346,12 +346,12 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <h2>🛠️️ 설정</h2>
 
         <button id="floorManageBtn">
-    🖼️ 도면 관리
+    🏘️ 공간 관리
 </button>
 
-<button id="productManageBtn">
-    ⭐  공간 관리
-</button>
+   <!--<button id="productManageBtn">
+  //    ⭐  공간 관리[였지만 잠시 봉인]
+//</button>-->
 
 <button id="roomManageBtn">
     🐳 룸 설정
@@ -383,21 +383,83 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     </div>
 
-</div>
-
 </div>   <!-- settingPopup 끝 -->
 
+<!-- ===============================
+공간 관리 팝업
+=============================== 
+
+<div id="spaceManagePopup" class="popup hidden">
+
+    <div class="popupBox">
+
+        <h2>🏠 공간 관리</h2>
+
+        <div id="spaceManageList">
+
+        </div>
+
+        <button id="spaceManageCloseBtn">
+            닫기
+        </button>
+
+    </div>
+
+</div>-->>
+
+// ===============================
+// 공간 관리 목록 표시
+// ===============================
+
+function renderSpaceManageList(){
+
+    const list =
+    document.getElementById("spaceManageList");
+
+
+    list.innerHTML = "";
+
+
+    spaces.forEach(function(space,index){
+
+
+        let div =
+        document.createElement("div");
+
+
+        div.innerHTML = `
+
+            <span>
+                🏠 ${space.name}
+            </span>
+
+            <button>
+                수정
+            </button>
+
+        `;
+
+
+        list.appendChild(div);
+
+
+    });
+
+}
 
 <!-- ===============================
-     도면 관리 팝업
+     🏘️ 공간 관리 팝업
 =============================== -->
 
 <div id="floorManagePopup" class="popup hidden">
 
     <div class="popupBox">
 
-        <h2>🖼️ 도면 관리</h2>
+        <h2>🏘️ 공간 관리</h2>
 
+        <div id="spaceList">
+
+</div>
 
         <button id="changeFloorBtn">
             🖼️ 도면 변경
@@ -418,7 +480,7 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 </div>
 
-<!-- 제품 관리 팝업 -->
+<!-- 제품 관리 팝업 
 
 <div id="productPopup" class="popup hidden">
 
@@ -434,7 +496,7 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     </div>
 
-</div>
+</div>-->
 
 <!-- 공간 추가 팝업 -->
 

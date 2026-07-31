@@ -1223,10 +1223,12 @@ document.getElementById("productCloseBtn").onclick = function(){
 };
 
 // ===============================
-// 도면 관리 열기
+// 공간 관리 열기
 // ===============================
 
 document.getElementById("floorManageBtn").onclick = function(){
+
+    console.log("공간관리 버튼 클릭");
 
     document.getElementById("settingPopup")
     .classList.add("hidden");
@@ -1234,9 +1236,11 @@ document.getElementById("floorManageBtn").onclick = function(){
     document.getElementById("floorManagePopup")
     .classList.remove("hidden");
 
+    renderSpaces();
+
 };
 
-// 도면 관리 닫기
+// 공간 관리 닫기
 
 document.getElementById("floorManageCloseBtn").onclick = function(){
 
@@ -2343,6 +2347,14 @@ document
         return;
     }
 
+    if(selectedSpaceImage === ""){
+
+    alert("도면 이미지를 선택해주세요");
+
+    return;
+
+}
+
     spaces.push({
 
         name:name,
@@ -2387,6 +2399,14 @@ loadSpace(currentSpace);
     document
     .getElementById("spacePopup")
     .classList.add("hidden");
+
+selectedSpaceImage = "";
+
+document.getElementById("spaceImageInput").value = "";
+
+document.getElementById("spacePreview").src = "";
+
+document.getElementById("spacePreview").classList.add("hidden");
 
     alert(name + " 공간이 만들어졌습니다");
 
