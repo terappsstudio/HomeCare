@@ -1196,7 +1196,7 @@ document.getElementById("roomCloseBtn").onclick = function(){
     .classList.add("hidden");
 
 };
-
+/*
 // ===============================
 // 제품 관리 기능 (v3.1)
 // ===============================
@@ -1220,7 +1220,7 @@ document.getElementById("productCloseBtn").onclick = function(){
     document.getElementById("productPopup")
     .classList.add("hidden");
 
-};
+};*/
 
 // ===============================
 // 공간 관리 열기

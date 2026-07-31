@@ -405,47 +405,9 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     </div>
 
-</div>-->>
+</div>
+-->
 
-// ===============================
-// 공간 관리 목록 표시
-// ===============================
-
-function renderSpaceManageList(){
-
-    const list =
-    document.getElementById("spaceManageList");
-
-
-    list.innerHTML = "";
-
-
-    spaces.forEach(function(space,index){
-
-
-        let div =
-        document.createElement("div");
-
-
-        div.innerHTML = `
-
-            <span>
-                🏠 ${space.name}
-            </span>
-
-            <button>
-                수정
-            </button>
-
-        `;
-
-
-        list.appendChild(div);
-
-
-    });
-
-}
 
 <!-- ===============================
      🏘️ 공간 관리 팝업
