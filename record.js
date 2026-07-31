@@ -2223,6 +2223,111 @@ document
 };
 
 // ===============================
+// 새 공간 이미지 선택
+// ===============================
+
+let selectedSpaceImage = "";
+
+document
+.getElementById("spaceImageInput")
+.onchange = function(e){
+
+    const file = e.target.files[0];
+
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(){
+
+    const img = new Image();
+
+    img.onload = function(){
+
+        const canvas = document.createElement("canvas");
+
+        const maxSize = 1200;
+
+        let width = img.width;
+        let height = img.height;
+
+
+        if(width > height){
+
+            if(width > maxSize){
+
+                height =
+                height * (maxSize / width);
+
+                width = maxSize;
+
+            }
+
+        }else{
+
+            if(height > maxSize){
+
+                width =
+                width * (maxSize / height);
+
+                height = maxSize;
+
+            }
+
+        }
+
+
+        canvas.width = width;
+        canvas.height = height;
+
+
+        const ctx = canvas.getContext("2d");
+
+        ctx.drawImage(
+            img,
+            0,
+            0,
+            width,
+            height
+        );
+
+
+        selectedSpaceImage =
+        canvas.toDataURL(
+            "image/jpeg",
+            0.8
+        );
+
+
+        const preview =
+        document.getElementById("spacePreview");
+
+
+        preview.src = selectedSpaceImage;
+
+        preview.classList.remove("hidden");
+
+
+        console.log(
+            "압축 완료:",
+            Math.round(selectedSpaceImage.length / 1024),
+            "KB"
+        );
+
+        console.log(selectedSpaceImage.substring(0,50));
+
+    };
+
+
+    img.src = reader.result;
+
+};
+
+    reader.readAsDataURL(file);
+
+};
+
+// ===============================
 // 새 공간 저장
 // ===============================
 
@@ -2244,16 +2349,29 @@ document
 
         icon:"🏠",
 
-        image:"",
+        image:selectedSpaceImage,
 
         markers:[]
 
     });
 
+    try{
+
     localStorage.setItem(
         "homecareSpaces",
         JSON.stringify(spaces)
     );
+
+}
+catch(e){
+
+    alert(
+        "이미지 용량이 너무 커 저장할 수 없습니다.\n작은 이미지를 선택해주세요."
+    );
+
+    return;
+
+}
 
    currentSpace = name;
 
