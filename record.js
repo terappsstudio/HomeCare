@@ -64,13 +64,7 @@ function renderSpaces(){
 
     spaces.forEach(function(space){
 
-        let div =
-document.createElement("div");
-
-div.className = "spaceItem";
-
-
-let button =
+ let button =
 document.createElement("button");
 
 button.className="spaceButton";
@@ -99,14 +93,102 @@ button.innerText =
 
 };
 
-div.appendChild(button);
+        list.appendChild(button);
+
+    });
+
+}
+
+// ===============================
+// 공간 관리 목록 표시
+// ===============================
+
+function renderSpaceManageList(){
+
+    let list =
+    document.getElementById("spaceManageList");
+
+
+    if(!list){
+        return;
+    }
+
+
+    list.innerHTML="";
+
+
+    spaces.forEach(function(space){
+
+        let div =
+        document.createElement("div");
+
+// 공간 이름
+
+let name =
+document.createElement("button");
+
+name.className = "spaceButton";
+
+name.innerText =
+(space.icon || "🏠") + " " + space.name;
+
+
+name.onclick = function(){
+
+    openSpaceDetail(space);
+
+};
+
+// ===============================
+// 공간 상세 관리 열기
+// ===============================
+
+let selectedManageSpace = null;
+
+
+function openSpaceDetail(space){
+
+    selectedManageSpace = space;
+
+
+    document.getElementById("floorManagePopup")
+    .classList.add("hidden");
+
+
+    document.getElementById("spaceDetailPopup")
+    .classList.remove("hidden");
+
+
+    document.getElementById("spaceDetailTitle")
+    .innerText =
+    "🏠 " + space.name + " 관리";
+
+}
+
+// ===============================
+// 공간 상세 관리 닫기
+// ===============================
+
+document.getElementById("spaceDetailCloseBtn").onclick = function(){
+
+    document.getElementById("spaceDetailPopup")
+    .classList.add("hidden");
+
+
+    document.getElementById("floorManagePopup")
+    .classList.remove("hidden");
+
+};
+
+// 한 줄 묶기
+
+div.appendChild(name);
 
 list.appendChild(div);
 
     });
 
 }
-
 
 // ===============================
 // 공간 불러오기
@@ -623,6 +705,7 @@ function getRemainText(item){
     return "⚫ 교체 후 " + Math.abs(days) + "일";
 
 }
+
 // ===============================
 // 교체 예정 목록
 // ===============================
@@ -1092,7 +1175,6 @@ document.getElementById("settingBtn").onclick = function(){
 
 };
 
-
 // 닫기
 
 document.getElementById("settingCloseBtn").onclick = function(){
@@ -1101,16 +1183,7 @@ document.getElementById("settingCloseBtn").onclick = function(){
     .classList.add("hidden");
 
 };
-
-
-// 도면 변경
-
-document.getElementById("changeFloorBtn").onclick = function(){
-
-    document.getElementById("imageLoader").click();
-
-};
-
+/*
 // ===============================
 // 도면 삭제
 // ===============================
@@ -1158,7 +1231,7 @@ document.getElementById("deleteFloorBtn").onclick = function(){
     uploadPlaceholder.style.display = "block";
 
 
-};
+};*/
 
 // ===============================
 // 룸 관리 기능 (v2.6)
@@ -1196,6 +1269,8 @@ document.getElementById("roomCloseBtn").onclick = function(){
     .classList.add("hidden");
 
 };
+
+
 /*
 // ===============================
 // 제품 관리 기능 (v3.1)
@@ -1236,7 +1311,8 @@ document.getElementById("floorManageBtn").onclick = function(){
     document.getElementById("floorManagePopup")
     .classList.remove("hidden");
 
-    renderSpaces();
+       renderSpaceManageList();
+
 
 };
 
