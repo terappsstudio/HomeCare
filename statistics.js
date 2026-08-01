@@ -1,5 +1,78 @@
 console.log("HomeCare 통계 시작");
 
+// ===============================
+// 공간 데이터
+// ===============================
+
+const spaces = JSON.parse(
+    localStorage.getItem("homecareSpaces")
+) || [];
+
+
+let selectedStatisticsSpace = "전체";
+
+
+
+// ===============================
+// 통계 대상 데이터 가져오기
+// ===============================
+
+function getStatisticsItems(){
+
+    let allItems = [];
+
+
+    spaces.forEach(function(space){
+
+        console.log(
+            "공간 확인:",
+            space.name,
+            space.markers.length
+        );
+
+
+        space.markers.forEach(function(marker){
+
+            allItems.push({
+
+                ...marker,
+
+                space: space.name
+
+            });
+
+        });
+
+    });
+
+
+
+    console.log(
+        "전체 통계 데이터:",
+        allItems
+    );
+
+
+
+    // 전체 선택
+
+    if(selectedStatisticsSpace === "전체"){
+
+        return allItems;
+
+    }
+
+
+
+    // 선택 공간 필터
+
+    return allItems.filter(function(item){
+
+        return item.space === selectedStatisticsSpace;
+
+    });
+
+}
 
 // ===============================
 // 저장된 설치 데이터 가져오기
@@ -18,27 +91,211 @@ const installationHistory = JSON.parse(
 ) || [];
 
 // ===============================
-// 전체 설치 개수
+// 통계 화면 갱신
 // ===============================
 
-const totalCount = document.getElementById("totalCount");
+function updateStatistics(){
 
-if(totalCount){
 
-   totalCount.innerHTML =
-`
-<div class="statNumber">
-    ${items.length}
-</div>
+    const statisticsItems = getStatisticsItems();
 
-<div class="statUnit">
-    개
-</div>
 
-<p>
-현재 등록된 전체 제품
-</p>
-`;
+
+    // ===============================
+    // 전체 설치 개수
+    // ===============================
+
+    const totalCount = document.getElementById("totalCount");
+
+    if(totalCount){
+
+        totalCount.innerHTML =
+        `
+        <div class="statNumber">
+            ${statisticsItems.length}
+        </div>
+
+        <div class="statUnit">
+            개
+        </div>
+
+        <p>
+        현재 등록된 전체 제품
+        </p>
+        `;
+
+    }
+
+
+
+    // ===============================
+    // 제품별 통계
+    // ===============================
+
+    let productCount = {};
+
+
+    statisticsItems.forEach(item => {
+
+        let productName =
+        item.type || "미등록 제품";
+
+
+        if(!productCount[productName]){
+
+            productCount[productName] = 0;
+
+        }
+
+
+        productCount[productName]++;
+
+    });
+
+
+
+    let productHTML = "";
+
+
+    for(let product in productCount){
+
+        productHTML +=
+        `
+        <div>
+            ${product} : ${productCount[product]}개
+        </div>
+        `;
+
+    }
+
+
+    const productStats =
+    document.getElementById("productStats");
+
+
+    if(productStats){
+
+        productStats.innerHTML =
+        productHTML || "<p>등록된 제품이 없습니다.</p>";
+
+    }
+
+
+
+
+    // ===============================
+    // 장소별 통계
+    // ===============================
+
+    let locationCount = {};
+
+
+    statisticsItems.forEach(item => {
+
+        let place =
+        item.location || "미등록 장소";
+
+
+        if(!locationCount[place]){
+
+            locationCount[place] = 0;
+
+        }
+
+
+        locationCount[place]++;
+
+    });
+
+
+
+    let locationHTML = "";
+
+
+    for(let place in locationCount){
+
+        locationHTML +=
+        `
+        <div>
+            ${place} : ${locationCount[place]}개
+        </div>
+        `;
+
+    }
+
+
+
+    const locationStats =
+    document.getElementById("locationStats");
+
+
+    if(locationStats){
+
+        locationStats.innerHTML =
+        locationHTML || "<p>등록된 장소가 없습니다.</p>";
+
+    }
+
+
+
+
+    // ===============================
+    // 교체 예정 계산
+    // ===============================
+
+    let today = new Date();
+
+    let replaceCount = 0;
+
+
+    statisticsItems.forEach(item => {
+
+
+        if(!item.install || !item.cycle){
+
+            return;
+
+        }
+
+
+        let installDate =
+        new Date(item.install);
+
+
+        let replaceDate =
+        new Date(installDate);
+
+
+        replaceDate.setDate(
+            replaceDate.getDate() + Number(item.cycle)
+        );
+
+
+        if(replaceDate <= today){
+
+            replaceCount++;
+
+        }
+
+
+    });
+
+
+
+    const replaceStats =
+    document.getElementById("replaceStats");
+
+
+    if(replaceStats){
+
+        replaceStats.innerHTML =
+        `
+        <h2>${replaceCount}개</h2>
+        <p>교체 시기가 지난 제품</p>
+        `;
+
+    }
+
 
 }
 
@@ -49,7 +306,7 @@ if(totalCount){
 let productCount = {};
 
 
-items.forEach(item => {
+getStatisticsItems().forEach(item => {
 
     let productName = item.type || "미등록 제품";
 
@@ -107,7 +364,7 @@ if(productStats){
 let locationCount = {};
 
 
-items.forEach(item => {
+getStatisticsItems().forEach(item => {
 
     let place = item.location || "미등록 장소";
 
@@ -167,7 +424,7 @@ let today = new Date();
 let replaceCount = 0;
 
 
-items.forEach(item => {
+getStatisticsItems().forEach(item => {
 
 
     if(!item.install || !item.cycle){
@@ -261,6 +518,85 @@ if(historyBtn){
 }
 
 // ===============================
+// 통계 공간 선택 버튼
+// ===============================
+
+function renderStatisticsSpaces(){
+
+    const list =
+    document.getElementById("statisticsSpaceList");
+
+
+    if(!list){
+        return;
+    }
+
+
+    list.innerHTML = "";
+
+    let totalBtn =
+    document.createElement("button");
+
+    totalBtn.className = "spaceButton";
+
+    totalBtn.innerText = "🌍 전체";
+
+    totalBtn.onclick = function(){
+
+    selectedStatisticsSpace = "전체";
+
+    console.log(
+        "통계 선택:",
+        selectedStatisticsSpace
+    );
+
+    updateStatistics();
+
+};
+
+    list.appendChild(totalBtn);
+
+    spaces.forEach(function(space){
+
+        let button =
+        document.createElement("button");
+
+
+        button.className = "spaceButton";
+
+
+        button.innerText =
+        (space.icon || "🏠") + " " + space.name;
+
+
+        button.onclick = function(){
+
+            selectedStatisticsSpace =
+            space.name;
+
+
+            console.log(
+                "통계 선택:",
+                selectedStatisticsSpace
+            );
+
+
+    console.log(
+        getStatisticsItems()
+    );
+
+    updateStatistics();
+
+        };
+
+
+        list.appendChild(button);
+
+    });
+
+}
+
+// ===============================
 // HomeCare 3.1 빠른 이동
 // ===============================
 
@@ -335,3 +671,11 @@ topButton.addEventListener("click", function(){
     });
 
 });
+
+// ===============================
+// 통계 공간 버튼 실행
+// ===============================
+
+updateStatistics();
+
+renderStatisticsSpaces();

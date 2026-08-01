@@ -51,16 +51,15 @@ if(items.length > 0){
 
 function renderSpaces(){
 
+
     let list =
     document.getElementById("spaceList");
-
 
     if(!list){
         return;
     }
 
     list.innerHTML="";
-
 
     spaces.forEach(function(space){
 
@@ -139,6 +138,16 @@ name.onclick = function(){
 
 };
 
+div.appendChild(name);
+
+list.appendChild(div);
+
+
+    });
+
+
+}
+
 // ===============================
 // 공간 상세 관리 열기
 // ===============================
@@ -166,6 +175,232 @@ function openSpaceDetail(space){
 }
 
 // ===============================
+// 도면 변경 버튼
+// ===============================
+
+document.getElementById("spaceImageChangeBtn").onclick = function(){
+
+    if(!selectedManageSpace){
+        return;
+    }
+
+
+    document.getElementById("spaceImageChangeInput")
+    .click();
+
+};
+
+// ===============================
+// 도면 변경 이미지 선택
+// ===============================
+
+document.getElementById("spaceImageChangeInput").onchange = function(e){
+
+    let file = e.target.files[0];
+
+
+    if(!file){
+        return;
+    }
+
+
+    let reader = new FileReader();
+
+
+    reader.onload = function(event){
+
+        let imageData = event.target.result;
+
+
+        selectedManageSpace.image = imageData;
+
+
+        localStorage.setItem(
+            "homecareSpaces",
+            JSON.stringify(spaces)
+        );
+
+
+        alert("도면이 변경되었습니다.");
+
+
+        loadSpace(selectedManageSpace.name);
+
+
+        // 선택 초기화
+        e.target.value = "";
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+};
+
+// ===============================
+// 도면 삭제
+// ===============================
+
+document.getElementById("spaceImageDeleteBtn").onclick = function(){
+
+    if(!selectedManageSpace){
+        return;
+    }
+
+
+    if(!confirm("도면을 삭제할까요?\n(마커 위치는 유지됩니다.)")){
+        return;
+    }
+
+
+    selectedManageSpace.image = "";
+
+
+    localStorage.setItem(
+        "homecareSpaces",
+        JSON.stringify(spaces)
+    );
+
+
+    loadSpace(selectedManageSpace.name);
+
+
+    alert("도면이 삭제되었습니다.");
+
+};
+
+// ===============================
+// 공간 삭제
+// ===============================
+
+document.getElementById("spaceDeleteBtn").onclick = function(){
+
+    if(!selectedManageSpace){
+        return;
+    }
+    
+if(spaces.length <= 1){
+    alert("최소 1개의 공간은 있어야 합니다.");
+    return;
+}
+
+    let check = confirm(
+        "공간을 삭제하시겠습니까?\n\n" +
+        "도면과 이 공간의 모든 기록이 사라집니다."
+    );
+
+
+    if(!check){
+        return;
+    }
+
+
+    let index = spaces.indexOf(selectedManageSpace);
+
+
+    if(index !== -1){
+
+        spaces.splice(index,1);
+
+    }
+
+
+    localStorage.setItem(
+        "homecareSpaces",
+        JSON.stringify(spaces)
+    );
+
+
+    renderSpaces();
+
+    renderSpaceManageList();
+
+
+    document.getElementById("spaceDetailPopup")
+    .classList.add("hidden");
+
+
+    document.getElementById("floorManagePopup")
+    .classList.remove("hidden");
+
+
+    selectedManageSpace = null;
+
+
+    alert("공간이 삭제되었습니다.");
+
+};
+
+// ===============================
+// 공간 이름 변경
+// ===============================
+
+document.getElementById("spaceNameChangeBtn").onclick = function(){
+
+    console.log("이름 변경 버튼 클릭");
+
+
+    if(!selectedManageSpace){
+        return;
+    }
+
+
+    let oldName = selectedManageSpace.name;
+
+
+    let newName = prompt(
+        "새 공간 이름을 입력하세요",
+        oldName
+    );
+
+    console.log("입력 결과:", newName);
+
+
+    if(!newName){
+
+    document.getElementById("spaceDetailPopup")
+    .classList.add("hidden");
+
+    document.getElementById("floorManagePopup")
+    .classList.remove("hidden");
+
+    return;
+
+}
+    selectedManageSpace.name = newName;
+
+    console.log("변경 후 spaces:", spaces);
+
+    localStorage.setItem(
+        "homecareSpaces",
+        JSON.stringify(spaces)
+    );
+
+    renderSpaceManageList();
+
+    renderSpaces();
+
+    console.log("공간목록 다시 그림");
+
+    if(currentSpace === oldName){
+
+        currentSpace = newName;
+
+        localStorage.setItem(
+            "currentSpace",
+            currentSpace
+        );
+
+        loadSpace(newName);
+
+    }
+
+
+    alert("공간 이름이 변경되었습니다.");
+
+};
+
+// ===============================
 // 공간 상세 관리 닫기
 // ===============================
 
@@ -179,16 +414,6 @@ document.getElementById("spaceDetailCloseBtn").onclick = function(){
     .classList.remove("hidden");
 
 };
-
-// 한 줄 묶기
-
-div.appendChild(name);
-
-list.appendChild(div);
-
-    });
-
-}
 
 // ===============================
 // 공간 불러오기
