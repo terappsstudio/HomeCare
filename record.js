@@ -795,6 +795,8 @@ installationHistory.push({
 
     icon: item.icon,
 
+    space: currentSpace,
+
     location: item.location,
 
     detail: item.detail,

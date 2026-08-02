@@ -5,11 +5,16 @@ const items = JSON.parse(
     localStorage.getItem("installationHistory")
 ) || [];
 
+const markerSettings = JSON.parse(
+    localStorage.getItem("homecareMarkers")
+) || [];
+
 let html = `
 
 <table>
 
 <tr>
+<th>공간</th>
 <th>제품</th>
 <th>위치</th>
 <th>설치일</th>
@@ -22,6 +27,35 @@ let html = `
 
 items.forEach(item => {
 
+    let productMap = {
+
+    deodorizer: "🌿 방향제",
+    deodorizer2: "🧸 탈취제",
+    dehumidifier: "💧 제습제",
+    etc: "📦 기타"
+
+};
+
+let productName = productMap[item.type];
+
+
+// 커스텀 마커 이름 찾기
+
+if(!productName){
+
+    let customMarker =
+    markerSettings.find(function(marker){
+
+        return marker.type === item.type;
+
+    });
+
+    productName =
+    customMarker ?
+    customMarker.icon + " " + customMarker.name :
+    item.name || item.type || "미등록 제품";
+
+}
 
 let replaceDate = "";
 
@@ -43,7 +77,9 @@ html += `
 
 <tr>
 
-<td>${item.type || "-"}</td>
+<td>${item.space || "-"}</td>
+
+<td>${productName}</td>
 
 <td>
 ${item.location || "-"}
