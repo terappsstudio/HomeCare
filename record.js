@@ -789,6 +789,8 @@ if(space){
 
 installationHistory.push({
 
+    space: currentSpace,
+
     type: item.type,
 
     name: item.name,

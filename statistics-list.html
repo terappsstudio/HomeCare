@@ -34,12 +34,47 @@
 📋 설치 내역
 </div>
 
+<div class="historySearch">
+
+    <div class="searchBox">
+        🔎
+        <input
+        id="historySearchInput"
+        type="text"
+        placeholder="검색할 내용을 입력하세요">
+    </div>
+
+
+    <select id="historySpaceFilter">
+
+        <option value="전체">
+            🌍 전체 공간
+        </option>
+
+    </select>
+
+</div>
+
 <section id="historyTable">
 
 
 </section>
 
+<div id="historyDetailPopup" class="hidden">
 
+    <div class="popupBox">
+
+        <h2>📋 설치 기록 상세</h2>
+
+        <div id="historyDetailContent"></div>
+
+        <button id="historyDetailClose">
+            닫기
+        </button>
+
+    </div>
+
+</div>
 
 <button id="backBtn">
 ⬅ 뒤로가기
