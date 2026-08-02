@@ -8,6 +8,9 @@ const spaces = JSON.parse(
     localStorage.getItem("homecareSpaces")
 ) || [];
 
+const markerSettings = JSON.parse(
+    localStorage.getItem("homecareMarkers")
+) || [];
 
 let selectedStatisticsSpace = "전체";
 
@@ -126,63 +129,161 @@ function updateStatistics(){
 
     }
 
+// ===============================
+// 제품별 통계
+// ===============================
+
+let productCount = {};
 
 
-    // ===============================
-    // 제품별 통계
-    // ===============================
-
-    let productCount = {};
+statisticsItems.forEach(item => {
 
 
-    statisticsItems.forEach(item => {
+    let productMap = {
 
-        let productName =
+        deodorizer:"🌿 방향제",
+        deodorizer2:"🧸 탈취제",
+        dehumidifier:"💧 제습제",
+        etc:"📦 기타"
+
+    };
+
+
+    let productName =
+    productMap[item.type];
+
+
+    // 커스텀 마커 이름 찾기
+
+    if(!productName){
+
+        let customMarker =
+        markerSettings.find(function(marker){
+
+            return marker.type === item.type;
+
+        });
+
+
+        productName =
+        customMarker ?
+        customMarker.icon + " " + customMarker.name :
         item.type || "미등록 제품";
 
-
-        if(!productCount[productName]){
-
-            productCount[productName] = 0;
-
-        }
-
-
-        productCount[productName]++;
-
-    });
+    }
 
 
 
-    let productHTML = "";
+    if(!productCount[productName]){
+
+        productCount[productName] = 0;
+
+    }
 
 
-    for(let product in productCount){
+    productCount[productName]++;
 
-        productHTML +=
+
+});
+
+
+
+let productHTML = "";
+
+
+for(let product in productCount){
+
+    productHTML +=
+    `
+    <div>
+        ${product} : ${productCount[product]}개
+    </div>
+    `;
+
+}
+
+
+
+const productStats =
+document.getElementById("productStats");
+
+
+if(productStats){
+
+    productStats.innerHTML =
+    productHTML || "<p>등록된 제품이 없습니다.</p>";
+
+}
+
+// ===============================
+// 제품 그래프
+// ===============================
+
+const productChart =
+document.getElementById("productChart");
+
+if(productChart){
+
+    let chartHTML = "";
+
+
+    // 제품 개수 내림차순 정렬 후 TOP 5
+
+    let sortedProducts =
+    Object.entries(productCount)
+    .sort((a,b)=> b[1] - a[1])
+    .slice(0,5);
+
+
+
+    let values =
+    sortedProducts.map(item => item[1]);
+
+
+    let max =
+    values.length ? Math.max(...values) : 1;
+
+
+
+    for(let [product,count] of sortedProducts){
+
+
+        let percent =
+        (count / max) * 100;
+
+
+        chartHTML +=
         `
-        <div>
-            ${product} : ${productCount[product]}개
+        <div class="chartItem">
+
+            <div class="chartTop">
+
+                <span>${product}</span>
+
+                <span>${count}개</span>
+
+            </div>
+
+
+            <div class="chartBar">
+
+                <div
+                    class="chartFill"
+                    style="width:${percent}%"
+                ></div>
+
+            </div>
+
         </div>
         `;
 
     }
 
 
-    const productStats =
-    document.getElementById("productStats");
+    productChart.innerHTML =
+    chartHTML || "<p>그래프가 없습니다.</p>";
 
-
-    if(productStats){
-
-        productStats.innerHTML =
-        productHTML || "<p>등록된 제품이 없습니다.</p>";
-
-    }
-
-
-
-
+}
     // ===============================
     // 장소별 통계
     // ===============================
@@ -236,7 +337,75 @@ function updateStatistics(){
 
     }
 
+// ===============================
+// 장소별 그래프
+// ===============================
 
+const locationChart =
+document.getElementById("locationChart");
+
+
+if(locationChart){
+
+    let chartHTML = "";
+
+
+    let values =
+    Object.values(locationCount);
+
+
+    let max =
+    values.length ? Math.max(...values) : 1;
+
+
+
+    let sortedLocations =
+    Object.entries(locationCount)
+    .sort((a,b)=> b[1]-a[1])
+    .slice(0,5);
+
+
+
+    for(let [place,count] of sortedLocations){
+
+
+        let percent =
+        (count / max) * 100;
+
+
+        chartHTML +=
+        `
+        <div class="chartItem">
+
+            <div class="chartTop">
+
+                <span>${place}</span>
+
+                <span>${count}개</span>
+
+            </div>
+
+
+            <div class="chartBar">
+
+                <div
+                    class="chartFill"
+                    style="width:${percent}%"
+                ></div>
+
+            </div>
+
+        </div>
+        `;
+
+
+    }
+
+
+    locationChart.innerHTML =
+    chartHTML || "<p>그래프가 없습니다.</p>";
+
+}
 
 
     // ===============================
@@ -298,177 +467,6 @@ function updateStatistics(){
 
 
 }
-
-// ===============================
-// 제품별 통계
-// ===============================
-
-let productCount = {};
-
-
-getStatisticsItems().forEach(item => {
-
-    let productName = item.type || "미등록 제품";
-
-    if(!productCount[productName]){
-
-        productCount[productName] = 0;
-
-    }
-
-    productCount[productName]++;
-
-});
-
-
-
-let productHTML = "";
-
-
-if(Object.keys(productCount).length === 0){
-
-    productHTML = "<p>등록된 제품이 없습니다.</p>";
-
-}
-else{
-
-    for(let product in productCount){
-
-        productHTML +=
-        `
-        <div>
-            ${product} : ${productCount[product]}개
-        </div>
-        `;
-
-    }
-
-}
-
-
-
-const productStats = document.getElementById("productStats");
-
-if(productStats){
-
-    productStats.innerHTML = productHTML;
-
-}
-
-
-
-// ===============================
-// 장소별 통계
-// ===============================
-
-let locationCount = {};
-
-
-getStatisticsItems().forEach(item => {
-
-    let place = item.location || "미등록 장소";
-
-    if(!locationCount[place]){
-
-        locationCount[place] = 0;
-
-    }
-
-    locationCount[place]++;
-
-});
-
-
-
-let locationHTML = "";
-
-
-if(Object.keys(locationCount).length === 0){
-
-    locationHTML = "<p>등록된 장소가 없습니다.</p>";
-
-}
-else{
-
-    for(let place in locationCount){
-
-        locationHTML +=
-        `
-        <div>
-            ${place} : ${locationCount[place]}개
-        </div>
-        `;
-
-    }
-
-}
-
-
-
-const locationStats = document.getElementById("locationStats");
-
-if(locationStats){
-
-    locationStats.innerHTML = locationHTML;
-
-}
-
-
-
-// ===============================
-// 교체 예정 계산
-// ===============================
-
-let today = new Date();
-
-let replaceCount = 0;
-
-
-getStatisticsItems().forEach(item => {
-
-
-    if(!item.install || !item.cycle){
-
-        return;
-
-    }
-
-
-    let installDate = new Date(item.install);
-
-
-    let replaceDate = new Date(installDate);
-
-
-    replaceDate.setDate(
-        replaceDate.getDate() + Number(item.cycle)
-    );
-
-
-    if(replaceDate <= today){
-
-        replaceCount++;
-
-    }
-
-
-});
-
-
-
-const replaceStats = document.getElementById("replaceStats");
-
-
-if(replaceStats){
-
-    replaceStats.innerHTML =
-    `
-    <h2>${replaceCount}개</h2>
-    <p>교체 시기가 지난 제품</p>
-    `;
-
-}
-
 
 
 // ===============================
@@ -679,3 +677,4 @@ topButton.addEventListener("click", function(){
 updateStatistics();
 
 renderStatisticsSpaces();
+

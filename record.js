@@ -731,15 +731,41 @@ selectedY = (y / mapContent.offsetHeight) * 100;
 
 // 새 제품 저장
 document.getElementById("saveBtn").onclick = function() {
-    const item = {
-        type: document.getElementById("itemType").value,
-        location: document.getElementById("locationName").value,
-        detail: document.getElementById("detailLocation").value,
-        install: document.getElementById("installDate").value,
-        cycle: Number(document.getElementById("replaceDays").value),
-        x: selectedX,
-        y: selectedY
-    };
+    const selectedType =
+document.getElementById("itemType").value;
+
+console.log("선택한 제품:", selectedType);
+console.log("전체 마커:", markerSettings);
+
+const selectedMarker =
+markerSettings.find(function(marker){
+
+    return marker.type === selectedType;
+
+})|| {};
+
+
+const item = {
+
+    type: selectedType,
+
+    name: selectedMarker ? selectedMarker.name : selectedType,
+
+    icon: selectedMarker ? selectedMarker.icon : "",
+
+    location: document.getElementById("locationName").value,
+
+    detail: document.getElementById("detailLocation").value,
+
+    install: document.getElementById("installDate").value,
+
+    cycle: Number(document.getElementById("replaceDays").value),
+
+    x: selectedX,
+
+    y: selectedY
+
+};
 
     console.log(
     "등록 공간:",
@@ -761,14 +787,26 @@ if(space){
 
 }
 
-    installationHistory.push({
+installationHistory.push({
+
     type: item.type,
+
+    name: item.name,
+
+    icon: item.icon,
+
     location: item.location,
+
     detail: item.detail,
+
     install: item.install,
+
     cycle: item.cycle,
+
     x: item.x,
+
     y: item.y
+
 });
 
 localStorage.setItem(
