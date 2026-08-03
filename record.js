@@ -16,7 +16,13 @@ let spaces = JSON.parse(
     }
 ];
 
-let currentSpace = "우리집";
+console.log(
+    "초기 spaces:",
+    spaces
+);
+
+let currentSpace =
+localStorage.getItem("currentSpace") || "우리집";
 
 // 기존 items를 우리집 markers로 한번 이동
 if(items.length > 0){
@@ -52,14 +58,14 @@ if(items.length > 0){
 function renderSpaces(){
 
 
-    let list =
-    document.getElementById("spaceList");
+    let spaceList =
+document.getElementById("spaceList");
 
-    if(!list){
-        return;
+if(!spaceList){
+            return;
     }
 
-    list.innerHTML="";
+spaceList.innerHTML="";
 
     spaces.forEach(function(space){
 
@@ -92,7 +98,7 @@ button.innerText =
 
 };
 
-        list.appendChild(button);
+spaceList.appendChild(button);
 
     });
 
@@ -104,16 +110,16 @@ button.innerText =
 
 function renderSpaceManageList(){
 
-    let list =
-    document.getElementById("spaceManageList");
+    let manageList =
+document.getElementById("spaceManageList");
 
 
-    if(!list){
-        return;
-    }
+  if(!manageList){
+    return;
+}
 
 
-    list.innerHTML="";
+manageList.innerHTML="";
 
 
     spaces.forEach(function(space){
@@ -140,8 +146,7 @@ name.onclick = function(){
 
 div.appendChild(name);
 
-list.appendChild(div);
-
+manageList.appendChild(div);
 
     });
 
@@ -672,19 +677,73 @@ function today() {
 window.onload = function() {
 
     document.getElementById("installDate").value = today();
+    
+            loadRooms();
 
-    loadRooms();
+    loadProductSelect();
+
+    loadDueFilter();
+
+    loadRoomFilter();
+
+    removeExpiredItems();
+
+    console.log(
+    "loadSpace 호출 전",
+    currentSpace
+);
+
+    loadSpace(currentSpace);
+
+    console.log(
+    "loadSpace 호출 후"
+);
+
+    // 수정 모드 확인
+    editHistoryIndex =
+    Number(localStorage.getItem("editHistoryIndex"));
+
+    if(!isNaN(editHistoryIndex)){
+
+        editMode = true;
+
+        console.log(
+            "수정모드",
+            editHistoryIndex
+        );
+
+    }
+
+    if(editMode){
+
+    let editItem =
+    installationHistory[editHistoryIndex];
 
 
-loadProductSelect();
+    if(editItem){
 
-loadDueFilter();
+        console.log(
+            "수정 데이터:",
+            editItem
+        );
 
-loadRoomFilter();
 
-removeExpiredItems();
+        document.getElementById("installDate").value =
+        editItem.install || "";
 
-loadSpace(currentSpace);
+
+        document.getElementById("detailLocation").value =
+        editItem.detail || "";
+
+
+        document.getElementById("replaceDays").value =
+        editItem.cycle || "";
+
+
+    }
+
+}
+
 };
 
 // 도면 클릭 시 등록 팝업 열기
@@ -728,6 +787,9 @@ selectedY = (y / mapContent.offsetHeight) * 100;
 
     document.getElementById("popup").classList.remove("hidden");
 };
+
+let editMode = false;
+let editHistoryIndex = null;
 
 // 새 제품 저장
 document.getElementById("saveBtn").onclick = function() {
@@ -850,7 +912,7 @@ function save() {
 // 화면 그리기 (마커 및 리스트)
 function render() {
     const layer = document.getElementById("markerLayer");
-    const list = document.getElementById("itemList");
+const itemList = document.getElementById("itemList");
 const dueList = document.getElementById("dueList");
 
 let currentSpaceData = spaces.find(function(space){
@@ -868,7 +930,7 @@ if(dueList){
 }
 
     layer.innerHTML = "";
-    list.innerHTML = "";
+itemList.innerHTML = "";
 
 currentMarkers.forEach((item, index) => {
           let markerData = markerSettings.find(
@@ -923,7 +985,7 @@ ${item.detail ? `<p>📌 ${item.detail}</p>` : ""}
     <button class="editBtn" onclick="openEdit(${index})">수정</button>
 </div>
 `;
-        list.appendChild(div);
+itemList.appendChild(div);
     });
 
     countSummary();
@@ -1619,10 +1681,9 @@ document.getElementById("markerCloseBtn").onclick = function(){
 // 방 목록 표시
 function renderRooms(){
 
-    const list = document.getElementById("roomList");
+const roomList = document.getElementById("roomList");
 
-    list.innerHTML = "";
-
+roomList.innerHTML = "";
 
     userRooms.forEach(function(room,index){
 

@@ -53,6 +53,26 @@
 
     </select>
 
+    <select id="historySort">
+
+    <option value="latest">
+        📅 최신 설치순
+    </option>
+
+    <option value="oldest">
+        📆 오래된 설치순
+    </option>
+
+    <option value="replace">
+        ⏰ 교체 임박순
+    </option>
+
+    <option value="product">
+        📦 제품명순
+    </option>
+
+</select>
+
 </div>
 
 <section id="historyTable">
@@ -66,11 +86,26 @@
 
         <h2>📋 설치 기록 상세</h2>
 
-        <div id="historyDetailContent"></div>
+       <div id="historyDetailContent"></div>
 
-        <button id="historyDetailClose">
-            닫기
-        </button>
+
+<div class="historyDetailButtons">
+
+    <button id="historyEditBtn">
+        ✏️ 수정
+    </button>
+
+
+    <button id="historyDeleteBtn">
+        🗑 삭제
+    </button>
+
+
+    <button id="historyDetailClose">
+        닫기
+    </button>
+
+</div>
 
     </div>
 

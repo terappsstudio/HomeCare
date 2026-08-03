@@ -14,6 +14,8 @@ let filteredItems = [...items];
 
 let selectedHistorySpace = "전체";
 
+let selectedHistoryIndex = null;
+
 items.sort(function(a,b){
 
     return new Date(b.install) - new Date(a.install);
@@ -46,39 +48,31 @@ function renderHistorySpaceFilter(){
         localStorage.getItem("homecareSpaces")
     ) || [];
 
+spaces.forEach(function(space){
 
+    let option =
+    document.createElement("option");
 
-    spaces.forEach(function(space){
+    option.value =
+    space.name;
 
+    option.innerText =
+    (space.icon || "🏠")
+    + " "
+    + space.name;
 
-        let option =
-        document.createElement("option");
+    filter.appendChild(option);
 
+});
 
-        option.value =
-        space.name;
-
-
-        option.innerText =
-        (space.icon || "🏠")
-        + " "
-        + space.name;
-
-
-        filter.appendChild(option);
-
-filter.onchange=function(){
+filter.onchange = function(){
 
     selectedHistorySpace =
     this.value;
 
-
     applyHistoryFilter();
 
 };
-
-    });
-
 
 }
 
@@ -141,6 +135,77 @@ function applyHistoryFilter(){
 
 
     });
+
+
+
+    // ===============================
+    // 정렬
+    // ===============================
+
+    const sortType =
+    document.getElementById("historySort")?.value || "latest";
+
+
+
+    if(sortType === "latest"){
+
+        filteredItems.sort(function(a,b){
+
+            return new Date(b.install) - new Date(a.install);
+
+        });
+
+    }
+
+
+    else if(sortType === "oldest"){
+
+        filteredItems.sort(function(a,b){
+
+            return new Date(a.install) - new Date(b.install);
+
+        });
+
+    }
+
+
+    else if(sortType === "replace"){
+
+        filteredItems.sort(function(a,b){
+
+            let dateA = new Date(a.install);
+
+            dateA.setDate(
+                dateA.getDate() + Number(a.cycle || 0)
+            );
+
+
+            let dateB = new Date(b.install);
+
+            dateB.setDate(
+                dateB.getDate() + Number(b.cycle || 0)
+            );
+
+
+            return dateA - dateB;
+
+        });
+
+    }
+
+
+    else if(sortType === "product"){
+
+        filteredItems.sort(function(a,b){
+
+            return getProductName(a)
+            .localeCompare(
+                getProductName(b)
+            );
+
+        });
+
+    }
 
 
 
@@ -303,10 +368,6 @@ bindHistoryClick();
 
 }
 
-
-
-
-
 // ===============================
 // 상세 팝업 연결
 // ===============================
@@ -328,9 +389,15 @@ row.onclick=function(){
 let index =
 this.dataset.index;
 
+selectedHistoryIndex = Number(index);
 
 let item =
 items[index];
+
+
+// 선택한 기록 저장
+
+selectedHistory = index;
 
 
 
@@ -418,6 +485,69 @@ document.getElementById(
 
 
 
+// ===============================
+// 삭제 버튼
+// ===============================
+
+const historyDeleteBtn =
+document.getElementById("historyDeleteBtn");
+
+
+if(historyDeleteBtn){
+
+
+historyDeleteBtn.onclick=function(){
+
+
+if(selectedHistory === null){
+
+    return;
+
+}
+
+
+
+if(confirm("이 설치 기록을 삭제할까요?")){
+
+
+    items.splice(
+        selectedHistory,
+        1
+    );
+
+
+
+    localStorage.setItem(
+        "installationHistory",
+        JSON.stringify(items)
+    );
+
+
+
+    filteredItems = [...items];
+
+
+
+    document.getElementById(
+    "historyDetailPopup"
+    ).classList.add("hidden");
+
+
+
+    renderHistory();
+
+
+
+    selectedHistory = null;
+
+
+}
+
+
+};
+
+
+}
 
 
 // ===============================
@@ -437,9 +567,6 @@ historySearchInput.addEventListener(
 function(){
 
 
-let keyword =
-this.value.toLowerCase();
-
 applyHistoryFilter();
 
 
@@ -449,6 +576,9 @@ applyHistoryFilter();
 
 
 }
+
+
+
 
 // ===============================
 // 팝업 닫기
@@ -476,6 +606,7 @@ document.getElementById(
 
 
 }
+
 
 
 
@@ -515,7 +646,25 @@ location.href="statistics.html";
 
 }
 
+const historyEditBtn =
+document.getElementById("historyEditBtn");
 
+
+if(historyEditBtn){
+
+    historyEditBtn.onclick = function(){
+
+        localStorage.setItem(
+            "editHistoryIndex",
+            selectedHistoryIndex
+        );
+
+
+        location.href = "record.html";
+
+    };
+
+}
 
 // ===============================
 // 시작
@@ -523,4 +672,26 @@ location.href="statistics.html";
 
 renderHistorySpaceFilter();
 
-renderHistory();
+
+
+// ===============================
+// 정렬 변경
+// ===============================
+
+const historySort =
+document.getElementById("historySort");
+
+
+if(historySort){
+
+    historySort.onchange = function(){
+
+        applyHistoryFilter();
+
+    };
+
+}
+
+
+
+applyHistoryFilter();
