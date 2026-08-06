@@ -858,6 +858,28 @@ const item = {
 
 };
 
+// ===============================
+// 제품별 마지막 설정 저장
+// ===============================
+
+const productDefaults =
+    JSON.parse(
+        localStorage.getItem("homecareProductDefaults") || "{}"
+    );
+
+productDefaults[selectedType] = {
+
+    location: item.location,
+
+    cycle: item.cycle
+
+};
+
+localStorage.setItem(
+    "homecareProductDefaults",
+    JSON.stringify(productDefaults)
+);
+
     console.log(
     "등록 공간:",
     currentSpace
@@ -2097,6 +2119,7 @@ if(homeBtn){
     };
 
 }
+
 // ===============================
 // 두 손가락 핀치 확대 (v3.1 정리)
 // ===============================
@@ -2204,6 +2227,110 @@ function loadProductSelect(){
     });
 
 }
+
+
+// ===============================
+// 제품 선택 목록 생성 (v3.0)
+// ===============================
+
+function loadProductSelect(){
+
+    const select = document.getElementById("itemType");
+
+    if(!select) return;
+
+    select.innerHTML = "";
+
+    markerSettings.forEach(function(marker){
+
+        const option = document.createElement("option");
+
+        option.value = marker.type;
+
+        option.textContent =
+            marker.icon + " " + marker.name;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+// ===============================
+// 제품별 마지막 설정 불러오기
+// ===============================
+
+function loadProductDefaults(){
+
+    const select =
+        document.getElementById("itemType");
+
+    if(!select) return;
+
+
+    const selectedType =
+        select.value;
+
+
+    const saved =
+        JSON.parse(
+            localStorage.getItem("homecareProductDefaults") || "{}"
+        );
+
+
+    const data =
+        saved[selectedType];
+
+
+    if(!data) return;
+
+
+    // 마지막 위치 불러오기
+    const location =
+        document.getElementById("locationName");
+
+    if(location && data.location){
+
+        location.value =
+            data.location;
+
+    }
+
+
+    // 마지막 교체주기 불러오기
+    const replaceDays =
+        document.getElementById("replaceDays");
+
+    if(replaceDays && data.cycle){
+
+        replaceDays.value =
+            data.cycle;
+
+    }
+    // 상세 위치는 항상 새로 입력
+const detailLocation =
+    document.getElementById("detailLocation");
+
+if(detailLocation){
+
+    detailLocation.value = "";
+
+}
+
+}
+
+// ===============================
+// 제품 선택 변경
+// ===============================
+
+document.getElementById("itemType").addEventListener(
+    "change",
+    function(){
+
+        loadProductDefaults();
+
+    }
+);
 
 // ===============================
 // 마커 목록 표시 (v3.0)

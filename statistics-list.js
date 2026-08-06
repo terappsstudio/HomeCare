@@ -577,9 +577,6 @@ applyHistoryFilter();
 
 }
 
-
-
-
 // ===============================
 // 팝업 닫기
 // ===============================
@@ -588,7 +585,6 @@ const closeBtn =
 document.getElementById(
 "historyDetailClose"
 );
-
 
 
 if(closeBtn){
@@ -601,15 +597,9 @@ document.getElementById(
 "historyDetailPopup"
 ).classList.add("hidden");
 
-
 };
 
-
 }
-
-
-
-
 
 // ===============================
 // 버튼 이동
@@ -629,8 +619,6 @@ location.href="index.html";
 };
 
 }
-
-
 
 const backBtn =
 document.getElementById("backBtn");
@@ -693,5 +681,42 @@ if(historySort){
 }
 
 
-
 applyHistoryFilter();
+
+// ===============================
+// 설치내역 맨 위로 이동
+// ===============================
+
+const historyTopButton =
+document.getElementById("historyTopButton");
+
+
+historyTopButton.onclick = function(){
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+};
+
+// ===============================
+// 스크롤 시 맨 위로 버튼 표시
+// ===============================
+
+window.addEventListener("scroll", function(){
+
+    if(window.scrollY > 0){
+
+        historyTopButton.classList.add("show");
+
+    }else{
+
+        historyTopButton.classList.remove("show");
+
+    }
+
+});

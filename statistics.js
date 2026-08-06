@@ -668,30 +668,25 @@ quickCards.forEach(card => {
     });
 
 });
-
-
 // ===============================
 // 맨 위 버튼
 // ===============================
 
-const topButton = document.getElementById("topButton");
+const topButton =
+document.getElementById("topButton");
 
 
 window.addEventListener("scroll", function(){
 
-    if(window.scrollY > 300){
+    if(window.scrollY > 0){
 
-        topButton.style.display = "flex";
-
-        topButton.style.alignItems = "center";
-
-        topButton.style.justifyContent = "center";
+        topButton.classList.add("show");
 
     }
 
     else{
 
-        topButton.style.display = "none";
+        topButton.classList.remove("show");
 
     }
 
@@ -717,4 +712,3 @@ topButton.addEventListener("click", function(){
 updateStatistics();
 
 renderStatisticsSpaces();
-

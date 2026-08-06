@@ -116,3 +116,46 @@ th{
     border-bottom:none;
 
 }
+
+/* ===============================
+   설치내역 맨 위로 버튼
+=============================== */
+
+#historyTopButton{
+
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    width:45px;
+    height:45px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#2E8B57;
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    z-index:9999;
+
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+}
+#historyTopButton.show{
+
+    opacity:1;
+    visibility:visible;
+
+}

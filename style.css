@@ -1567,49 +1567,6 @@ align-items:center;
 
 }
 
-
-
-/* ===================================================
-   TOP BUTTON
-=================================================== */
-
-
-#topButton{
-
-    position:fixed;
-
-    right:20px;
-
-    bottom:20px;
-
-    width:55px;
-
-    height:55px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#2E8B57;
-
-    color:white;
-
-    font-size:22px;
-
-    display:none;
-
-    cursor:pointer;
-
-    box-shadow:
-
-    0 4px 10px rgba(0,0,0,.25);
-
-    z-index:999;
-
-}
-
-
-
 /* ===================================================
    DESKTOP WIDTH
 =================================================== */
@@ -1624,8 +1581,6 @@ align-items:center;
     }
 
 }
-
-
 
 /* ===================================================
    CURRENT SPACE
@@ -1770,37 +1725,48 @@ padding:0;
 
 /* 맨 위 이동 버튼 */
 
-#topButton{
+#historyTopButton{
 
     position:fixed;
 
     right:20px;
-
     bottom:20px;
 
-    width:55px;
-
-    height:55px;
-
-    border-radius:50%;
+    width:45px;
+    height:45px;
 
     border:none;
+    border-radius:50%;
 
     background:#2E8B57;
-
     color:white;
 
-    font-size:28px;
+    font-size:22px;
 
-    display:none;
-
-    align-items:center;
-
-    justify-content:center;
+    cursor:pointer;
 
     z-index:9999;
 
-    box-shadow:0 3px 10px rgba(0,0,0,0.25);
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);
+
+    opacity:0;
+    visibility:hidden;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+}
+
+#historyTopButton.show{
+
+    opacity:1;
+    visibility:visible;
 
 }
 
@@ -1988,3 +1954,5 @@ padding:0;
     margin:10px 0;
 
 }
+
+
