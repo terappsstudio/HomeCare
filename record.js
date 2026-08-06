@@ -57,48 +57,44 @@ if(items.length > 0){
 
 function renderSpaces(){
 
+    let list =
+    document.getElementById("spaceList");
 
-    let spaceList =
-document.getElementById("spaceList");
-
-if(!spaceList){
-            return;
+    if(!list){
+        return;
     }
 
-spaceList.innerHTML="";
+    list.innerHTML = "";
 
     spaces.forEach(function(space){
 
- let button =
-document.createElement("button");
+        let button =
+        document.createElement("button");
 
-button.className="spaceButton";
+        button.className = "spaceButton";
 
+        button.innerText =
+        (space.icon || "🏠") + " " + space.name;
 
-button.innerText =
-(space.icon || "🏠") + " " + space.name;
+        button.onclick = function(){
 
-    button.onclick=function(){
+            currentSpace = space.name;
 
-    currentSpace = space.name;
+            localStorage.setItem(
+                "currentSpace",
+                currentSpace
+            );
 
-    localStorage.setItem(
-        "currentSpace",
-        currentSpace
-    );
+            console.log(
+                "현재 공간:",
+                currentSpace
+            );
 
+            loadSpace(currentSpace);
 
-    console.log(
-        "현재 공간:",
-        currentSpace
-    );
+        };
 
-
-    loadSpace(currentSpace);
-
-};
-
-spaceList.appendChild(button);
+        list.appendChild(button);
 
     });
 
@@ -497,7 +493,13 @@ floorImage.removeAttribute("src");
     uploadPlaceholder.style.display
 );
 
-    render();
+        render();
+
+    console.log(
+        "loadSpace 최종 floorImage:",
+        document.getElementById("floorImage").src
+    );
+
 
 }
 
@@ -677,8 +679,8 @@ function today() {
 window.onload = function() {
 
     document.getElementById("installDate").value = today();
-    
-            loadRooms();
+
+    loadRooms();
 
     loadProductSelect();
 
@@ -688,33 +690,26 @@ window.onload = function() {
 
     removeExpiredItems();
 
+// ===============================
+// 수정 모드 확인
+// ===============================
+
+editHistoryIndex =
+Number(localStorage.getItem("editHistoryIndex"));
+
+if(!isNaN(editHistoryIndex)){
+
+    editMode = true;
+
     console.log(
-    "loadSpace 호출 전",
-    currentSpace
-);
+        "수정모드",
+        editHistoryIndex
+    );
 
-    loadSpace(currentSpace);
+}
 
-    console.log(
-    "loadSpace 호출 후"
-);
 
-    // 수정 모드 확인
-    editHistoryIndex =
-    Number(localStorage.getItem("editHistoryIndex"));
-
-    if(!isNaN(editHistoryIndex)){
-
-        editMode = true;
-
-        console.log(
-            "수정모드",
-            editHistoryIndex
-        );
-
-    }
-
-    if(editMode){
+if(editMode){
 
     let editItem =
     installationHistory[editHistoryIndex];
@@ -726,7 +721,30 @@ window.onload = function() {
             "수정 데이터:",
             editItem
         );
+// ===============================
+// 수정할 공간으로 이동
+// ===============================
 
+if(editItem.space){
+
+    currentSpace =
+    editItem.space;
+
+    localStorage.setItem(
+        "currentSpace",
+        currentSpace
+    );
+
+    console.log(
+        "수정할 공간으로 이동:",
+        currentSpace
+    );
+
+}
+
+        // ===============================
+        // 수정 데이터 불러오기
+        // ===============================
 
         document.getElementById("installDate").value =
         editItem.install || "";
@@ -739,12 +757,23 @@ window.onload = function() {
         document.getElementById("replaceDays").value =
         editItem.cycle || "";
 
-
     }
 
 }
 
+// ===============================
+// 현재 공간 불러오기
+// ===============================
+
+console.log(
+    "최종 수정 공간:",
+    currentSpace
+);
+
+loadSpace(currentSpace);
+
 };
+
 
 // 도면 클릭 시 등록 팝업 열기
 document.getElementById("mapContainer").onclick = function(e) {

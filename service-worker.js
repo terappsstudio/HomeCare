@@ -1,14 +1,19 @@
-const CACHE_NAME = "homecare-v3.1";
+const CACHE_NAME = "homecare-v3.2";
 
 const FILES_TO_CACHE = [
     "./",
-  "./index.html",
+    "./index.html",
     "./style.css",
-        "./main.js",
+    "./main.js",
     "./record.html",
     "./record.js",
     "./manifest.json"
 ];
+
+
+// ===============================
+// 설치
+// ===============================
 
 self.addEventListener("install", event => {
 
@@ -23,24 +28,14 @@ self.addEventListener("install", event => {
 
     );
 
-});
-
-
-self.addEventListener("fetch", event => {
-
-    event.respondWith(
-
-        caches.match(event.request)
-        .then(response => {
-
-            return response || fetch(event.request);
-
-        })
-
-    );
+    self.skipWaiting();
 
 });
 
+
+// ===============================
+// 활성화
+// ===============================
 
 self.addEventListener("activate", event => {
 
@@ -61,6 +56,30 @@ self.addEventListener("activate", event => {
                 })
 
             );
+
+        }).then(() => {
+
+            return self.clients.claim();
+
+        })
+
+    );
+
+});
+
+
+// ===============================
+// 파일 불러오기
+// ===============================
+
+self.addEventListener("fetch", event => {
+
+    event.respondWith(
+
+        caches.match(event.request)
+        .then(response => {
+
+            return response || fetch(event.request);
 
         })
 
