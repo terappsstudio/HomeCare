@@ -808,13 +808,25 @@ y = y / mapScale;
 selectedX = (x / mapContent.offsetWidth) * 100;
 selectedY = (y / mapContent.offsetHeight) * 100;
 
-    // 첫 번째 방 자동 선택 상태로 초기화 (에러 방지)
-    const select = document.getElementById("locationName");
-    if (select.options.length > 0) {
-        select.selectedIndex = 0;
-    }
+// 첫 번째 방 자동 선택 상태로 초기화 (에러 방지)
+const select = document.getElementById("locationName");
 
-    document.getElementById("popup").classList.remove("hidden");
+if (select.options.length > 0) {
+    select.selectedIndex = 0;
+}
+
+
+// 상세위치 초기화
+const detailLocation =
+    document.getElementById("detailLocation");
+
+if(detailLocation){
+    detailLocation.value = "";
+}
+
+// 등록 팝업 열기
+document.getElementById("popup").classList.remove("hidden");
+
 };
 
 let editMode = false;
@@ -1006,19 +1018,17 @@ let markerName = markerData ? markerData.name : "기타";
         marker.style.touchAction = "none";
 
         // 클릭 시 수정 팝업 오픈
-       marker.onclick = function(e) {
+      marker.addEventListener("pointerup", function(e){
 
-    e.stopPropagation();
+    if(!isDragging){
 
-    setTimeout(function(){
+        e.stopPropagation();
 
-        if(!isDragging){
-            openEdit(index);
-        }
+        openEdit(index);
 
-    },30);
+    }
 
-};
+});
 
         layer.appendChild(marker);
 
@@ -1174,6 +1184,8 @@ if(filter !== "all"){
 // 수정 팝업 열기
 function openEdit(index) {
 
+        console.log("openEdit 실행:", index);
+
     editIndex = index;
 
 
@@ -1193,8 +1205,14 @@ function openEdit(index) {
     loadEditRooms();
 
     document.getElementById("editLocation").value = item.location;
+    document.getElementById("editDetailLocation").value =
+    item.detail || "";
     document.getElementById("editInstall").value = item.install;
     document.getElementById("editCycle").value = item.cycle;
+
+    console.log("수정할 마커:", item);
+console.log("상세위치:", item.detail);
+
 
     document.getElementById("editPopup")
     .classList.remove("hidden");
@@ -1214,10 +1232,20 @@ document.getElementById("editSaveBtn").onclick = function() {
 
     let item = currentSpaceData.markers[editIndex];
 
-    item.type = document.getElementById("editType").value;
-    item.location = document.getElementById("editLocation").value;
-    item.install = document.getElementById("editInstall").value;
-    item.cycle = Number(document.getElementById("editCycle").value);
+    item.type =
+    document.getElementById("editType").value;
+
+item.location =
+    document.getElementById("editLocation").value;
+
+item.detail =
+    document.getElementById("editDetailLocation").value;
+
+item.install =
+    document.getElementById("editInstall").value;
+
+item.cycle =
+    Number(document.getElementById("editCycle").value);
 
   localStorage.setItem(
     "homecareSpaces",
@@ -1306,7 +1334,7 @@ function countSummary() {
 
 function startDrag(e) {
 
-    if (!e.target.classList.contains("marker")) return;
+if (!e.target.closest(".marker")) return;
 
    // 확대 중이거나 두 손가락 터치 가능 상태에서는 마커 드래그 금지
 if(
@@ -1322,7 +1350,7 @@ if(e.pointerType === "touch"){
 
 
 // 마커 선택
-dragMarker = e.target;
+dragMarker = e.target.closest(".marker");
 
     isDragging = false;
 
