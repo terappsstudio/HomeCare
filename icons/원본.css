@@ -1,0 +1,1958 @@
+/* ===================================================
+   HomeCare v3.1 Stable
+=================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"맑은 고딕",sans-serif;
+}
+
+body{
+    background:#eef2f5;
+    color:#333;
+}
+
+
+/* ===================================================
+   APP
+=================================================== */
+
+#appContainer{
+    max-width:1600px;
+    margin:auto;
+}
+
+
+/* ===================================================
+   HEADER
+=================================================== */
+
+header{
+
+    height:60px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 18px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:5000;
+
+}
+
+
+.logo{
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    font-family:
+    "Arial Rounded MT Bold",
+    "나눔스퀘어라운드",
+    "맑은 고딕",
+    sans-serif;
+
+    cursor:pointer;
+
+}
+
+
+.page-title{
+
+    font-size:29px;
+
+    font-weight:bold;
+
+    margin:10px 20px 12px;
+
+    color:#555;
+
+}
+
+
+#settingBtn{
+
+    border:none;
+
+    background:none;
+
+    color:white;
+
+    font-size:32px;
+
+    cursor:pointer;
+
+    width:50px;
+
+    height:50px;
+
+}
+
+
+
+/* ===================================================
+   SUMMARY
+=================================================== */
+
+#summary{
+
+    display:flex;
+
+    gap:12px;
+
+    padding:12px;
+
+}
+
+
+.summaryCard{
+
+    flex:1;
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:16px;
+
+    box-shadow:
+    0 3px 10px rgba(0,0,0,.08);
+
+}
+
+
+.summaryCard .title{
+
+    display:block;
+
+    color:#666;
+
+    margin-bottom:8px;
+
+}
+
+
+.summaryCard span:last-child{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+
+
+/* ===================================================
+   LAYOUT
+=================================================== */
+
+#mainContainer{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+#leftArea,
+#rightArea{
+
+    width:100%;
+
+}
+
+
+
+/* ===================================================
+   TOOLBAR
+=================================================== */
+
+#toolbar{
+
+    padding:12px;
+
+}
+
+
+#addBtn{
+
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+}
+
+
+#addBtn:hover{
+
+    opacity:.9;
+
+}
+
+
+
+/* ===================================================
+   MAP
+=================================================== */
+
+#mapSection{
+
+    padding:12px;
+
+}
+
+
+#mapContainer{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:white;
+
+    border-radius:16px;
+
+    box-shadow:
+    0 4px 12px rgba(0,0,0,.12);
+
+    margin-bottom:20px;
+
+    touch-action:pan-y;
+
+}
+
+
+#mapContent{
+    position:relative;
+    width:100%;
+    height:auto;
+    transform-origin:0 0;
+    transition:transform .2s ease;
+}
+
+
+#uploadPlaceholder{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    width:100%;
+
+    min-height:300px;
+
+}
+
+
+.uploadBtn{
+
+    padding:14px 26px;
+
+    border-radius:10px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    user-select:none;
+
+}
+
+
+.uploadBtn:hover{
+
+    opacity:.9;
+
+}
+
+#floorImage{
+
+    width:100%;
+
+    max-height:700px;
+
+    object-fit:contain;
+
+    display:block;
+
+    height:auto;
+
+    user-select:none;
+
+    pointer-events:none;
+
+}
+
+#markerLayer{
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:100%;
+
+}
+
+
+
+/* ===================================================
+   MARKER
+=================================================== */
+
+.marker{
+
+    position:absolute;
+
+    width:30px;
+
+    height:30px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:transparent;
+
+    border:none;
+
+    box-shadow:none;
+
+    font-size:24px;
+
+    transform:translate(-50%,-50%);
+
+    transition:.2s;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    touch-action:none;
+
+}
+
+
+.marker:hover{
+
+    transform:
+    translate(-50%,-50%)
+    scale(1.2);
+
+}
+
+
+.marker.normal,
+.marker.warning,
+.marker.expired{
+
+    background:transparent !important;
+
+    border:none !important;
+
+}
+
+/* ===================================================
+   LIST
+=================================================== */
+
+#listSection{
+
+    padding:12px;
+
+}
+
+
+#listSection h2{
+
+    margin-bottom:12px;
+
+}
+
+
+.card{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    margin-bottom:12px;
+
+    box-shadow:
+    0 3px 10px rgba(0,0,0,.08);
+
+}
+
+
+.card h3{
+
+    margin-top:0;
+
+    margin-bottom:10px;
+
+    font-size:18px;
+
+}
+
+
+.card p{
+
+    margin:6px 0;
+
+}
+
+
+.cardButtons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:14px;
+
+}
+
+
+.cardButtons button{
+
+    flex:1;
+
+    height:40px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+.editBtn{
+
+    background:#2E8B57;
+
+    color:white;
+
+}
+
+
+.deleteBtn{
+
+    background:#d9534f;
+
+    color:white;
+
+}
+
+
+
+/* ===================================================
+   POPUP
+=================================================== */
+
+.popup{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:9999;
+
+}
+
+
+.popup.hidden{
+
+    display:none !important;
+
+}
+
+
+.popupBox{
+
+    width:92%;
+
+    max-width:430px;
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.18);
+
+}
+
+
+.popupBox h2{
+
+    margin-bottom:20px;
+
+}
+
+
+.popupBox label{
+
+    display:block;
+
+    margin-bottom:15px;
+
+}
+
+
+.popupBox input,
+.popupBox select{
+
+    width:100%;
+
+    height:44px;
+
+    margin-top:6px;
+
+    padding:8px 12px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+}
+
+
+.popupButtons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+
+.popupButtons button{
+
+    flex:1;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+#saveBtn,
+#editSaveBtn{
+
+    background:#2E8B57;
+
+    color:white;
+
+}
+
+
+#deleteBtn{
+
+    background:#d9534f;
+
+}
+
+
+#cancelBtn,
+#editCancelBtn{
+
+    background:#ddd;
+
+    color:#333;
+
+}
+
+
+
+/* ===================================================
+   SETTINGS
+=================================================== */
+
+.developer{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    color:#666;
+
+    font-size:14px;
+
+    line-height:1.8;
+
+}
+
+
+#settingPopup .popupBox{
+
+    max-width:500px;
+
+    padding:20px;
+
+}
+
+
+#settingPopup h2{
+
+    font-size:30px;
+
+    margin-bottom:15px;
+
+    text-align:center;
+
+}
+
+
+#settingPopup button{
+
+    width:100%;
+
+    height:55px;
+
+    margin-bottom:12px;
+
+    font-size:19px;
+
+    font-weight:bold;
+
+}
+
+
+#settingPopup .developer{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    font-size:11px;
+
+    line-height:1.8;
+
+    color:#666;
+
+}
+
+
+
+/* ===================================================
+   ROOM MANAGER
+=================================================== */
+
+#roomList{
+
+    margin-bottom:15px;
+
+}
+
+
+#roomList div{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    margin-bottom:10px;
+
+    padding:10px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+
+#roomList div span{
+
+    width:90px;
+
+    text-align:left;
+
+}
+
+
+#roomList span{
+
+    font-size:20px;
+
+}
+
+
+#roomList button{
+
+    margin-left:6px;
+
+    padding:8px 12px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+#newRoomName{
+
+    width:100%;
+
+    height:44px;
+
+    margin:15px 0;
+
+    padding:10px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:17px;
+
+}
+
+
+#addRoomBtn,
+#roomCloseBtn{
+
+    width:100%;
+
+    height:44px;
+
+    margin-top:10px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+#addRoomBtn{
+
+    background:#2E8B57;
+
+    color:white;
+
+}
+
+
+#roomCloseBtn{
+
+    background:#ddd;
+
+}
+
+
+
+/* ===================================================
+   STATUS COLOR
+=================================================== */
+
+.normal{
+
+    filter:none;
+
+}
+
+
+.warning{
+
+    filter:
+    drop-shadow(0 0 6px orange);
+
+}
+
+
+.expired{
+
+    filter:
+    drop-shadow(0 0 6px red);
+
+}
+
+/* ===================================================
+   TABLET / PC LAYOUT
+=================================================== */
+
+@media (min-width:768px){
+
+    #mainContainer{
+
+        flex-direction:row;
+
+        align-items:flex-start;
+
+        gap:18px;
+
+        padding:12px;
+
+    }
+
+
+    #leftArea{
+
+        flex:2;
+
+    }
+
+
+    #rightArea{
+
+        flex:1;
+
+        display:flex;
+
+        flex-direction:row;
+
+        gap:5px;
+
+    }
+
+
+    #listSection,
+    #dueSection{
+
+        flex:1;
+
+        min-width:0;
+
+        padding:0;
+
+    }
+
+
+    #listSection h2,
+    #dueSection h2{
+
+        text-align:center;
+
+        margin-bottom:12px;
+
+    }
+
+
+    #toolbar{
+
+        padding:0 0 12px 0;
+
+    }
+
+
+    #mapSection{
+
+        padding:0;
+
+    }
+
+
+    .card{
+
+        padding:10px;
+
+        margin-bottom:8px;
+
+        border-radius:10px;
+
+    }
+
+
+    .card h3{
+
+        font-size:16px;
+
+        margin-bottom:6px;
+
+    }
+
+
+    .card p{
+
+        margin:3px 0;
+
+        font-size:14px;
+
+    }
+
+
+    .cardButtons{
+
+        margin-top:8px;
+
+    }
+
+
+    .cardButtons button{
+
+        height:34px;
+
+        font-size:14px;
+
+    }
+
+
+    .dueCard{
+
+        padding:7px;
+
+        font-size:14px;
+
+    }
+
+
+    .quickMenu{
+
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:6px;
+
+    }
+
+
+    .quickMenu h3{
+
+        grid-column:1 / -1;
+
+        margin-bottom:5px;
+
+    }
+
+
+}
+
+
+
+@media (min-width:1200px){
+
+    #leftArea{
+
+        flex:2.2;
+
+    }
+
+
+    #rightArea{
+
+        position:sticky;
+
+        top:80px;
+
+    }
+
+
+    .summaryCard{
+
+        padding:22px;
+
+    }
+
+}
+
+
+
+/* ===================================================
+   MOBILE MARKER SIZE
+=================================================== */
+
+@media (max-width:767px){
+
+    .marker{
+
+        width:24px;
+
+        height:24px;
+
+        font-size:16px;
+
+        line-height:1;
+
+    }
+
+
+    .marker:hover{
+
+        transform:translate(-50%,-50%);
+
+    }
+
+}
+
+
+
+/* ===================================================
+   MARKER MANAGEMENT
+=================================================== */
+
+#markerPopup .popupBox{
+
+    max-width:420px;
+
+}
+
+
+#markerPopup h2{
+
+    font-size:28px;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+
+.markerGrid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:10px;
+
+}
+
+
+.markerGrid div{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#F4F6F5;
+
+    border-radius:10px;
+
+    height:45px;
+
+    font-size:17px;
+
+}
+
+.marker-title{
+
+    text-align:left;
+
+    font-size:20px;
+
+    margin:15px 0 10px 5px;
+
+}
+
+
+#markerList span{
+
+    width:auto;
+
+    margin-right:15px;
+
+}
+
+
+#markerList button{
+
+    height:38px;
+
+    padding:0 18px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+}
+
+
+#markerEditArea{
+
+    margin-top:20px;
+
+    padding:15px;
+
+    background:#F4F6F5;
+
+    border-radius:12px;
+
+}
+
+#markerEditArea h3{
+
+    font-size:22px;
+
+    margin-bottom:15px;
+
+    text-align:center;
+
+}
+
+#markerEditArea input{
+
+    width:100%;
+
+    height:42px;
+
+    margin-top:5px;
+
+    margin-bottom:12px;
+
+    padding:8px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    font-size:18px;
+
+}
+
+#markerEditArea button{
+
+    width:48%;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+   마커 관리 영역
+========================= */
+
+.markerGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+
+.markerSection {
+    margin-bottom: 15px;
+}
+
+
+.markerSection h3 {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+/* ===================================================
+   DUE CARD / FILTER
+=================================================== */
+
+.dueCard{
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:10px;
+
+    margin-bottom:8px;
+
+    box-shadow:
+    0 3px 10px rgba(0,0,0,.08);
+
+    font-size:14px;
+
+}
+
+
+#dueFilter,
+#roomFilter{
+
+    width:48%;
+
+    height:25px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    border-radius:8px;
+
+    margin-bottom:8px;
+
+}
+
+
+
+/* ===================================================
+   ZOOM CONTROL
+=================================================== */
+
+#zoomControls{
+
+    position:absolute;
+
+    right:15px;
+
+    bottom:30px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    z-index:999;
+
+}
+
+/* ===============================
+   확대/축소 버튼
+=============================== */
+
+#zoomControls button{
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:white;
+
+    font-size:40px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 2px 8px rgba(0,0,0,.2);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+    margin-bottom:8px;
+
+}
+
+
+/* 확대 비율 표시 버튼 */
+
+#zoomControls #zoomPercentBtn{
+
+    font-size:19px;
+
+}
+
+
+/* ===================================================
+   ITEM LIST
+=================================================== */
+
+@media (min-width:700px){
+
+    #itemList{
+
+        display:flex;
+
+        flex-direction:column;
+
+        gap:10px;
+
+    }
+
+}
+
+/* ===================================================
+   STATISTICS PAGE
+=================================================== */
+
+
+#totalCount h2{
+
+    font-size:32px;
+
+    text-align:center;
+
+    margin:10px 0;
+
+}
+
+.statNumber{
+
+    font-size:42px;
+
+    font-weight:bold;
+
+    text-align:center;
+
+}
+
+
+.statUnit{
+
+    text-align:center;
+
+    font-size:18px;
+
+}
+
+
+#totalCount p{
+
+    text-align:center;
+
+    margin-top:10px;
+
+}
+
+#totalCount,
+#replaceStats{
+
+    text-align:center;
+
+    padding:15px;
+
+}
+
+#productStats div,
+#locationStats div{
+
+    background:#f5f7f6;
+
+    border-radius:10px;
+
+    padding:10px;
+
+    margin:8px 0;
+
+    font-size:15px;
+
+}
+
+
+
+#replaceStats h2{
+
+    text-align:center;
+
+    font-size:30px;
+
+    margin:10px 0;
+
+}
+
+
+
+#backBtn{
+
+    width:100%;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:16px;
+
+}
+
+
+
+#historyBtn{
+
+    padding:8px 12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+
+
+#historyBtn,
+#backBtn,
+#recordBtn,
+#statsBtn,
+#settingBtn{
+
+    cursor:pointer;
+
+}
+
+
+
+/* ===================================================
+   QUICK MENU (HomeCare 3.1)
+=================================================== */
+
+
+.quickMenu{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    margin-bottom:20px;
+
+    box-shadow:
+
+    0 2px 8px rgba(0,0,0,.08);
+
+}
+
+
+
+.quickMenu h3{
+
+    margin-top:0;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.quickCard{
+
+    width:100%;
+
+    background:#F4F6F5;
+
+    border-radius:12px;
+
+    padding:18px 20px;
+
+    margin:8px 0;
+
+    display:flex;
+
+    justify-content:flex-start;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-weight:bold;
+
+    font-size:18px;
+
+}
+
+
+
+.quickCard:hover{
+
+    background:#E4F3EA;
+
+    transform:translateX(5px);
+
+}
+
+
+
+.highlightSection{
+
+    animation:highlightFlash .6s;
+
+}
+
+
+
+@keyframes highlightFlash{
+
+    0%{
+
+        background:#FFF7B2;
+
+    }
+
+    100%{
+
+        background:white;
+
+    }
+
+}
+
+/* ===================================================
+   DESKTOP WIDTH
+=================================================== */
+
+
+@media (min-width:1200px){
+
+    .container{
+
+        max-width:900px;
+
+    }
+
+}
+
+/* ===================================================
+   CURRENT SPACE
+   HomeCare 3.1
+=================================================== */
+
+
+.current-space{
+
+    display:inline-block;
+
+    width:fit-content;
+
+    margin:3px 8px 10px;
+
+    padding:5px 12px;
+
+    background:#2E8B57;
+
+    border-radius:10px;
+
+    font-size:25px;
+
+    font-weight:bold;
+
+    color:#f8f8f8;
+
+}
+
+.markerItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px;
+    background: white;
+    border-radius: 10px;
+    min-width: 120px;
+}
+
+
+.markerItem span {
+    white-space: nowrap;
+    font-size: 15px;
+}
+
+/* ==========================
+   마커 관리 팝업 디자인
+========================== */
+
+#markerPopup .popupBox {
+    width: 90%;
+    max-width: 420px;
+    max-height: 80vh;
+    overflow-y: auto;
+
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+
+#markerPopup h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.markerSection {
+    margin-bottom: 20px;
+}
+
+
+.markerSection h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+
+.markerGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+
+.markerGrid button {
+    height: 55px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: #f8f8f8;
+    font-size: 26px;
+}
+
+
+#markerPopup button {
+    width: 100%;
+    height: 45px;
+    margin-top: 10px;
+
+    border-radius: 12px;
+    border: none;
+
+    font-size: 16px;
+}
+
+/* 공간 추가 버튼 */
+
+#toolbar{
+
+    display:flex;
+    align-items:center;
+gap:8px;
+
+}
+
+
+#addSpaceBtn{
+
+    border:none;
+
+    background:none;
+
+    color:#2E8B57;
+
+    font-size:40px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+padding:0;
+
+    line-height:1;
+
+        transform:translateY(-6px);
+
+
+}
+
+/* 맨 위 이동 버튼 */
+
+#historyTopButton{
+
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    width:45px;
+    height:45px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#2E8B57;
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    z-index:9999;
+
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);
+
+    opacity:0;
+    visibility:hidden;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+}
+
+#historyTopButton.show{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+/* ===============================
+   공간 목록
+=============================== */
+
+#spaceList{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+
+}
+
+.spaceButton{
+
+    border:none;
+
+    background:#2E8B57;
+
+    color:white;
+
+    padding:6px 12px;
+
+    border-radius:12px;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+#spacePreview{
+
+    width:100%;
+
+    max-height:250px;
+
+    object-fit:contain;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    margin-top:15px;
+
+    background:#f8f8f8;
+
+}
+#spaceManageList .spaceButton{
+
+    font-size:17px;
+
+    padding:10px 15px;
+
+    border-radius:8px;
+
+}
+
+
+#spaceManageList{
+
+    display:flex;
+
+    flex-direction:column;
+
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+/* ===============================
+   제품 그래프
+=============================== */
+
+#productChart{
+
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+
+    margin-top:20px;
+
+}
+
+.chartItem{
+
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+
+}
+
+.chartTop{
+
+    display:flex;
+    justify-content:space-between;
+
+    font-weight:bold;
+
+}
+
+.chartBar{
+
+    width:100%;
+    height:18px;
+
+    background:#E5E5E5;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    display:block;
+
+}
+
+.chartFill{
+
+    height:100%;
+    min-height:18px;
+
+    background:#2E8B57;
+
+    border-radius:20px;
+
+    transition:width .5s;
+
+}
+
+#historyDetailPopup{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.4);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:999;
+
+}
+
+
+#historyDetailPopup.hidden{
+
+    display:none;
+
+}
+
+
+#historyDetailPopup .popupBox{
+
+    background:white;
+
+    width:320px;
+
+    padding:20px;
+
+    border-radius:15px;
+
+}
+
+
+.historyRow{
+
+    margin:10px 0;
+
+}
+
+
