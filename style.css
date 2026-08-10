@@ -1956,3 +1956,403 @@ padding:0;
 }
 
 
+/* ===================================================
+   HomeCare v3.1 UI 통일
+   - 기존 기능/JS 영향 없이 UI 규격만 통일
+   - 기본 버튼/입력창/팝업 크기 통일
+   - 중요 요소는 색상으로만 강조
+=================================================== */
+
+/* -------------------------------
+   공통 UI 기준
+-------------------------------- */
+
+:root{
+    --ui-height:48px;
+    --ui-font-size:17px;
+    --ui-radius:10px;
+    --ui-gap:10px;
+    --primary:#2E8B57;
+    --danger:#d9534f;
+    --neutral:#e5e7e9;
+}
+
+
+/* -------------------------------
+   공통 버튼
+-------------------------------- */
+
+#addBtn,
+.uploadBtn,
+.cardButtons button,
+.popupButtons button,
+#roomList button,
+#addRoomBtn,
+#roomCloseBtn,
+#markerList button,
+#markerEditArea button,
+#settingPopup button,
+#backBtn,
+#historyBtn,
+#recordBtn,
+#statsBtn,
+.spaceButton,
+#spaceManageList .spaceButton{
+
+    min-height:var(--ui-height);
+
+    border:none;
+    border-radius:var(--ui-radius);
+
+    font-size:var(--ui-font-size);
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-sizing:border-box;
+}
+
+
+/* 버튼의 기본 터치 영역 */
+
+#addBtn,
+.cardButtons button,
+.popupButtons button,
+#addRoomBtn,
+#roomCloseBtn,
+#backBtn,
+#recordBtn,
+#statsBtn{
+
+    height:var(--ui-height);
+}
+
+
+/* -------------------------------
+   기본 입력창 / 선택창 / 검색창
+-------------------------------- */
+
+.popupBox input,
+.popupBox select,
+#newRoomName,
+#dueFilter,
+#roomFilter,
+#markerEditArea input{
+
+    height:var(--ui-height);
+
+    padding:8px 12px;
+
+    font-size:18px;
+
+    border:1px solid #ccc;
+    border-radius:var(--ui-radius);
+
+    box-sizing:border-box;
+}
+
+
+/* 검색/필터는 2개가 나란히 들어가므로 폭은 유지 */
+
+#dueFilter,
+#roomFilter{
+    width:48%;
+    margin-bottom:8px;
+}
+
+
+/* -------------------------------
+   팝업 공통
+-------------------------------- */
+
+.popupBox{
+    border-radius:18px;
+}
+
+.popupBox h2{
+    font-size:24px;
+}
+
+.popupBox label{
+    font-size:17px;
+}
+
+
+/* 팝업 버튼은 모두 동일 크기 */
+
+.popupButtons{
+    gap:var(--ui-gap);
+}
+
+.popupButtons button{
+    height:var(--ui-height);
+}
+
+
+/* -------------------------------
+   버튼 의미별 강조
+-------------------------------- */
+
+#saveBtn,
+#editSaveBtn,
+#addRoomBtn,
+#backBtn,
+#recordBtn,
+#statsBtn{
+
+    background:var(--primary);
+    color:white;
+}
+
+#deleteBtn,
+.deleteBtn{
+
+    background:var(--danger);
+    color:white;
+}
+
+#cancelBtn,
+#editCancelBtn,
+#roomCloseBtn{
+
+    background:var(--neutral);
+    color:#333;
+}
+
+
+/* -------------------------------
+   설정 팝업
+-------------------------------- */
+
+#settingPopup button{
+    width:100%;
+    height:var(--ui-height);
+    margin-bottom:var(--ui-gap);
+    font-size:var(--ui-font-size);
+}
+
+
+/* -------------------------------
+   카드 버튼
+-------------------------------- */
+
+.cardButtons{
+    gap:var(--ui-gap);
+}
+
+.cardButtons button{
+    height:var(--ui-height);
+    font-size:var(--ui-font-size);
+}
+
+
+/* -------------------------------
+   마커 관리 버튼
+-------------------------------- */
+
+#markerList button,
+#markerEditArea button{
+
+    height:var(--ui-height);
+    font-size:var(--ui-font-size);
+}
+
+#markerEditArea button{
+    width:48%;
+}
+
+
+/* -------------------------------
+   공간 버튼
+-------------------------------- */
+
+.spaceButton{
+    min-height:var(--ui-height);
+    padding:8px 14px;
+    font-size:var(--ui-font-size);
+}
+
+#spaceManageList .spaceButton{
+    min-height:var(--ui-height);
+    padding:8px 14px;
+    font-size:var(--ui-font-size);
+    border-radius:var(--ui-radius);
+}
+
+
+/* -------------------------------
+   상단 설정 버튼
+   아이콘 버튼이므로 정사각형 유지
+-------------------------------- */
+
+#settingBtn{
+
+    width:var(--ui-height);
+    height:var(--ui-height);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+}
+
+
+/* -------------------------------
+   공간 추가 아이콘
+   기능상 아이콘 버튼이므로 정사각형 터치 영역
+-------------------------------- */
+
+#addSpaceBtn{
+
+    width:var(--ui-height);
+    height:var(--ui-height);
+
+    padding:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:32px;
+    transform:none;
+}
+
+
+/* -------------------------------
+   도면 확대 / 축소
+   + / - / 배율 모두 동일한 정사각형
+-------------------------------- */
+
+#zoomControls{
+    gap:8px;
+}
+
+#zoomControls button,
+#zoomControls #zoomPercentBtn{
+
+    width:var(--ui-height);
+    height:var(--ui-height);
+
+    min-width:var(--ui-height);
+    min-height:var(--ui-height);
+
+    margin:0;
+
+    padding:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:none;
+    border-radius:var(--ui-radius);
+
+    background:white;
+
+    cursor:pointer;
+}
+
+#zoomControls button{
+    font-size:30px;
+}
+
+#zoomControls #zoomPercentBtn{
+    font-size:16px;
+}
+
+
+/* -------------------------------
+   맨 위 이동 버튼
+   별도 플로팅 컨트롤이지만 터치 영역은 동일 계열
+-------------------------------- */
+
+#historyTopButton{
+
+    width:var(--ui-height);
+    height:var(--ui-height);
+
+    font-size:20px;
+}
+
+
+/* -------------------------------
+   빠른 메뉴
+   기본 UI와 어울리도록 높이/폰트 정리
+-------------------------------- */
+
+.quickCard{
+
+    min-height:var(--ui-height);
+
+    padding:10px 16px;
+
+    font-size:var(--ui-font-size);
+}
+
+
+/* -------------------------------
+   통계 화면 버튼
+   통계 내용의 크기는 유지하고 버튼만 공통화
+-------------------------------- */
+
+#backBtn{
+    height:var(--ui-height);
+    font-size:var(--ui-font-size);
+}
+
+#historyBtn{
+
+    width:var(--ui-height);
+    height:var(--ui-height);
+
+    padding:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+}
+
+
+/* -------------------------------
+   PC에서도 버튼을 작게 줄이지 않음
+-------------------------------- */
+
+@media (min-width:768px){
+
+    .cardButtons button{
+        height:var(--ui-height);
+        font-size:var(--ui-font-size);
+    }
+
+    #dueFilter,
+    #roomFilter{
+        height:var(--ui-height);
+        font-size:16px;
+    }
+}
+
+
+/* -------------------------------
+   모바일에서도 입력/버튼 규격 유지
+-------------------------------- */
+
+@media (max-width:767px){
+
+    .popupBox input,
+    .popupBox select,
+    #newRoomName,
+    #dueFilter,
+    #roomFilter,
+    #markerEditArea input{
+        min-height:var(--ui-height);
+        font-size:18px;
+    }
+
+    .popupButtons button{
+        min-height:var(--ui-height);
+        font-size:var(--ui-font-size);
+    }
+}

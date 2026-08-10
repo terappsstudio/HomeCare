@@ -871,7 +871,7 @@ const item = {
 };
 
 // ===============================
-// 제품별 마지막 설정 저장
+// 공간별 + 제품별 마지막 설정 저장
 // ===============================
 
 const productDefaults =
@@ -879,7 +879,17 @@ const productDefaults =
         localStorage.getItem("homecareProductDefaults") || "{}"
     );
 
-productDefaults[selectedType] = {
+
+// 현재 공간이 없으면 생성
+if(!productDefaults[currentSpace]){
+
+    productDefaults[currentSpace] = {};
+
+}
+
+
+// 현재 공간의 해당 제품 설정 저장
+productDefaults[currentSpace][selectedType] = {
 
     location: item.location,
 
@@ -887,9 +897,17 @@ productDefaults[selectedType] = {
 
 };
 
+
 localStorage.setItem(
     "homecareProductDefaults",
     JSON.stringify(productDefaults)
+);
+
+console.log(
+    "제품 기본값 저장:",
+    currentSpace,
+    selectedType,
+    productDefaults[currentSpace][selectedType]
 );
 
     console.log(
@@ -2285,7 +2303,7 @@ function loadProductSelect(){
 }
 
 // ===============================
-// 제품별 마지막 설정 불러오기
+// 공간별 + 제품별 마지막 설정 불러오기
 // ===============================
 
 function loadProductDefaults(){
@@ -2306,14 +2324,21 @@ function loadProductDefaults(){
         );
 
 
+    // 현재 공간의 기본값
+    const spaceDefaults =
+        saved[currentSpace] || {};
+
+
+    // 현재 공간 + 현재 제품의 기본값
     const data =
-        saved[selectedType];
+        spaceDefaults[selectedType];
 
 
+    // 저장된 기본값이 없으면 아무것도 변경하지 않음
     if(!data) return;
 
 
-    // 마지막 위치 불러오기
+    // 마지막 위치
     const location =
         document.getElementById("locationName");
 
@@ -2325,25 +2350,31 @@ function loadProductDefaults(){
     }
 
 
-    // 마지막 교체주기 불러오기
+    // 마지막 교체주기
     const replaceDays =
         document.getElementById("replaceDays");
 
-    if(replaceDays && data.cycle){
+    if(
+        replaceDays &&
+        data.cycle !== undefined &&
+        data.cycle !== null
+    ){
 
         replaceDays.value =
             data.cycle;
 
     }
+
+
     // 상세 위치는 항상 새로 입력
-const detailLocation =
-    document.getElementById("detailLocation");
+    const detailLocation =
+        document.getElementById("detailLocation");
 
-if(detailLocation){
+    if(detailLocation){
 
-    detailLocation.value = "";
+        detailLocation.value = "";
 
-}
+    }
 
 }
 

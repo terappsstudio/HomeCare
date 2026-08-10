@@ -450,47 +450,43 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <div id="spaceDetailPopup" class="popup hidden">
 
-    <div class="popupBox">
+<div class="popupBox">
 
-        <h2 id="spaceDetailTitle">
-            🏠 공간 관리
-        </h2>
+    <h2 id="spaceDetailTitle">
+        🏠 공간 관리
+    </h2>
 
+    <div class="spaceManageButtons">
 
         <button id="spaceImageChangeBtn">
             🖼️ 도면 변경
         </button>
 
-
         <button id="spaceImageDeleteBtn">
             🗑️ 도면 삭제
         </button>
-
 
         <button id="spaceNameChangeBtn">
             ✏️ 이름 변경
         </button>
 
         <button id="spaceDeleteBtn">
-    🗑️ 공간 삭제
-</button>
-
-        <button id="spaceDetailCloseBtn">
-            닫기
+            🗑️ 공간 삭제
         </button>
-
-        <input 
-    id="spaceImageChangeInput"
-    type="file"
-    accept="image/*"
-    hidden>
 
     </div>
 
+    <button id="spaceDetailCloseBtn">
+        닫기
+    </button>
+
+    <input
+        id="spaceImageChangeInput"
+        type="file"
+        accept="image/*"
+        hidden>
+
 </div>
-
-
-
 
 <!-- 제품 관리 팝업 
 
@@ -699,6 +695,70 @@ if("serviceWorker" in navigator){
 
 <script src="record.js"></script>
 
+<style>
+/* ===============================
+   공간 관리 팝업
+================================ */
+
+#spaceDetailPopup .popupBox {
+    width: min(90vw, 360px);
+    padding: 22px;
+    box-sizing: border-box;
+}
+
+#spaceDetailPopup #spaceDetailTitle {
+    margin: 0 0 20px;
+    text-align: center;
+}
+
+/* 공간 관리 버튼 전체 */
+#spaceDetailPopup button {
+    width: 100%;
+    min-height: 46px;
+    margin-top: 10px;
+    padding: 10px 14px;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    background: #fff;
+    font-size: 15px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+/* 닫기 버튼 */
+
+#spaceDetailPopup #spaceDetailCloseBtn {
+    width: 100%;
+    min-height: 46px;
+    margin-top: 20px;
+    padding: 10px 14px;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    background: #f5f5f5;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+#spaceDetailPopup #spaceDetailCloseBtn {
+    width: 100%;
+    min-height: 46px;
+    margin-top: 20px;
+    padding: 10px 14px;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    background: #f5f5f5;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+</style>
 
 </body>
 </html>
