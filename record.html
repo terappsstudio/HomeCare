@@ -488,6 +488,8 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 </div>
 
+</div>
+
 <!-- 제품 관리 팝업 
 
 <div id="productPopup" class="popup hidden">
@@ -577,87 +579,105 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 </div>
 
-<!-- 마커 관리 팝업 -->
-
 <div id="markerPopup" class="popup hidden">
 
     <div class="popupBox">
 
-<h2>🏷️ 마커 관리</h2>
-
-<h3 class="marker-title">기본마커</h3>
-
-<div id="markerList" class="markerGrid">
-</div>
+        <h2>🛠️ 마커 관리</h2>
 
 
-<h3 class="marker-title">내 마커</h3>
+        <!-- =========================
+             기본 마커
+        ========================== -->
 
-<div id="customMarkerList" class="markerGrid">
-</div>
+        <h3>기본 마커</h3>
 
-
-<div id="markerEditArea" style="display:none;">
-
-    <h3>마커 수정</h3>
-
-    <label>
-        아이콘
-        <input id="editMarkerIcon">
-    </label>
+        <div id="markerList"></div>
 
 
-    <label>
-        이름
-        <input id="editMarkerName">
-    </label>
+        <!-- =========================
+             사용자 마커
+        ========================== -->
+
+        <h3>사용자 마커</h3>
+
+        <div id="customMarkerList"></div>
 
 
-    <button id="markerSaveBtn">
-        저장
-    </button>
+        <!-- =========================
+             마커 수정
+        ========================== -->
 
-    <button id="markerCancelBtn">
-        취소
-    </button>
+        <div id="markerEditArea" style="display:none;">
 
-    <button id="markerDeleteBtn">
-삭제
-</button>
+            <h3>마커 수정</h3>
 
-</div>
+            <label>
+                아이콘
+                <input id="editMarkerIcon">
+            </label>
+
+            <label>
+                이름
+                <input id="editMarkerName">
+            </label>
+
+            <button id="markerSaveBtn">
+                저장
+            </button>
+
+            <button id="markerCancelBtn">
+                취소
+            </button>
+
+            <button id="markerDeleteBtn">
+                삭제
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             새 마커 추가
+        ========================== -->
 
         <button id="addMarkerBtn">
             ➕ 마커 추가
         </button>
 
-        <!-- 마커 추가 영역 -->
 
-<div id="markerAddArea" style="display:none;">
+        <div id="markerAddArea" style="display:none;">
 
-    <h3>새 마커 추가</h3>
+            <h3>새 마커 추가</h3>
 
-    <label>
-        아이콘
-        <input id="newMarkerIcon" placeholder="예: 🔧">
-    </label>
+            <label>
+                아이콘
+                <input
+                    id="newMarkerIcon"
+                    placeholder="예: 🔧">
+            </label>
+
+            <label>
+                이름
+                <input
+                    id="newMarkerName"
+                    placeholder="예: 점검">
+            </label>
+
+            <button id="markerAddSaveBtn">
+                추가
+            </button>
+
+            <button id="markerAddCancelBtn">
+                취소
+            </button>
+
+        </div>
 
 
-    <label>
-        이름
-        <input id="newMarkerName" placeholder="예: 점검">
-    </label>
-
-
-    <button id="markerAddSaveBtn">
-        추가
-    </button>
-
-    <button id="markerAddCancelBtn">
-        취소
-    </button>
-
-</div>
+        <!-- =========================
+             닫기
+        ========================== -->
 
         <button id="markerCloseBtn">
             닫기
@@ -745,10 +765,34 @@ if("serviceWorker" in navigator){
 }
 
 #spaceDetailPopup #spaceDetailCloseBtn {
-    width: 100%;
-    min-height: 46px;
-    margin-top: 20px;
-    padding: 10px 14px;
+    width: 40% !important;
+    height: 42px !important;
+
+    display: block;
+    margin: 20px auto 0 !important;
+
+    padding: 8px 14px;
+    box-sizing: border-box;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    background: #f5f5f5;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* 공간 목록 팝업 - 닫기 */
+
+#floorManageCloseBtn {
+    width: 40% !important;
+    height: 42px !important;
+
+    display: block;
+    margin: 20px auto 0 !important;
+
+    padding: 8px 14px;
+    box-sizing: border-box;
 
     border: 1px solid #ddd;
     border-radius: 10px;
