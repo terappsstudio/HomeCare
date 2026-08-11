@@ -1,155 +1,193 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>HomeCare 통계</title>
+    <title>HomeCare 통계</title>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
+
 
 <body>
 
 <div class="container">
 
-<header>
 
-    <div class="logo" id="homeBtn">
-        🏠 HomeCare
-    </div>
+    <!-- ===============================
+         HEADER
+    =============================== -->
 
-    <button id="historyBtn">
-        📋 통계관리
-    </button>
+    <header>
 
-</header>
+        <div class="logo" id="homeBtn">
+            🏠 HomeCare
+        </div>
+
+        <button id="historyBtn">
+            📋 통계관리
+        </button>
+
+    </header>
 
 
+    <main>
 
-<main>
 
-  
-      <div class="page-title">
-    🐳 통계
+        <!-- ===============================
+             PAGE TITLE
+        =============================== -->
+
+        <div class="page-title">
+            🐳 통계
+        </div>
+
+
+        <!-- ===============================
+             통계 공간 선택
+        =============================== -->
+
+        <div id="statisticsSpaceList">
+        </div>
+
+
+        <!-- ===============================
+             빠른 이동
+        =============================== -->
+
+        <section class="quickMenu">
+
+            <h3>📊 빠른 이동</h3>
+
+            <div class="quickCard" data-target="totalSection">
+                📦 전체 설치 현황
+            </div>
+
+            <div class="quickCard" data-target="productSection">
+                📦 제품별 설치 현황
+            </div>
+
+            <div class="quickCard" data-target="locationSection">
+                📍 장소별 설치 현황
+            </div>
+
+            <div class="quickCard" data-target="replaceSection">
+                ⏰ 교체 예정
+            </div>
+
+        </section>
+
+
+        <!-- ===============================
+             전체 설치 현황
+        =============================== -->
+
+        <section class="card" id="totalSection">
+
+            <h3>📦 전체 설치 현황</h3>
+
+            <div class="totalWrap">
+
+                <!-- 전체 설치 수 -->
+
+                <div class="totalPanel" id="totalCount">
+                    불러오는 중...
+                </div>
+
+
+                <!-- 공간별 설치 수 -->
+
+                <div class="spaceTotalPanel" id="spaceTotalCount">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ===============================
+             제품별 설치 현황
+        =============================== -->
+
+        <section class="card" id="productSection">
+
+            <h3>📦 제품별 설치 현황</h3>
+
+            <div id="productStats">
+                불러오는 중...
+            </div>
+
+            <div id="productChart">
+            </div>
+
+        </section>
+
+
+        <!-- ===============================
+             장소별 설치 현황
+        =============================== -->
+
+        <section class="card" id="locationSection">
+
+            <h3>📍 장소별 설치 현황</h3>
+
+            <div id="locationStats">
+                불러오는 중...
+            </div>
+
+            <div id="locationChart">
+            </div>
+
+        </section>
+
+
+        <!-- ===============================
+             교체 예정
+        =============================== -->
+
+        <section class="card" id="replaceSection">
+
+            <h3>⏰ 교체 예정</h3>
+
+            <div id="replaceStats">
+                불러오는 중...
+            </div>
+
+        </section>
+
+
+        <!-- ===============================
+             메인으로
+        =============================== -->
+
+        <button id="backBtn">
+            ⬅ 메인으로
+        </button>
+
+
+    </main>
+
+
 </div>
 
-<!-- 통계 공간 선택 -->
 
-<div id="statisticsSpaceList">
-
-</div>
-
-
-    <!-- 빠른 이동 -->
-    <section class="quickMenu">
-
-        <h3>📊 빠른 이동</h3>
-
-        <div class="quickCard" data-target="totalSection">
-            📦 전체 설치 현황
-        </div>
-
-        <div class="quickCard" data-target="productSection">
-            📦 제품별 설치 현황
-        </div>
-
-        <div class="quickCard" data-target="locationSection">
-            📍 장소별 설치 현황
-        </div>
-
-        <div class="quickCard" data-target="replaceSection">
-            ⏰ 교체 예정
-        </div>
-
-    </section>
-
-
-    <!-- 전체 설치 -->
-
-    <section class="card" id="totalSection">
-
-        <h3>📦 전체 설치 현황</h3>
-
-        <div class="totalWrap">
-
-    <div id="totalCount">
-        불러오는 중...
-    </div>
-
-
-    <div id="spaceTotalCount">
-
-    </div>
-
-</div>
-
-    </section>
-
-
-    <!-- 제품별 설치 -->
-
-    <section class="card" id="productSection">
-
-        <h3>📦 제품별 설치 현황</h3>
-
-        <div id="productStats">
-            불러오는 중...
-        </div>
-
-            <div id="productChart"></div>
-
-    </section>
-
-
-    <!-- 장소별 설치 -->
-
-    <section class="card" id="locationSection">
-
-        <h3>📍 장소별 설치 현황</h3>
-
-        <div id="locationStats">
-            불러오는 중...
-        </div>
-
-        <div id="locationChart"></div>
-
-    </section>
-
-
-    <!-- 교체 예정 -->
-
-    <section class="card" id="replaceSection">
-
-        <h3>⏰ 교체 예정</h3>
-
-        <div id="replaceStats">
-            불러오는 중...
-        </div>
-
-    </section>
-
-
-    <button id="backBtn">
-        ⬅ 메인으로
-    </button>
-
-</main>
-
-</div>
-
-
-<!-- 맨 위로 -->
+<!-- ===============================
+     맨 위로
+=============================== -->
 
 <button id="topButton">
     ⬆
 </button>
+
 
 <script src="statistics.js"></script>
 
 </body>
 
 </html>
+```

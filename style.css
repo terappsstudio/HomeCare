@@ -1366,13 +1366,9 @@ align-items:center;
 
 }
 
-
-#totalCount p{
-
-    text-align:center;
-
-    margin-top:10px;
-
+#totalSection #totalCount p{
+    font-size:20px;
+    margin-top:20px;
 }
 
 #totalCount,
@@ -2625,4 +2621,198 @@ padding:0;
 
     font-size: 15px;
     font-weight: 500;
+}
+
+/* ===================================================
+   통계 화면 UI
+   =================================================== */
+
+#totalSection,
+#productSection,
+#locationSection,
+#replaceSection {
+    width: calc(100% - 24px);
+    margin: 0 12px 12px;
+    box-sizing: border-box;
+}
+
+#statisticsSpaceList {
+    padding: 0 12px 10px;
+    box-sizing: border-box;
+}
+
+.totalWrap {
+    display: flex;
+    gap: 10px;
+}
+
+.totalPanel,
+.spaceTotalPanel {
+    flex: 1;
+    min-width: 0;
+    background: #F4F6F5;
+    border-radius: 10px;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+#backBtn {
+    width: calc(100% - 24px);
+    margin: 0 12px 20px;
+}
+
+@media (max-width: 767px) {
+
+    .totalWrap {
+        flex-direction: column;
+    }
+
+    .totalPanel,
+    .spaceTotalPanel {
+        width: 100%;
+    }
+
+}
+
+/* ===============================
+   통계 - 전체 설치 현황
+   =============================== */
+
+#totalSection .totalWrap {
+    display: flex;
+    gap: 10px;
+}
+
+#totalSection .totalPanel {
+    flex: 1;
+    padding: 15px;
+
+    background: #F4F6F5;
+    border-radius: 10px;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#totalSection .spaceTotalPanel {
+    flex: 1.4;
+    padding: 10px;
+    background: #F4F6F5;
+    border-radius: 10px;
+}
+
+#totalSection #spaceTotalCount > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 8px;
+    border-bottom: 1px solid #e1e5e3;
+}
+
+#totalSection #spaceTotalCount > div:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 600px) {
+
+    #totalSection .totalWrap {
+        flex-direction: column;
+    }
+
+}
+
+#totalSection h3{
+    font-size:28px;
+}
+
+#totalSection #totalCount {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 130px;
+}
+
+#totalSection #totalCount .statNumber,
+#totalSection #totalCount .statUnit {
+    display: inline;
+}
+
+#totalSection #totalCount p {
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+#totalSection #totalCount .statNumber {
+    font-size: 42px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+#totalSection #totalCount .statUnit {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#totalSection .statTotal {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 3px;
+}
+
+#totalSection .statNumber {
+    font-size: 42px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+#totalSection .statUnit {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ===============================
+   전체 설치 현황 - 공간별 목록
+   =============================== */
+
+#totalSection #spaceTotalCount .spaceStatBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px 8px;
+
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+#totalSection #spaceTotalCount .spaceStatBox strong {
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* ===================================================
+   통계 공간 선택
+   기록관리 공간 버튼과 동일한 규격
+   =================================================== */
+
+#statisticsSpaceList {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    padding: 0 15px 12px;
+}
+
+#statisticsSpaceList .spaceButton {
+    min-height: var(--ui-height);
+    padding: 8px 14px;
+    font-size: var(--ui-font-size);
 }

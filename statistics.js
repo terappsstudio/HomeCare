@@ -102,6 +102,7 @@ function updateStatistics(){
 
     const statisticsItems = getStatisticsItems();
 
+
 // ===============================
 // 전체 설치 개수
 // ===============================
@@ -109,26 +110,25 @@ function updateStatistics(){
 const totalCount =
 document.getElementById("totalCount");
 
-
 if(totalCount){
 
     totalCount.innerHTML =
     `
-    <div class="statNumber">
-        ${statisticsItems.length}
-    </div>
-
-    <div class="statUnit">
-        개
+    <div class="statTotal">
+        <span class="statNumber">
+            ${statisticsItems.length}
+        </span>
+        <span class="statUnit">
+            개
+        </span>
     </div>
 
     <p>
-    현재 등록된 전체 제품
+        현재 등록된 전체 제품
     </p>
     `;
 
 }
-
 
 // ===============================
 // 제품별 통계
@@ -214,7 +214,6 @@ if(productStats){
 
 }
 
-
 // ===============================
 // 공간별 설치 개수
 // ===============================
@@ -222,33 +221,23 @@ if(productStats){
 const spaceTotalCount =
 document.getElementById("spaceTotalCount");
 
-
 if(spaceTotalCount){
 
     let spaceHTML = "";
-
 
     spaces.forEach(function(space){
 
         let count =
         space.markers.length;
 
-
         spaceHTML +=
         `
         <div class="spaceStatBox">
-
-            🏠 ${space.name}
-
-            <strong>
-                ${count}개
-            </strong>
-
+            <span>🏠 ${space.name}</span><strong>${count}개</strong>
         </div>
         `;
 
     });
-
 
     spaceTotalCount.innerHTML =
     spaceHTML || "등록된 공간이 없습니다.";
