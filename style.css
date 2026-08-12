@@ -2816,3 +2816,79 @@ padding:0;
     padding: 8px 14px;
     font-size: var(--ui-font-size);
 }
+
+/* ===============================
+   교체 예정 상세 목록
+================================ */
+
+.replaceDetailList{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2, minmax(0, 1fr)) !important;
+
+    gap:10px;
+
+    margin-top:15px;
+}
+
+
+/* ===============================
+   교체 예정 항목
+================================ */
+
+.replaceItem{
+
+    padding:10px;
+
+    border-radius:12px;
+
+    background:#f8f8f8;
+
+    border:1px solid #e5e5e5;
+
+    box-sizing:border-box;
+
+}
+
+
+/* 제품명 + 상태 */
+
+.replaceItemTop{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:8px;
+
+    margin-bottom:6px;
+
+}
+
+.replaceItemTop strong{
+
+    font-size:16px;
+
+}
+
+.replaceItemTop span{
+
+    font-size:14px;
+
+    white-space:nowrap;
+
+}
+
+
+/* 공간 + 날짜 */
+
+.replaceItemBottom{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    white-space:nowrap;
+}

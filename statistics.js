@@ -436,64 +436,468 @@ if(locationChart){
 
 }
 
+// ===============================
+// 교체 예정 계산
+// ===============================
+
+let today = new Date();
+
+let replaceList = [];
+
+
+
+statisticsItems.forEach(item => {
+
+    if(!item.install || !item.cycle){
+
+        return;
+
+    }
+
+
+    let installDate =
+    new Date(item.install);
+
+
+    let replaceDate =
+    new Date(installDate);
+
+
+    replaceDate.setDate(
+        replaceDate.getDate() + Number(item.cycle)
+    );
+
+
+    // 오늘 날짜와 교체 예정일의 차이 계산
+
+    let diffTime =
+    replaceDate.getTime() - today.getTime();
+
+
+    let diffDays =
+    Math.ceil(
+        diffTime / (1000 * 60 * 60 * 24)
+    );
+
+
+    // 30일 이내인 제품만 표시
+
+    if(diffDays <= 30){
+
+        replaceList.push({
+
+            item: item,
+
+            replaceDate: replaceDate,
+
+            diffDays: diffDays
+
+        });
+
+    }
+
+});
+
+
+
+// ===============================
+// 교체 예정 정렬
+// 가장 급한 제품부터
+// ===============================
+
+replaceList.sort(function(a,b){
+
+    return a.replaceDate - b.replaceDate;
+
+});
+
+
+// ===============================
+// 교체 예정 화면
+// ===============================
+
+const replaceStats =
+document.getElementById("replaceStats");
+
+
+if(replaceStats){
 
     // ===============================
-    // 교체 예정 계산
+    // 교체 예정이 없는 경우
     // ===============================
 
-    let today = new Date();
-
-    let replaceCount = 0;
-
-
-    statisticsItems.forEach(item => {
-
-
-        if(!item.install || !item.cycle){
-
-            return;
-
-        }
-
-
-        let installDate =
-        new Date(item.install);
-
-
-        let replaceDate =
-        new Date(installDate);
-
-
-        replaceDate.setDate(
-            replaceDate.getDate() + Number(item.cycle)
-        );
-
-
-        if(replaceDate <= today){
-
-            replaceCount++;
-
-        }
-
-
-    });
-
-
-
-    const replaceStats =
-    document.getElementById("replaceStats");
-
-
-    if(replaceStats){
+    if(replaceList.length === 0){
 
         replaceStats.innerHTML =
         `
-        <h2>${replaceCount}개</h2>
-        <p>교체 시기가 지난 제품</p>
+        <div class="replaceEmpty">
+
+            <p>
+                ✅ 교체 예정 제품이 없습니다.
+            </p>
+
+        </div>
         `;
 
     }
 
+    else{
+
+        // ===============================
+        // 상태별 개수 계산
+        // ===============================
+
+        let overdueCount = 0;
+        let todayCount = 0;
+        let soonCount = 0;
+        let upcomingCount = 0;
+
+
+        replaceList.forEach(function(data){
+
+            if(data.diffDays < 0){
+
+                overdueCount++;
+
+            }
+
+            else if(data.diffDays === 0){
+
+                todayCount++;
+
+            }
+
+            else if(data.diffDays <= 7){
+
+                soonCount++;
+
+            }
+
+            else{
+
+                upcomingCount++;
+
+            }
+
+        });
+
+
+        // ===============================
+        // 요약 화면
+        // ===============================
+
+        let summaryHTML = "";
+
+
+        summaryHTML +=
+        `
+        <div class="replaceSummary">
+
+            <div class="replaceSummaryItem replaceOverdue">
+
+                <strong>
+                    🔴 ${overdueCount}개
+                </strong>
+
+                <span>
+                    교체 지남
+                </span>
+
+            </div>
+        `;
+
+
+        summaryHTML +=
+        `
+            <div class="replaceSummaryItem replaceToday">
+
+                <strong>
+                    🔴 ${todayCount}개
+                </strong>
+
+                <span>
+                    오늘 교체
+                </span>
+
+            </div>
+        `;
+
+
+        summaryHTML +=
+        `
+            <div class="replaceSummaryItem replaceSoon">
+
+                <strong>
+                    🟠 ${soonCount}개
+                </strong>
+
+                <span>
+                    7일 이내
+                </span>
+
+            </div>
+        `;
+
+
+        summaryHTML +=
+        `
+            <div class="replaceSummaryItem replaceUpcoming">
+
+                <strong>
+                    🟡 ${upcomingCount}개
+                </strong>
+
+                <span>
+                    8~30일 이내
+                </span>
+
+            </div>
+
+        </div>
+        `;
+
+
+        // ===============================
+        // 상세 목록
+        // ===============================
+
+        let detailHTML = "";
+
+
+        replaceList.forEach(function(data){
+
+            let item =
+            data.item;
+
+
+            let diffDays =
+            data.diffDays;
+
+
+            let replaceDate =
+            data.replaceDate;
+
+
+            // ===============================
+            // 제품명
+            // ===============================
+
+            let productMap = {
+
+                deodorizer:"🌿 방향제",
+                deodorizer2:"🧸 탈취제",
+                dehumidifier:"💧 제습제",
+                etc:"📦 기타"
+
+            };
+
+
+            let productName =
+            productMap[item.type];
+
+
+            // 커스텀 마커
+
+            if(!productName){
+
+                let customMarker =
+                markerSettings.find(function(marker){
+
+                    return marker.type === item.type;
+
+                });
+
+
+                productName =
+                customMarker
+                ?
+                customMarker.icon + " " + customMarker.name
+                :
+                item.type || "미등록 제품";
+
+            }
+
+
+            // ===============================
+            // 상태 표시
+            // ===============================
+
+            let statusText = "";
+            let statusClass = "";
+
+
+            if(diffDays < 0){
+
+                statusText =
+                "🔴 교체 지남";
+
+                statusClass =
+                "replaceOverdue";
+
+            }
+
+            else if(diffDays === 0){
+
+                statusText =
+                "🔴 오늘 교체";
+
+                statusClass =
+                "replaceToday";
+
+            }
+
+            else if(diffDays <= 7){
+
+                statusText =
+                `🟠 ${diffDays}일 후 교체`;
+
+                statusClass =
+                "replaceSoon";
+
+            }
+
+            else{
+
+                statusText =
+                `🟡 ${diffDays}일 후 교체`;
+
+                statusClass =
+                "replaceUpcoming";
+
+            }
+
+
+            // ===============================
+            // 날짜
+            // ===============================
+
+            let dateText =
+            `${replaceDate.getFullYear()}.${String(
+                replaceDate.getMonth() + 1
+            ).padStart(2,"0")}.${String(
+                replaceDate.getDate()
+            ).padStart(2,"0")}`;
+
+
+            // ===============================
+            // 상세 항목
+            // ===============================
+
+            detailHTML +=
+            `
+            <div class="replaceItem ${statusClass}">
+
+                <div class="replaceItemTop">
+
+                    <strong>
+                        ${productName}
+                    </strong>
+
+                    <span>
+                        ${statusText}
+                    </span>
+
+                </div>
+
+
+                <div class="replaceItemBottom">
+
+                    <span>
+                        📍 ${item.space || "미등록 공간"}
+                    </span>
+
+                    <span>
+                        📅 ${dateText}
+                    </span>
+
+                </div>
+
+            </div>
+            `;
+
+        });
+
+
+        // ===============================
+        // 최종 화면
+        // ===============================
+
+        replaceStats.innerHTML =
+        `
+        ${summaryHTML}
+
+
+        <button
+            type="button"
+            id="replaceDetailBtn"
+            class="replaceDetailBtn"
+        >
+            📋 상세 보기
+        </button>
+
+
+        <div
+            id="replaceDetailList"
+            class="replaceDetailList"
+            style="display:none;"
+        >
+
+            ${detailHTML}
+
+        </div>
+        `;
+
+
+        // ===============================
+        // 상세 보기 버튼
+        // ===============================
+
+        const replaceDetailBtn =
+        document.getElementById("replaceDetailBtn");
+
+
+        const replaceDetailList =
+        document.getElementById("replaceDetailList");
+
+
+        if(
+            replaceDetailBtn &&
+            replaceDetailList
+        ){
+
+            replaceDetailBtn.onclick =
+            function(){
+
+                if(
+                    replaceDetailList.style.display ===
+                    "none"
+                ){
+
+                   replaceDetailList.style.display =
+"grid";
+
+                    replaceDetailBtn.innerText =
+                    "📋 상세 닫기";
+
+                }
+
+                else{
+
+                    replaceDetailList.style.display =
+                    "none";
+
+                    replaceDetailBtn.innerText =
+                    "📋 상세 보기";
+
+                }
+
+            };
+
+        }
+
+    }
+
+}
 
 }
 
@@ -657,12 +1061,13 @@ quickCards.forEach(card => {
     });
 
 });
+
 // ===============================
 // 맨 위 버튼
 // ===============================
 
 const topButton =
-document.getElementById("topButton");
+document.getElementById("historyTopButton");
 
 
 window.addEventListener("scroll", function(){
