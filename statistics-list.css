@@ -1,35 +1,138 @@
+/* ===============================
+   설치내역 표
+=============================== */
+
 #historyTable{
 
     overflow-x:auto;
+
     margin-top:20px;
 
+    padding:0 12px 10px;
+
 }
 
 
-table{
+/* 표 */
+
+#historyTable table{
 
     width:100%;
-    border-collapse:collapse;
+
+    border-collapse:separate;
+
+    border-spacing:0;
+
     background:white;
 
+    border-radius:14px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.08);
+
 }
 
 
-th, td{
+/* 표 헤더 */
 
-    border:1px solid #ddd;
-    padding:10px;
+#historyTable th{
+
+    padding:12px 10px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:19px;
+
+    font-weight:bold;
+
     text-align:center;
 
-}
+    white-space:nowrap;
 
-
-th{
-
-    background:#f1f1f1;
+    border:none;
 
 }
 
+
+/* 표 내용 */
+
+#historyTable td{
+
+    padding:12px 10px;
+
+    background:white;
+
+    color:#444;
+
+    font-size:15px;
+
+    text-align:center;
+
+    border:none;
+
+    border-bottom:1px solid #eeeeee;
+
+}
+
+
+/* 마지막 행 */
+
+#historyTable tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+
+/* 행에 마우스를 올렸을 때 */
+
+#historyTable tbody tr:hover td{
+
+    background:#F4F6F5;
+
+}
+
+
+/* 교체일 등 긴 내용 */
+
+#historyTable td{
+
+    white-space:nowrap;
+
+}
+
+
+/* 모바일 */
+
+@media (max-width:767px){
+
+    #historyTable{
+
+        padding:0 8px 10px;
+
+    }
+
+    #historyTable th{
+
+        padding:11px 8px;
+
+        font-size:16px;
+
+    }
+
+    #historyTable td{
+
+        padding:11px 8px;
+
+        font-size:14px;
+
+    }
+
+}
 
 #backBtn{
 
@@ -157,5 +260,215 @@ th{
 
     opacity:1;
     visibility:visible;
+
+}
+
+/* ===============================
+   통계 화면으로 돌아가기
+=============================== */
+
+#backStatisticsBtn{
+
+    height:45px;
+
+    padding:0 12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+}
+
+.backIcon{
+
+    font-size:26px;
+
+    line-height:1;
+
+}
+
+.backText{
+
+    font-size:20px;
+
+    font-weight:800;
+
+}
+
+/* ===============================
+   설치내역 검색 / 필터
+=============================== */
+
+.historySearch{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin:0 12px 15px;
+
+    flex-wrap:wrap;
+
+}
+
+
+/* 검색창 */
+
+.searchBox{
+
+    flex:1;
+
+    min-width:220px;
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:0 12px;
+
+    background:white;
+
+    border:1px solid #d9d9d9;
+
+    border-radius:12px;
+
+    box-sizing:border-box;
+
+}
+
+
+/* 검색 입력 */
+
+#historySearchInput{
+
+    flex:1;
+
+    width:100%;
+
+    height:100%;
+
+    padding:0;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    font-size:16px;
+
+    color:#333;
+
+}
+
+
+#historySearchInput::placeholder{
+
+    color:#999;
+
+}
+
+
+/* 드롭다운 */
+
+#historySpaceFilter,
+#historySort{
+
+    height:48px;
+
+    padding:0 32px 0 12px;
+
+    border:1px solid #d9d9d9;
+
+    border-radius:12px;
+
+    background:white;
+
+    color:#333;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    outline:none;
+
+    cursor:pointer;
+
+    box-sizing:border-box;
+
+}
+
+
+/* 포커스 */
+
+.searchBox:focus-within{
+
+    border-color:#2E8B57;
+
+    box-shadow:0 0 0 2px rgba(46,139,87,0.12);
+
+}
+
+
+#historySpaceFilter:focus,
+#historySort:focus{
+
+    border-color:#2E8B57;
+
+    box-shadow:0 0 0 2px rgba(46,139,87,0.12);
+
+}
+
+
+/* 모바일 */
+
+@media (max-width:767px){
+
+    .historySearch{
+
+        gap:8px;
+
+    }
+
+    .searchBox{
+
+        width:100%;
+
+        min-width:100%;
+
+    }
+
+    #historySpaceFilter,
+    #historySort{
+
+        flex:1;
+
+        min-width:0;
+
+        font-size:14px;
+
+    }
 
 }

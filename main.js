@@ -56,11 +56,25 @@ function updateSummary(){
 
     });
 
-    document.getElementById("todayCount")
-    .innerHTML = todayCount + "개";
+    const replaceCount =
+    document.getElementById("replaceNeedCount");
 
-    document.getElementById("weekCount")
-    .innerHTML = weekCount + "개";
+    const stockCount =
+    document.getElementById("stockLowCount");
+
+    if(replaceCount){
+
+        replaceCount.innerHTML =
+        todayCount + "개";
+
+    }
+
+    if(stockCount){
+
+        stockCount.innerHTML =
+        weekCount + "개";
+
+    }
 
 }
 
@@ -73,6 +87,12 @@ function renderRecent(){
 
     const recent =
     document.getElementById("recentList");
+
+    if(!recent){
+
+        return;
+
+    }
 
     recent.innerHTML = "";
 
@@ -108,8 +128,9 @@ function renderRecent(){
 
 }
 
+
 // ===============================
-// 버튼
+// 기록관리
 // ===============================
 
 document.getElementById("recordBtn").onclick=function(){
@@ -118,11 +139,31 @@ document.getElementById("recordBtn").onclick=function(){
 
 };
 
+
+// ===============================
+// 통계
+// ===============================
+
 document.getElementById("statsBtn").onclick=function(){
 
     location.href="statistics.html";
 
 };
+
+
+// ===============================
+// 생필품 관리
+// ===============================
+
+document.getElementById("dailyGoodsBtn").onclick=function(){
+
+    location.href="supplies.html";
+
+};
+
+// ===============================
+// 설정
+// ===============================
 
 document.getElementById("settingBtn").onclick=function(){
 

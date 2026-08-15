@@ -720,3 +720,16 @@ window.addEventListener("scroll", function(){
     }
 
 });
+
+const backStatisticsBtn =
+    document.getElementById("backStatisticsBtn");
+
+if(backStatisticsBtn){
+
+    backStatisticsBtn.addEventListener("click", function(){
+
+        window.location.href = "statistics.html";
+
+    });
+
+}

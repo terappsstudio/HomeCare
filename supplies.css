@@ -1,0 +1,741 @@
+/* ===================================================
+   HomeCare - 생필품 관리
+=================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"맑은 고딕",sans-serif;
+}
+
+body{
+    background:#eef2f5;
+    color:#333;
+}
+
+
+/* ===================================================
+   APP
+=================================================== */
+
+#appContainer{
+    max-width:900px;
+    margin:auto;
+}
+
+
+/* ===================================================
+   HEADER
+=================================================== */
+
+header{
+
+    height:60px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 18px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:5000;
+
+}
+
+
+/* ===================================================
+   HomeCare 로고
+=================================================== */
+
+.logo{
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    font-family:
+    "Arial Rounded MT Bold",
+    "나눔스퀘어라운드",
+    "맑은 고딕",
+    sans-serif;
+
+    cursor:pointer;
+
+}
+
+
+/* ===================================================
+   설정 버튼
+=================================================== */
+
+#settingBtn{
+
+    width:48px;
+    height:48px;
+
+    border:none;
+
+    background:none;
+
+    color:white;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+}
+
+
+/* ===================================================
+   PAGE TITLE
+=================================================== */
+
+.page-title{
+
+    font-size:29px;
+
+    font-weight:bold;
+
+    margin:18px 20px;
+
+    color:#555;
+
+}
+
+
+/* ===================================================
+   생필품 요약
+=================================================== */
+
+#suppliesSummary{
+
+    display:flex;
+
+    gap:12px;
+
+    padding:0 12px 12px;
+
+}
+
+
+.supplySummaryCard{
+
+    flex:1;
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:16px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.08);
+
+    text-align:center;
+
+}
+
+
+.supplySummaryCard span{
+
+    display:block;
+
+    font-size:16px;
+
+    color:#666;
+
+    margin-bottom:8px;
+
+}
+
+
+.supplySummaryCard strong{
+
+    font-size:34px;
+
+    font-weight:bold;
+
+}
+
+
+.supplySummaryCard small{
+
+    font-size:16px;
+
+    margin-left:3px;
+
+}
+
+
+/* ===================================================
+   생필품 추가 버튼
+=================================================== */
+
+#supplyToolbar{
+
+    padding:0 12px 15px;
+
+}
+
+
+#addSupplyBtn{
+
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+#addSupplyBtn:hover{
+
+    opacity:.9;
+
+}
+
+
+/* ===================================================
+   생필품 목록
+=================================================== */
+
+#supplyListSection{
+
+    padding:0 12px;
+
+}
+
+
+#supplyListSection h2{
+
+    margin-bottom:12px;
+
+    font-size:22px;
+
+}
+
+
+#supplyList{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+
+/* ===================================================
+   생필품 카드
+=================================================== */
+
+.supplyCard{
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:15px;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.08);
+
+}
+
+
+.supplyCardTop{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:10px;
+
+}
+
+
+.supplyName{
+
+    font-size:19px;
+
+    font-weight:bold;
+
+}
+
+
+.supplyStatus{
+
+    padding:5px 9px;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    white-space:nowrap;
+
+}
+
+
+/* 충분 */
+
+.supplyStatus.normal{
+
+    background:#E4F3EA;
+
+    color:#2E8B57;
+
+}
+
+
+/* 부족 예정 */
+
+.supplyStatus.warning{
+
+    background:#FFF3CD;
+
+    color:#9a7200;
+
+}
+
+
+/* 품절 */
+
+.supplyStatus.empty{
+
+    background:#FDECEC;
+
+    color:#d9534f;
+
+}
+
+
+/* ===================================================
+   생필품 정보
+=================================================== */
+
+.supplyInfo{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:7px;
+
+    font-size:15px;
+
+    color:#555;
+
+}
+
+
+.supplyInfo div{
+
+    background:#F4F6F5;
+
+    border-radius:8px;
+
+    padding:8px;
+
+}
+
+
+.supplyMemo{
+
+    margin-top:10px;
+
+    padding-top:10px;
+
+    border-top:1px solid #eee;
+
+    font-size:14px;
+
+    color:#777;
+
+}
+
+
+/* ===================================================
+   카드 버튼
+=================================================== */
+
+.supplyCardButtons{
+
+    display:flex;
+
+    gap:8px;
+
+    margin-top:12px;
+
+}
+
+
+.supplyCardButtons button{
+
+    flex:1;
+
+    height:40px;
+
+    border:none;
+
+    border-radius:9px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+.supplyEditBtn{
+
+    background:#2E8B57;
+
+    color:white;
+
+}
+
+
+.supplyDeleteBtn{
+
+    background:#d9534f;
+
+    color:white;
+
+}
+
+
+/* ===================================================
+   목록 없음
+=================================================== */
+
+.emptySupply{
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:35px 20px;
+
+    text-align:center;
+
+    color:#888;
+
+    font-size:16px;
+
+}
+
+
+/* ===================================================
+   POPUP
+=================================================== */
+
+.popup{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:9999;
+
+}
+
+
+.popup.hidden{
+
+    display:none !important;
+
+}
+
+
+.popupBox{
+
+    width:92%;
+
+    max-width:430px;
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:22px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.18);
+
+}
+
+
+.popupBox h2{
+
+    margin-bottom:20px;
+
+    text-align:center;
+
+}
+
+
+.popupBox label{
+
+    display:block;
+
+    margin-bottom:15px;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+}
+
+
+.popupBox input{
+
+    width:100%;
+
+    height:46px;
+
+    margin-top:6px;
+
+    padding:8px 12px;
+
+    border:1px solid #ccc;
+
+    border-radius:9px;
+
+    font-size:17px;
+
+}
+
+
+.popupBox input:focus{
+
+    outline:none;
+
+    border-color:#2E8B57;
+
+    box-shadow:
+        0 0 0 2px rgba(46,139,87,.12);
+
+}
+
+
+/* ===================================================
+   POPUP BUTTON
+=================================================== */
+
+.popupButtons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+
+.popupButtons button{
+
+    flex:1;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:9px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+#supplySaveBtn{
+
+    background:#2E8B57;
+
+    color:white;
+
+}
+
+
+#supplyCancelBtn{
+
+    background:#e5e7e9;
+
+    color:#333;
+
+}
+
+
+/* ===================================================
+   뒤로가기
+=================================================== */
+
+#backHomeBtn{
+
+    height:45px;
+
+    margin:20px 12px;
+
+    padding:0 12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+
+.backIcon{
+
+    font-size:26px;
+
+    line-height:1;
+
+}
+
+
+.backText{
+
+    font-size:20px;
+
+    font-weight:800;
+
+    line-height:1.1;
+
+    white-space:nowrap;
+
+}
+
+
+/* ===================================================
+   MOBILE
+=================================================== */
+
+@media (max-width:767px){
+
+    #appContainer{
+
+        width:100%;
+
+    }
+
+
+    .page-title{
+
+        font-size:27px;
+
+        margin:16px 15px;
+
+    }
+
+
+    #suppliesSummary{
+
+        padding:0 10px 12px;
+
+        gap:8px;
+
+    }
+
+
+    .supplySummaryCard{
+
+        padding:13px 8px;
+
+    }
+
+
+    .supplySummaryCard span{
+
+        font-size:14px;
+
+    }
+
+
+    .supplySummaryCard strong{
+
+        font-size:30px;
+
+    }
+
+
+    .supplyInfo{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    #supplyToolbar{
+
+        padding:0 10px 15px;
+
+    }
+
+
+    #supplyListSection{
+
+        padding:0 10px;
+
+    }
+
+}
