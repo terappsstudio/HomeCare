@@ -1,17 +1,32 @@
 /* ===================================================
-   HomeCare - 생필품 관리
+   HomeCare 3.2 - 생필품 관리
+=================================================== */
+
+
+/* ===================================================
+   기본
 =================================================== */
 
 *{
+
     margin:0;
     padding:0;
+
     box-sizing:border-box;
-    font-family:"맑은 고딕",sans-serif;
+
+    font-family:
+        "맑은 고딕",
+        sans-serif;
+
 }
 
+
 body{
+
     background:#eef2f5;
+
     color:#333;
+
 }
 
 
@@ -20,8 +35,15 @@ body{
 =================================================== */
 
 #appContainer{
+
+    width:100%;
+
     max-width:900px;
+
     margin:auto;
+
+    min-height:100vh;
+
 }
 
 
@@ -65,12 +87,21 @@ header{
     font-weight:bold;
 
     font-family:
-    "Arial Rounded MT Bold",
-    "나눔스퀘어라운드",
-    "맑은 고딕",
-    sans-serif;
+        "Arial Rounded MT Bold",
+        "나눔스퀘어라운드",
+        "맑은 고딕",
+        sans-serif;
 
     cursor:pointer;
+
+    user-select:none;
+
+}
+
+
+.logo:hover{
+
+    opacity:.9;
 
 }
 
@@ -107,7 +138,7 @@ header{
 
     font-weight:bold;
 
-    margin:18px 20px;
+    margin:22px 20px 18px;
 
     color:#555;
 
@@ -124,7 +155,7 @@ header{
 
     gap:12px;
 
-    padding:0 12px 12px;
+    padding:0 12px 18px;
 
 }
 
@@ -135,12 +166,12 @@ header{
 
     background:white;
 
-    border-radius:14px;
+    border-radius:16px;
 
-    padding:16px;
+    padding:17px 12px;
 
     box-shadow:
-        0 3px 10px rgba(0,0,0,.08);
+        0 3px 10px rgba(0,0,0,.07);
 
     text-align:center;
 
@@ -151,20 +182,22 @@ header{
 
     display:block;
 
-    font-size:16px;
+    font-size:17px;
 
     color:#666;
 
-    margin-bottom:8px;
+    margin-bottom:7px;
 
 }
 
 
 .supplySummaryCard strong{
 
-    font-size:34px;
+    font-size:35px;
 
     font-weight:bold;
+
+    color:#333;
 
 }
 
@@ -175,52 +208,210 @@ header{
 
     margin-left:3px;
 
+    color:#555;
+
 }
 
 
 /* ===================================================
-   생필품 추가 버튼
+   보관 장소
 =================================================== */
 
-#supplyToolbar{
+#supplyLocationFilter{
 
-    padding:0 12px 15px;
+    padding:0 12px 20px;
 
 }
 
+#supplyLocationFilter h2{
 
-#addSupplyBtn{
+    margin:0;
 
-    width:100%;
+    padding-left:2px;
 
-    height:48px;
+    font-size:21px;
 
-    border:none;
+    color:#444;
 
-    border-radius:12px;
+}
 
-    background:#2E8B57;
+#supplyLocationButtons{
 
-    color:white;
+    display:flex;
 
-    font-size:17px;
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-top:10px;
+
+}
+
+/* ===================================================
+   보관 장소 버튼
+=================================================== */
+
+.locationButton{
+
+    min-height:40px;
+
+    padding:0 15px;
+
+    border:1px solid #d5dcd8;
+
+    border-radius:10px;
+
+    background:white;
+
+    color:#555;
+
+    font-size:15px;
 
     font-weight:bold;
 
     cursor:pointer;
 
+    transition:
+
+        background .15s ease,
+
+        color .15s ease,
+
+        border-color .15s ease;
+
 }
 
 
-#addSupplyBtn:hover{
+.locationButton:hover{
 
-    opacity:.9;
+    border-color:#2E8B57;
+
+}
+
+
+.locationButton.active{
+
+    background:#2E8B57;
+
+    border-color:#2E8B57;
+
+    color:white;
 
 }
 
 
 /* ===================================================
-   생필품 목록
+   구매 필요
+=================================================== */
+
+#supplyNeedSection{
+
+    padding:0 12px 20px;
+
+}
+
+
+.sectionHeader{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:10px;
+
+}
+
+
+.sectionHeader h2{
+
+    font-size:22px;
+
+    color:#444;
+
+}
+
+
+#supplyNeedCount{
+
+    min-width:28px;
+
+    height:28px;
+
+    padding:0 8px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:14px;
+
+    background:#FDECEC;
+
+    color:#d9534f;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+}
+
+
+/* 구매 필요 목록 */
+
+#supplyNeedList{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+
+/* 구매 필요 항목 */
+
+.supplyNeedItem{
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:12px 14px;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.06);
+
+}
+
+
+/* 구매 필요가 없을 때 */
+
+.emptyNeedSupply{
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    text-align:center;
+
+    color:#888;
+
+    font-size:15px;
+
+}
+
+
+/* ===================================================
+   전체 생필품
 =================================================== */
 
 #supplyListSection{
@@ -232,9 +423,11 @@ header{
 
 #supplyListSection h2{
 
-    margin-bottom:12px;
+    margin-bottom:10px;
 
     font-size:22px;
+
+    color:#444;
 
 }
 
@@ -258,15 +451,17 @@ header{
 
     background:white;
 
-    border-radius:14px;
+    border-radius:16px;
 
-    padding:15px;
+    padding:16px;
 
     box-shadow:
-        0 3px 10px rgba(0,0,0,.08);
+        0 3px 10px rgba(0,0,0,.07);
 
 }
 
+
+/* 카드 상단 */
 
 .supplyCardTop{
 
@@ -278,25 +473,35 @@ header{
 
     gap:10px;
 
-    margin-bottom:10px;
+    margin-bottom:12px;
 
 }
 
+
+/* 제품명 */
 
 .supplyName{
 
-    font-size:19px;
+    min-width:0;
+
+    font-size:20px;
 
     font-weight:bold;
+
+    color:#333;
 
 }
 
 
+/* 상태 */
+
 .supplyStatus{
 
-    padding:5px 9px;
+    flex-shrink:0;
 
-    border-radius:8px;
+    padding:6px 10px;
+
+    border-radius:9px;
 
     font-size:13px;
 
@@ -318,7 +523,7 @@ header{
 }
 
 
-/* 부족 예정 */
+/* 구매 필요 */
 
 .supplyStatus.warning{
 
@@ -363,12 +568,98 @@ header{
 
     background:#F4F6F5;
 
-    border-radius:8px;
+    border-radius:9px;
 
-    padding:8px;
+    padding:9px 10px;
+
+    line-height:1.35;
 
 }
 
+
+/* ===================================================
+   규격
+   JS에서 .supplySpec를 사용할 경우
+=================================================== */
+
+.supplySpec{
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    color:#555;
+
+    margin-bottom:9px;
+
+}
+
+
+/* ===================================================
+   빠른 수량 조절
+   JS에서 .supplyQuantityControl을 사용할 경우
+=================================================== */
+
+.supplyQuantityControl{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:8px;
+
+    margin-top:10px;
+
+}
+
+
+.supplyQuantityButton{
+
+    width:42px;
+    height:38px;
+
+    border:none;
+
+    border-radius:9px;
+
+    background:#e8eeeb;
+
+    color:#333;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+.supplyQuantityButton:hover{
+
+    background:#dce7e1;
+
+}
+
+
+.supplyQuantityValue{
+
+    flex:1;
+
+    text-align:center;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+
+/* ===================================================
+   메모
+=================================================== */
 
 .supplyMemo{
 
@@ -381,6 +672,8 @@ header{
     font-size:14px;
 
     color:#777;
+
+    line-height:1.4;
 
 }
 
@@ -437,6 +730,14 @@ header{
 }
 
 
+.supplyEditBtn:hover,
+.supplyDeleteBtn:hover{
+
+    opacity:.9;
+
+}
+
+
 /* ===================================================
    목록 없음
 =================================================== */
@@ -454,6 +755,49 @@ header{
     color:#888;
 
     font-size:16px;
+
+    line-height:1.6;
+
+}
+
+
+/* ===================================================
+   생필품 추가
+=================================================== */
+
+#supplyToolbar{
+
+    padding:16px 12px 25px;
+
+}
+
+
+#addSupplyBtn{
+
+    width:100%;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:13px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+#addSupplyBtn:hover{
+
+    opacity:.9;
 
 }
 
@@ -473,6 +817,8 @@ header{
     justify-content:center;
 
     align-items:center;
+
+    padding:15px;
 
     background:rgba(0,0,0,.45);
 
@@ -494,6 +840,10 @@ header{
 
     max-width:430px;
 
+    max-height:90vh;
+
+    overflow-y:auto;
+
     background:white;
 
     border-radius:18px;
@@ -512,8 +862,14 @@ header{
 
     text-align:center;
 
+    font-size:22px;
+
 }
 
+
+/* ===================================================
+   POPUP 입력
+=================================================== */
 
 .popupBox label{
 
@@ -521,9 +877,11 @@ header{
 
     margin-bottom:15px;
 
-    font-size:17px;
+    font-size:16px;
 
     font-weight:bold;
+
+    color:#444;
 
 }
 
@@ -544,6 +902,8 @@ header{
 
     font-size:17px;
 
+    background:white;
+
 }
 
 
@@ -558,9 +918,167 @@ header{
 
 }
 
+/* ===================================================
+   POPUP 선택창
+=================================================== */
+
+.popupBox select{
+
+    width:100%;
+
+    height:46px;
+
+    margin-top:6px;
+
+    padding:8px 12px;
+
+    border:1px solid #ccc;
+
+    border-radius:9px;
+
+    font-size:17px;
+
+    background:white;
+
+}
+
+
+.popupBox select:focus{
+
+    outline:none;
+
+    border-color:#2E8B57;
+
+    box-shadow:
+        0 0 0 2px rgba(46,139,87,.12);
+
+}
 
 /* ===================================================
-   POPUP BUTTON
+   보관 장소 관리
+=================================================== */
+
+#storageManageList{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    margin-bottom:15px;
+
+}
+
+
+.storageManageItem{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    min-height:46px;
+
+    padding:8px 10px;
+
+    border-radius:10px;
+
+    background:#F4F6F5;
+
+}
+
+
+.storageManageName{
+
+    flex:1;
+
+    min-width:0;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    color:#444;
+
+}
+
+
+.storageDeleteBtn{
+
+    flex-shrink:0;
+
+    height:34px;
+
+    padding:0 11px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#d9534f;
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+.storageDeleteBtn:hover{
+
+    opacity:.9;
+
+}
+
+
+.addStorageLocationBtn{
+
+    width:100%;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+.addStorageLocationBtn:hover{
+
+    opacity:.9;
+
+}
+
+
+.storageCloseBtn{
+
+    background:#e5e7e9 !important;
+
+    color:#333 !important;
+
+}
+
+/* ===================================================
+   POPUP 버튼
 =================================================== */
 
 .popupButtons{
@@ -619,9 +1137,9 @@ header{
 
     height:45px;
 
-    margin:20px 12px;
+    margin:20px 12px 30px;
 
-    padding:0 12px;
+    padding:0 14px;
 
     display:flex;
 
@@ -640,6 +1158,13 @@ header{
     color:white;
 
     cursor:pointer;
+
+}
+
+
+#backHomeBtn:hover{
+
+    opacity:.9;
 
 }
 
@@ -679,18 +1204,32 @@ header{
     }
 
 
+    header{
+
+        padding:0 14px;
+
+    }
+
+
+    .logo{
+
+        font-size:27px;
+
+    }
+
+
     .page-title{
 
         font-size:27px;
 
-        margin:16px 15px;
+        margin:17px 15px 15px;
 
     }
 
 
     #suppliesSummary{
 
-        padding:0 10px 12px;
+        padding:0 10px 16px;
 
         gap:8px;
 
@@ -699,7 +1238,7 @@ header{
 
     .supplySummaryCard{
 
-        padding:13px 8px;
+        padding:14px 8px;
 
     }
 
@@ -718,24 +1257,176 @@ header{
     }
 
 
+    .supplySummaryCard small{
+
+        font-size:14px;
+
+    }
+
+    #supplyLocationFilter{
+
+        padding:0 10px 18px;
+
+    }
+
+    #supplyLocationFilter h2{
+
+        font-size:20px;
+
+    }
+
+    #supplyLocationButtons{
+
+        gap:7px;
+
+    }
+
+    .locationButton{
+
+        min-height:40px;
+
+        padding:0 12px;
+
+        font-size:14px;
+
+    }
+
+    #supplyNeedSection{
+
+        padding:0 10px 18px;
+
+    }
+
+#supplyListSection{
+
+    padding:0 10px;
+
+}
+
+    #supplyListSection h2{
+
+        font-size:21px;
+
+    }
+
+    .supplyCard{
+
+        padding:14px;
+
+        border-radius:14px;
+
+    }
+
+    .supplyName{
+
+        font-size:18px;
+
+    }
+
     .supplyInfo{
 
         grid-template-columns:1fr;
+
+        gap:6px;
+
+    }
+
+
+    .supplyInfo div{
+
+        padding:8px 9px;
 
     }
 
 
     #supplyToolbar{
 
-        padding:0 10px 15px;
+        padding:15px 10px 5px;
 
     }
 
 
-    #supplyListSection{
+    #backHomeBtn{
 
-        padding:0 10px;
+        margin-left:10px;
+
+        margin-right:10px;
 
     }
+
+
+    .popup{
+
+        padding:10px;
+
+    }
+
+
+    .popupBox{
+
+        width:100%;
+
+        padding:20px;
+
+    }
+
+}
+
+/* ===================================================
+   설정 팝업 버튼
+=================================================== */
+
+.settingsMenuBtn{
+
+    width:100%;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:11px;
+
+    background:#2E8B57;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+.settingsCloseBtn{
+
+    width:100%;
+
+    height:46px;
+
+    margin-top:10px;
+
+    border:none;
+
+    border-radius:11px;
+
+    background:#e5e7e9;
+
+    color:#333;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+.settingsMenuBtn:hover,
+.settingsCloseBtn:hover{
+
+    opacity:.9;
 
 }

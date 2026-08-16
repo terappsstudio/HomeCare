@@ -12,7 +12,10 @@
 
     <title>HomeCare - 생필품 관리</title>
 
-<link rel="stylesheet" href="supplies.css">
+    <link
+        rel="stylesheet"
+        href="supplies.css"
+    >
 
 </head>
 
@@ -26,25 +29,65 @@
          HEADER
     =================================================== -->
 
-  <header>
+    <header>
 
-    <div class="logo" id="homeCareBtn">
-        🏠 HomeCare
+        <div
+            class="logo"
+            id="homeCareBtn"
+        >
+            🏠 HomeCare
+        </div>
+
+
+        <button id="settingBtn">
+            ⚙️
+        </button>
+
+    </header>
+
+    <!-- ===================================================
+         설정 팝업
+    =================================================== -->
+
+    <div
+        id="settingsPopup"
+        class="popup hidden"
+    >
+
+        <div class="popupBox">
+
+            <h2>
+                ⚙️ 설정
+            </h2>
+
+
+            <button
+                id="storageSettingsBtn"
+                class="settingsMenuBtn"
+            >
+                📍 보관 장소 관리
+            </button>
+
+
+            <button
+                id="settingsCloseBtn"
+                class="settingsCloseBtn"
+            >
+                닫기
+            </button>
+
+        </div>
+
     </div>
-
-    <button id="settingBtn">
-        ⚙️
-    </button>
-
-</header>
 
     <!-- ===================================================
          PAGE TITLE
     =================================================== -->
 
     <h1 class="page-title">
-        🛒 생필품 관리
+        🛒 생필품
     </h1>
+
 
 
     <!-- ===================================================
@@ -53,10 +96,13 @@
 
     <section id="suppliesSummary">
 
+
+        <!-- 전체 -->
+
         <div class="supplySummaryCard">
 
             <span>
-                🛒 관리 중
+                📦 전체
             </span>
 
             <strong id="supplyTotalCount">
@@ -64,16 +110,18 @@
             </strong>
 
             <small>
-                개
+                종
             </small>
 
         </div>
 
 
+        <!-- 구매 필요 -->
+
         <div class="supplySummaryCard">
 
             <span>
-                ⚠️ 재고 부족
+                🛒 구매 필요
             </span>
 
             <strong id="supplyLowCount">
@@ -81,10 +129,11 @@
             </strong>
 
             <small>
-                개
+                종
             </small>
 
         </div>
+
 
     </section>
 
@@ -101,6 +150,52 @@
 
     </section>
 
+<!-- ===================================================
+     보관 장소
+=================================================== -->
+
+<section id="supplyLocationFilter">
+
+<h2>
+    📍 보관 장소
+</h2>
+
+    <div id="supplyLocationButtons">
+
+        <!-- JS에서 자동 생성 -->
+
+    </div>
+
+</section>
+
+
+
+<!-- ===================================================
+     구매 필요
+=================================================== -->
+
+<section id="supplyNeedSection">
+
+    <div class="sectionHeader">
+
+        <h2>
+            🛒 구매 필요
+        </h2>
+
+        <span id="supplyNeedCount">
+            0
+        </span>
+
+    </div>
+
+
+    <div id="supplyNeedList">
+
+        <!-- 구매 필요한 생필품 -->
+
+    </div>
+
+</section>
 
     <!-- ===================================================
          생필품 목록
@@ -108,9 +203,13 @@
 
     <section id="supplyListSection">
 
-        <h2>
-            📋 생필품 목록
-        </h2>
+        <div class="sectionHeader">
+
+            <h2>
+                📦 전체 생필품
+            </h2>
+
+        </div>
 
 
         <div id="supplyList">
@@ -121,6 +220,51 @@
 
     </section>
 
+        <!-- ===================================================
+         보관 장소 관리 팝업
+    =================================================== -->
+
+    <div
+        id="storageManagePopup"
+        class="popup hidden"
+    >
+
+        <div class="popupBox">
+
+            <h2>
+                📍 보관 장소 관리
+            </h2>
+
+
+            <div id="storageManageList">
+
+                <!-- JS에서 자동 생성 -->
+
+            </div>
+
+
+            <button
+                id="addStorageLocationBtn"
+                class="addStorageLocationBtn"
+            >
+                ＋ 보관 장소 추가
+            </button>
+
+
+            <div class="popupButtons">
+
+                <button
+                    id="storageCloseBtn"
+                    class="storageCloseBtn"
+                >
+                    닫기
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
     <!-- ===================================================
          생필품 추가 / 수정 팝업
@@ -133,9 +277,11 @@
 
         <div class="popupBox">
 
+
             <h2 id="supplyPopupTitle">
                 생필품 추가
             </h2>
+
 
 
             <!-- 제품명 -->
@@ -147,10 +293,27 @@
                 <input
                     type="text"
                     id="supplyName"
-                    placeholder="예: 화장지"
+                    placeholder="예: 에탄올"
                 >
 
             </label>
+
+
+
+            <!-- 규격 -->
+
+            <label>
+
+                규격
+
+                <input
+                    type="text"
+                    id="supplySpec"
+                    placeholder="예: 4L, 18L, 30롤"
+                >
+
+            </label>
+
 
 
             <!-- 현재 수량 -->
@@ -169,11 +332,12 @@
             </label>
 
 
-            <!-- 적정 수량 -->
+
+            <!-- 구매 필요 기준 -->
 
             <label>
 
-                적정 수량
+                구매 필요 기준
 
                 <input
                     type="number"
@@ -184,21 +348,19 @@
 
             </label>
 
+<!-- 보관 위치 -->
 
-            <!-- 보관 위치 -->
+<label>
 
-            <label>
+    보관 위치
 
-                보관 위치
+    <select id="supplyLocation">
 
-                <input
-                    type="text"
-                    id="supplyLocation"
-                    placeholder="예: 펜트리"
-                >
+        <!-- JS에서 자동 생성 -->
 
-            </label>
+    </select>
 
+</label>
 
             <!-- 메모 -->
 
@@ -215,6 +377,7 @@
             </label>
 
 
+
             <!-- 버튼 -->
 
             <div class="popupButtons">
@@ -223,15 +386,18 @@
                     저장
                 </button>
 
+
                 <button id="supplyCancelBtn">
                     취소
                 </button>
 
             </div>
 
+
         </div>
 
     </div>
+
 
 
     <!-- ===================================================
@@ -244,6 +410,7 @@
             👈
         </span>
 
+
         <span class="backText">
             뒤로가기
         </span>
@@ -252,6 +419,7 @@
 
 
 </div>
+
 
 
 <script src="supplies.js"></script>
