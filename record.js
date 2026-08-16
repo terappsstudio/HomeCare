@@ -774,17 +774,20 @@ loadSpace(currentSpace);
 
 };
 
-
-// 도면 클릭 시 등록 팝업 열기
 document.getElementById("mapContainer").onclick = function(e) {
 
-if(e.target.closest("#uploadPlaceholder")){
-    return;
-}
+    // 기존 마커를 클릭한 경우 신규 등록창을 열지 않음
+    if(e.target.closest(".marker")){
+        return;
+    }
 
-if(e.target.closest("#zoomControls")){
-    return;
-}
+    if(e.target.closest("#uploadPlaceholder")){
+        return;
+    }
+
+    if(e.target.closest("#zoomControls")){
+        return;
+    }
 
     // 드래그 중인 상태였다면 등록 팝업을 띄우지 않음
     if (isDragging) return;
@@ -1036,7 +1039,7 @@ let markerName = markerData ? markerData.name : "기타";
         marker.style.touchAction = "none";
 
         // 클릭 시 수정 팝업 오픈
-      marker.addEventListener("pointerup", function(e){
+marker.addEventListener("pointerup", function(e){
 
     if(!isDragging){
 
@@ -1352,23 +1355,18 @@ function countSummary() {
 
 function startDrag(e) {
 
-if (!e.target.closest(".marker")) return;
+    if (!e.target.closest(".marker")) return;
 
-   // 확대 중이거나 두 손가락 터치 가능 상태에서는 마커 드래그 금지
-if(
-    e.pointerType === "touch" &&
-    mapScale !== 1
-){
-    return;
-}
+    // 수정창이 열려 있으면 마커 드래그 금지
+    if (!document.getElementById("editPopup").classList.contains("hidden")) {
+        return;
+    }
 
-if(e.pointerType === "touch"){
-    const touches = document.querySelectorAll(":active");
-}
+    if(e.pointerType === "touch"){
+        const touches = document.querySelectorAll(":active");
+    }
 
-
-// 마커 선택
-dragMarker = e.target.closest(".marker");
+    dragMarker = e.target.closest(".marker");
 
     isDragging = false;
 
@@ -1378,12 +1376,15 @@ dragMarker = e.target.closest(".marker");
     markerStartX = parseFloat(dragMarker.style.left);
     markerStartY = parseFloat(dragMarker.style.top);
 
-    //dragMarker.setPointerCapture(e.pointerId);
-
     e.stopPropagation();
 }
 
 function moveMarker(e) {
+
+    // 수정창이 열려 있으면 마커 이동 금지
+    if (!document.getElementById("editPopup").classList.contains("hidden")) {
+        return;
+    }
 
     if (!dragMarker) return;
 
