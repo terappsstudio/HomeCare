@@ -1776,44 +1776,63 @@ document.getElementById("markerCloseBtn").onclick = function(){
 
 };
 
+// ===============================
 // 방 목록 표시
+// ===============================
+
 function renderRooms(){
 
-const roomList = document.getElementById("roomList");
+    const roomList = document.getElementById("roomList");
 
-roomList.innerHTML = "";
+    roomList.innerHTML = "";
 
-    userRooms.forEach(function(room,index){
+    userRooms.forEach(function(room, index){
 
         const div = document.createElement("div");
 
-       div.innerHTML = `
-    <span>${room}</span>
+        div.className = "roomItem";
 
-    <button onclick="moveRoomUp(${index})">
-        ▲
-    </button>
+        div.innerHTML = `
 
-    <button onclick="moveRoomDown(${index})">
-        ▼
-    </button>
+            <span class="roomName">
+                ${room}
+            </span>
 
-    <button onclick="editRoom(${index})">
-        수정
-    </button>
+            <div class="roomButtons">
 
-    <button onclick="deleteRoom(${index})">
-        삭제
-    </button>
-`;
+                <button
+                    class="roomOrderBtn"
+                    onclick="moveRoomUp(${index})">
+                    ▲
+                </button>
 
-        list.appendChild(div);
+                <button
+                    class="roomOrderBtn"
+                    onclick="moveRoomDown(${index})">
+                    ▼
+                </button>
+
+                <button
+                    class="roomEditBtn"
+                    onclick="editRoom(${index})">
+                    수정
+                </button>
+
+                <button
+                    class="roomDeleteBtn"
+                    onclick="deleteRoom(${index})">
+                    삭제
+                </button>
+
+            </div>
+
+        `;
+
+        roomList.appendChild(div);
 
     });
 
 }
-
-
 
 // 방 추가
 document.getElementById("addRoomBtn").onclick = function(){
