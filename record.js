@@ -3059,3 +3059,235 @@ document.getElementById("spacePreview").classList.add("hidden");
 // ===============================
 
 renderSpaces();
+
+// ===============================
+// 💾 HomeCare 데이터 다운로드
+// ===============================
+
+document.getElementById("dataExportBtn").onclick = function(){
+
+    const backupData = {
+
+        homecareItems:
+        JSON.parse(
+            localStorage.getItem("homecareItems")
+        ) || [],
+
+        installationHistory:
+        JSON.parse(
+            localStorage.getItem("installationHistory")
+        ) || [],
+
+        homecareSpaces:
+        JSON.parse(
+            localStorage.getItem("homecareSpaces")
+        ) || [],
+
+        currentSpace:
+        localStorage.getItem("currentSpace") || "우리집",
+
+        homecareMarkers:
+        JSON.parse(
+            localStorage.getItem("homecareMarkers")
+        ) || {}
+
+    };
+
+
+    const json =
+    JSON.stringify(
+        backupData,
+        null,
+        2
+    );
+
+
+    const blob =
+    new Blob(
+        [json],
+        {
+            type: "application/json"
+        }
+    );
+
+
+    const url =
+    URL.createObjectURL(blob);
+
+
+    const a =
+    document.createElement("a");
+
+    const today =
+    new Date();
+
+    const date =
+    today.getFullYear() +
+    "-" +
+    String(today.getMonth() + 1).padStart(2,"0") +
+    "-" +
+    String(today.getDate()).padStart(2,"0");
+
+
+    a.href = url;
+
+    a.download =
+    "HomeCare_backup_" +
+    date +
+    ".json";
+
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+
+
+    alert(
+        "HomeCare 데이터가 다운로드되었습니다."
+    );
+
+};
+
+// ===============================
+// 📤 HomeCare 데이터 불러오기
+// ===============================
+
+document.getElementById("dataImportBtn").onclick = function(){
+
+    document.getElementById("dataImportInput").click();
+
+};
+
+
+document.getElementById("dataImportInput").onchange = function(event){
+
+    const file =
+    event.target.files[0];
+
+    if(!file){
+        return;
+    }
+
+
+    // JSON 파일 읽기
+    const reader =
+    new FileReader();
+
+
+    reader.onload = function(e){
+
+        try{
+
+            const backupData =
+            JSON.parse(e.target.result);
+
+
+            // 백업 파일 확인
+            if(
+                !backupData.homecareItems ||
+                !backupData.homecareSpaces
+            ){
+
+                alert(
+                    "HomeCare 백업 파일이 아닙니다."
+                );
+
+                return;
+
+            }
+
+
+            // 기존 데이터 덮어쓰기 확인
+            const confirmed =
+            confirm(
+                "현재 HomeCare 데이터를 백업 데이터로 교체하시겠습니까?\n\n" +
+                "현재 데이터는 백업 파일의 데이터로 변경됩니다."
+            );
+
+
+            if(!confirmed){
+
+                // 같은 파일을 다시 선택할 수 있도록 초기화
+                event.target.value = "";
+
+                return;
+
+            }
+
+
+            // ===============================
+            // 데이터 복원
+            // ===============================
+
+            localStorage.setItem(
+                "homecareItems",
+                JSON.stringify(
+                    backupData.homecareItems
+                )
+            );
+
+
+            localStorage.setItem(
+                "installationHistory",
+                JSON.stringify(
+                    backupData.installationHistory || []
+                )
+            );
+
+
+            localStorage.setItem(
+                "homecareSpaces",
+                JSON.stringify(
+                    backupData.homecareSpaces
+                )
+            );
+
+
+            localStorage.setItem(
+                "currentSpace",
+                backupData.currentSpace || "우리집"
+            );
+
+
+            localStorage.setItem(
+                "homecareMarkers",
+                JSON.stringify(
+                    backupData.homecareMarkers || {}
+                )
+            );
+
+
+            alert(
+                "HomeCare 데이터가 복원되었습니다.\n\n" +
+                "확인을 누르면 HomeCare를 새로고침합니다."
+            );
+
+
+            location.reload();
+
+
+        }
+        catch(error){
+
+            console.error(
+                "백업 복원 오류:",
+                error
+            );
+
+
+            alert(
+                "백업 파일을 읽는 중 오류가 발생했습니다."
+            );
+
+        }
+
+    };
+
+
+    reader.readAsText(file);
+
+};
